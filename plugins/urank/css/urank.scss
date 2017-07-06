@@ -1,0 +1,68 @@
+// @import "bootstrap";
+
+@import "./mixins/mixins";
+@import "./views/tagcloud";
+@import "./views/tagbox";
+@import "./views/usertagbox";
+@import "./views/tags";
+@import "./views/contentlist";
+@import "./views/viscanvas";
+@import "./views/viscanvas_ranking";
+@import "./views/docviewer";
+
+
+.urank-header-style {
+    color: #888;
+    @include bg-linear-gradient(top, rgba(255, 255, 255, 1), rgba(240, 240, 240, 1));
+    box-shadow: inset .1em .1em .2em #ccc, inset -.1em -.1em .2em #ccc;
+}
+
+
+/**********************************************************************************************************************
+*
+*   Extras
+*
+***********************************************************************************************************************/
+
+.urank-hidden-scrollbar {
+    overflow: hidden !important;
+}
+/*
+.urank-hidden-scrollbar:before,
+.urank-hidden-scrollbar:after {
+    content: "";
+    display: block;
+    height: 0;
+    overflow: hidden !important;
+}
+.urank-hidden-scrollbar:after { clear: both; }
+*/
+
+
+
+.urank-hidden-scrollbar-inner {
+    height: 100%;
+    // margin: 1px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin-right: -84px;
+    padding-right: 84px;
+}
+/*
+.urank-hidden-scrollbar-inner:before,
+.urank-hidden-scrollbar-inner:after {
+    content: ".";
+    display: block;
+    height: 0;
+    overflow-x: hidden;
+}
+.urank-hidden-scrollbar-inner:after { clear: both; }
+.urank-hidden-scrollbar-inner { zoom: 1; }*/
+
+
+
+
+
+
+
+

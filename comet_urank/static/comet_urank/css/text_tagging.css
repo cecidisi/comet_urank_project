@@ -1,0 +1,80 @@
+html {
+	width: 100%;
+	overflow-x: hidden;
+}
+
+body {
+	overflow-x: hidden;
+	width: calc(100% - 16px);
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+.centered {
+	text-align: center;
+	font-size: 18px;
+}
+
+.centered .num {
+	color: red;
+}
+
+.list-container {
+	width: calc(100% - 60px);
+	margin: 30px;
+	border: 1px solid #ddd;
+	border-radius: 3px;
+}
+ul {
+	width: 100%;
+	margin: 0px;
+    padding: 0px;
+}
+
+li {
+	width: 100%;
+	min-height: 26px;
+	list-style: none;
+	padding: 5px;
+	border: 1px solid #ddd;
+}
+
+li:nth-child(even) {background: #eee}
+li:nth-child(odd) {background: #fff}
+
+li .number {
+	float: left;
+	width: 60px;
+	display: inline-block;
+	vertical-align: middle;
+	border-right: : 1px solid #ddd;
+}
+
+li .sentence {
+	/*float: left;*/
+	display: inline-block;
+	width: calc(100% - 200px);
+    font-weight: normal;
+    font-size: 16px;
+}
+
+li .radio-btn-container {
+	float: right;
+	display: inline-block;
+	width: 100px;
+	background: #ddd;
+	padding: 3px;
+	border-radius: 2px;
+	box-shadow: 1px 1px 2px #888, -1px 1px 2px #888;
+}
+
+li .radio-btn-container .radio-btn-item {
+	display: inline-block;
+}
+
+
+/*button {
+	font-size: 20px;
+	border-radius: 3px; 
+}*/
+
+

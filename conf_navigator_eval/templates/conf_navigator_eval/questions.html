@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CN uRank</title>
+    {% load static %}
+    {% load render_bundle from webpack_loader %}
+
+    {% block css %}
+        <!-- <link rel="stylesheet" type="text/css" href="{% static 'comet_urank/css/style.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'plugins/urank/css/urank.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'plugins/urank/css/urank-blocks-default.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'plugins/urank/css/vis-ranking.css' %}"> -->
+    {% endblock %}
+</head>
+
+
+<body>
+        
+    <header>
+        <div class="logo">Questionnaire</div>
+        <div class="right-aligned">
+            <div class="message">Click here when you finish the task </div>
+            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+            <input type="button" class="btn btn-primary" id="btn-done" value="Done"/>
+        </div>
+        
+    </header>
+
+
+    {% render_bundle 'vendor' %}
+    {% render_bundle 'conf_nav_eval_questions' %}
+    {% block js %}
+    {% endblock js %}
+
+</body>
+</html>
+
+

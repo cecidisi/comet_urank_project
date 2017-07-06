@@ -1,0 +1,126 @@
+/**********************************************************************************************
+Document Panel (right) - for visualizing highlighted text
+***********************************************************************************************/
+/*
+*   Document Controls (right)
+*
+*/
+.urank-docviewer-container-default {
+    @include bg-linear-gradient(top, rgba(175, 175, 175, 1), rgba(170, 170, 170, 1));
+    box-shadow: inset .1em .1em .5em #aaa, inset -.1em -.1em .5em #aaa;
+}
+
+// ROOT (dark background)
+.urank-docviewer-outer {
+    background: rgba(0,0,0,0.7);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9998;
+
+    // CONTAINER
+    .urank-docviewer-container {
+        position: relative;
+        display: block;
+        top: 15%;
+        left: 20%;
+        width: 60%;
+        max-height: 70%;
+        background: #ddd;
+        border: 1px solid #888;
+        box-shadow: 5px 5px 8px #333, -5px 5px 8px #333;
+        border-radius: 3px;
+        z-index: 9999;
+
+        // DETAILS SECTION
+        .urank-docviewer-details-section {
+            width: calc(100% - 10px);
+            padding: 5px 10px;
+            text-align: left;
+            color: #555;
+
+            div {
+                display: block;
+                width: 100%;
+                padding: 2px 0px;
+
+                h3 {
+                /*    width: calc(100% - 44px);*/
+                    display: inline-block;
+                    -webkit-margin-start: 0px;
+                    -webkit-margin-end: 0px;
+                    font-weight: bold;
+                    font-size: 1.1em;
+                    line-height: 1.2em;
+                    margin: 2px 0px;
+
+                    strong {
+                        font-weight: bold !important;
+                        color: white;
+                    }
+                }
+
+                label {
+                    padding: 0px 7px 0px 2px;
+                    margin: 2px 0px;
+                    font-size: 1.1em;
+                }
+                
+                span {
+                    font-size: 1em;
+                    margin: 2px 0px;
+                }
+            }
+
+            strong {
+                font-size: 0.9em;
+            }
+        } 
+        // END DETAILS SECTION
+
+        // CONTENT SECTION
+        .urank-docviewer-content-section-outer {
+            display: inline-block;
+            width: calc(100% - 8px);
+            height: calc(100% - 6em);
+            margin: 4px;
+            background: white;
+            box-shadow: inset .2em .2em .5em #ccc, inset -.2em -.2em .5em #ccc;
+            box-shadow: inset 1px 1px 1px #888, inset -1px -1px 1px #888;
+            overflow-y: auto;
+            overflow-x: hidden;
+
+            .urank-docviewer-content-section {
+                margin: 10px 0px;
+                padding: 5px;
+                font-size: 1.1em;
+
+                p {
+                    margin: 2px 1px 2px 5px;
+                    font-size: 1em;
+                    line-height: 1.3em;
+                    text-align: left;
+                    color: #555;
+
+                    strong {
+                        color: white;
+                        font-size: .9em;
+                    }
+                }
+            }
+        }
+        // END CONTENT SECTION
+
+    }
+
+
+}
+
+
+
+
+
+
+

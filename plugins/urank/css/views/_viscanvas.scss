@@ -1,0 +1,36 @@
+/*****************************************************************************************************************
+Canvas section (right-center) - displays ranking vis
+*****************************************************************************************************************/
+
+
+/*
+<div> wrapping urank stacked bars and future visualizations
+*/
+.urank-viscanvas {
+    text-align: center;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    .urank-viscanvas-container {
+     width: 100%;
+     float: left;
+    }
+
+    /*
+    <div> appended to canvas when a message should be displayed. E.g. when a new search is triggered or no data are received.
+    Contains a <span> for the message and optionally an <img> tag (for the loading icon, only for the case of a new search )
+    */
+    .urank-viscanvas-message {
+        display: block;
+        margin-top: 8em;
+        text-align: center;
+        color: #777;
+        font-size: .9em;
+
+        span {
+            display: block;
+            font-size: 1.1em;
+        }    
+    }
+}
+

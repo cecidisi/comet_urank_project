@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>uRank</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+
+        <!-- bower:css -->
+        <!-- endbower -->
+
+        <!-- injector:css -->
+        <!-- endinjector -->
+
+<!--        <link rel="stylesheet" type="text/css" href="../dependencies/hint.min.css" />-->
+<!--        <link rel="stylesheet" type="text/css" href="../bower_components/font-awesome/css/font-awesome.css" />-->
+        <link rel="stylesheet" type="text/css" href="css/main-style.css" />
+    </head>
+
+    <body>
+        <!-- top panel -->
+        <header>
+            <select id="select-dataset"></select>
+            <div class="num-results-msg"></div>
+<!--            <input type="button" id="btn-action-logs" value="Action Logs"/>-->
+            <input type="button" id="btn-finish" value="Finish"/>
+      	</header>
+
+        <div class="main-panel">
+
+            <div class="control-panel">
+                <div class="container">
+                    <span class="favicon"></span>
+                    <h4>Bookmarked Documents (0)</h4>
+                    <div class="bookmark-area"></div>
+                    <!--<div class="download-area">
+                        <a href="#">.bib</a>
+                        <a href="#">.json</a>
+                    </div>-->
+                </div>
+            </div>
+
+            <div class="left-panel">
+                <div id="contentlist" ></div>
+            </div>
+            <div class="central-panel">
+                <div id="tagbox"></div>
+                <div id="viscanvas"></div>
+            </div>
+
+            <div class="right-panel" id="tagcloud"></div>
+            <!--<div id="docviewer"></div>      <!-- right panel -->
+
+		</div>
+
+        <div class="processing-message" style="display:none;">
+           <div class="content">Processing Data...</div>
+       </div>
+
+        <!-- bower:js -->
+        <!-- endbower -->
+
+        <!-- injector:js -->
+        <!-- endinjector -->
+
+        <script type="text/javascript" src="../dependencies/jquery.js"></script>
+        <script type="text/javascript" src="../urank-loader.js"></script>
+        <script type="text/javascript" src="js/actionLogger.js"></script>
+        <script type="text/javascript" src="js/datasetManager.js" charset="utf-8" ></script>
+        <script type="text/javascript" src="js/main.js" charset="utf-8"></script>
+
+    </body>
+</html>

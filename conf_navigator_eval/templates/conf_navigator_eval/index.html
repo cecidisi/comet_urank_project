@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CN uRank</title>
+    {% load static %}
+    {% load render_bundle from webpack_loader %}
+
+    {% block css %}
+        <!-- <link rel="stylesheet" type="text/css" href="{% static 'comet_urank/css/style.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'plugins/urank/css/urank.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'plugins/urank/css/urank-blocks-default.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'plugins/urank/css/vis-ranking.css' %}"> -->
+    {% endblock %}
+</head>
+
+
+<body>
+        
+    <header>
+        <div class="logo">Conference Navigator Evaluation</div>
+        <div class="right-aligned">
+            <div class="message">Click here when you finish the task </div>
+            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+            <input type="button" class="btn btn-primary" id="btn-done" value="Done"/>
+        </div>
+        
+    </header>
+
+    <div id="rs" style="display: none;">{{rs}}</div>
+
+    <div class="main-panel">
+
+        <div class="control-panel">
+            <div class="container">
+                <span class="favicon"></span>
+                <h4>Bookmarked Documents (0)</h4>
+                <div class="bookmark-area"></div>
+            
+            </div>
+        </div>
+
+        <div class="left-panel">
+            <div class="list-header" style="height: 79px;">
+                <div class="list-header-pos-and-shift">
+                    <div class="label-vertical">Position</div>
+                </div>
+                <div class="list-header-pos-and-shift">
+                    <div class="label-vertical">Shift</div>
+                </div>
+                <div class="list-header-title">
+                    <div class="label">Document Titles</div>
+                </div>
+            </div>
+            <div id="contentlist" ></div>
+        </div>
+        <div class="central-panel">
+            <div id="tagbox"></div>
+            <div id="viscanvas"></div>
+        </div>
+
+        <!-- <div class="right-panel" id="tagcloud"></div> -->
+        <div class="right-panel">
+            {% if use_tagcloud %}
+                <div id="tagcloud" class="{% if not use_neighborcloud %}large{% endif %}"></div>
+            {% endif %}
+            {% if use_neighborcloud %}
+                <div id="neighborscloud" class="{% if not use_tagcloud %}large{% endif %}"></div>
+            {% endif %}
+        </div>
+        
+    </div>
+
+    <div class="processing-message" style="display:none;">
+       <div class="content">Processing Data...</div>
+    </div>
+
+    {% render_bundle 'vendor' %}
+    {% render_bundle 'main_conf_nav_eval' %}
+ 
+
+    {% block js %}
+    {% endblock js %}
+
+</body>
+</html>
+
+

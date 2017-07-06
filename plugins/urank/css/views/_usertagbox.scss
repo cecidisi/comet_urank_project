@@ -1,0 +1,32 @@
+.urank-usertagbox {
+    overflow-y: auto;
+
+    .urank-usertagbox-inner {
+    /*    background: white;
+        box-shadow: inset .2em .2em .5em #ddd, inset -.2em -.2em .5em #ddd;*/
+    }
+
+    .urank-usertag {
+        display: inline-block;
+        padding: 1px;
+        background: transparent;
+        /*color: crimson;*/
+        color: #ffa32f;
+        font-weight: bold;
+        border-radius: 3px;
+        margin: 2px;
+        cursor: pointer;
+
+        &.selected {
+            background: #ffa32f;
+            color: white;
+        }
+
+        &.hovered {
+            background: rgba(200,200,200,.8);
+        }
+
+    }
+}
+
+

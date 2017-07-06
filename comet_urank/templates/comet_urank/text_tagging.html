@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+
+    <title>Sentence Tagging</title>
+    
+    {% load static %}
+    {% load render_bundle from webpack_loader %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'comet_urank/css/text_tagging.css' %}" />
+
+</head>
+
+
+<body>
+<!--     <div class="center">
+        <label>Showing colloquia detail chunks from </label>
+        <label class="num" id="from_index">{{ from_index }}</label>
+        <label> to </label>
+        <label class="num" id="to_index">{{ to_index }}</label>    
+    </div> -->
+    <div class="list-container">
+        <ul>
+            {% autoescape on %}
+            {% for d in data %}
+                <li id={{d.cdc_id}}>
+                    <div class="number"><strong>{{forloop.counter}}</strong></div>
+                    <div class="sentence"> {{d.sentence_original|linebreaksbr}} </div> 
+                    <div class="radio-btn-container" id="radio-btn-item-{{d.cdc_id}}" for="{{d.cdc_id}}" >
+                        <form action="">
+                            <div class="radio-btn-item" >
+                                <label class="lbl-radio">Yes</label>
+                                <input type="radio" class="checkbox" name="cdc-{{d.cdc_id}}" value="yes" for=radio-btn-item-{{d.cdc_id}}>    
+                            </div>
+                            <div class="radio-btn-item" >
+                                <label class="lbl-radio">No</label>
+                                <input type="radio" class="checkbox" name="cdc-{{d.cdc_id}}" value="no" for=radio-btn-item-{{d.cdc_id}} >    
+                            </div>
+                            
+                        </form>
+                    </div>
+                </li>
+            {% endfor %}
+            {% endautoescape %}
+        </ul>
+    </div>
+    <div class="centered">
+        <button id="btn-save">Save</button>
+    </div>
+
+    {% render_bundle 'vendor' %}
+    <script type="text/javascript" src="{% static 'comet_urank/js/text-tagging.js' %}"></script>
+
+</body>
+</html>
+
+

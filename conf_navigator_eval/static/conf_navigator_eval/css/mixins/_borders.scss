@@ -1,0 +1,5 @@
+@mixin borders($style, $edges...) {
+	@each $edge in $edges {
+		border-#{$edge}: $style;
+	}
+}

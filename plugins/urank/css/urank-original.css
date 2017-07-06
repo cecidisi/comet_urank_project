@@ -1,0 +1,1330 @@
+.urank-header-style {
+    color: #888;
+/*    background: -webkit-linear-gradient(top, rgba(245, 245, 245, 1), rgba(230, 230, 230, 1));*/
+    background: -webkit-linear-gradient(top, rgba(255, 255, 255, 1), rgba(240, 240, 240, 1));
+    background: -ms-linear-gradient(top, rgba(245, 245, 245, 1), rgba(230, 230, 230, 1));
+    /* background: linear-gradient(to top, rgba(245, 245, 245, 1), rgba(230, 230, 230, 1)); */
+/*    box-shadow: inset .1em .1em .5em #ccc, inset -.1em -.1em .5em #ccc;*/
+    box-shadow: inset .1em .1em .2em #ccc, inset -.1em -.1em .2em #ccc;
+}
+
+
+
+
+/************************************************************************************************
+    TAG CLOUD
+************************************************************************************************/
+
+/* default */
+.urank-tagcloud {
+    /*background: -webkit-linear-gradient(top, rgba(175, 175, 175, 1), rgba(170, 170, 170, 1));
+    background: -ms-linear-gradient(top, rgba(175, 175, 175, 1), rgba(170, 170, 170, 1));*/
+    /*box-shadow: inset .1em .1em .5em #aaa, inset -.1em -.1em .5em #aaa;*/
+}
+
+
+.urank-tagcloud-controls {
+    width: calc(100% - 10px);
+    height: 70px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    margin: 5px;
+}
+
+/* frequency tuning  */
+
+.urank-tagcloud-controls label.tag-freq {
+    display: block;
+    font-size: 0.9em;
+    color: white;
+}
+
+.urank-tagcloud-controls label.tag-freq strong {
+    color: firebrick;
+}
+
+
+.urank-tagcloud-controls div.ui-slider {
+    display: block;
+    width: 90%;
+    height: 5px;
+    margin: 3px 5%;
+}
+
+
+.urank-tagcloud-controls div.ui-slider .ui-slider-handle {
+    top: -4px;
+    width: 11px;
+    height: 11px;
+    border-radius: 6px;
+    background-color: rgba(208, 62, 62, 1);
+    border: 1px solid rgba(148,4,4, 1);
+}
+
+.urank-tagcloud-controls div.ui-slider .ui-slider-handle:hover {
+    background-color: rgba(168, 22, 22, 1);
+}
+
+.urank-tagcloud-controls div.ui-slider .ui-slider-range {
+    background: #ddd;
+}
+
+.urank-tagcloud-controls div.sep-line {
+    height: 0px;
+    width: calc(100% - 4px);
+    margin: 1px 2px;
+    border-bottom: 1px solid rgba(250,250,250,.8);
+}
+
+/*** keyword search ***/
+
+.urank-tagcloud-controls input[type="text"] {
+    display: inline-block;
+    height: 18px;
+    width: calc(100% - 40px);
+    max-width: 250px;
+    background-color: white;
+    border: 1px #eee solid;
+    border-radius: 5px;
+    color: #666;
+    margin-top: 13px;
+    padding-left: 2px;
+}
+
+.urank-tagcloud-controls a {
+    position: relative;
+    display: block;
+    margin-top: 13px;
+}
+
+.urank-tagcloud-controls a.not-found:before,
+.urank-tagcloud-controls a.not-found:after {
+    right: 100%;
+    bottom: 50%;
+}
+
+.urank-tagcloud-controls a.not-found:before {
+    content: '';
+    position: absolute;
+    background: transparent;
+    border: 6px solid transparent;
+    z-index: 1000001;
+    border-left-color: rgb(179, 78, 77);
+    margin-right: -6px;
+    margin-bottom: -6px;
+}
+
+.urank-tagcloud-controls a.not-found:after {
+    margin-bottom: -14px;
+    box-shadow: 4px 4px 8px rgba(0,0,0,.3);
+    content: "Keyword not found!";
+    background-color: rgb(179, 78, 77);
+    color: #fff;
+    padding: 8px 10px;
+    font-size: .8em;
+    line-height: 12px;
+    white-space: nowrap;
+    -webkit-transition: .3s ease;
+    transition: .3s ease;
+    -webkit-transform: translateX(-6px);
+    transform: translateX(-6px);
+    -webkit-transition-delay: 100ms;
+    transition-delay: 100ms;
+    position: absolute;
+}
+
+.urank-tagcloud-controls a.search-icon:before {
+    content: '\f002';
+    font-family: FontAwesome;
+    font-size: 1.1em;
+    position: absolute;
+    top: -7px;
+    right: 5px;
+    text-decoration: none;
+}
+
+
+/*****************/
+.urank-tagcloud-tag-container-outer {
+    height: calc(100% - 87px);
+    width: calc(100% - 12px);
+    margin: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0px 1px #ddd;
+    background: white;
+}
+
+
+.urank-tagcloud-tag-container {
+    width: calc(100% - 6px);
+    min-height: calc(100% - 12px);
+    padding: 5px 2px;
+}
+
+
+/* default */
+.urank-tagcloud-tag {
+    display: inline-block;
+    pointer-events: all;
+    /*margin: 3px 3px 2px;*/
+    margin: 2px;
+    /*padding: 3px 4px;*/
+    padding: 1px 2px;
+    border-radius: 3px;
+    font-weight: bold;
+    border: 1px solid transparent;
+    background: transparent;
+}
+
+.urank-tagcloud-tag.badge {
+    box-shadow: 0em 0.1em 0.1em #888;
+    font-size: 0.9em;
+}
+
+.urank-tagcloud-tag.active {
+    color: ghostwhite;
+    /*text-shadow: 0px 1px 1px #888, 0px -1px 1px #888;*/
+    cursor: pointer;
+}
+
+.urank-tagcloud-tag.hidden {
+    display: none;
+}
+
+
+.urank-tagcloud-tag.focused {
+    color:yellow;
+}
+
+.urank-tagcloud-tag.badge.hovered {
+    background: -webkit-linear-gradient(top, rgba(0, 102, 255, 0.7), rgba(20, 122, 255, 0.7), rgba(0, 102, 255, 0.7));
+    background: -ms-linear-gradient(top, rgba(0, 102, 255, 0.7), rgba(20, 122, 255, 0.7), rgba(0, 102, 255, 0.7));
+}
+
+.urank-tagcloud-tag.word.hovered {
+    background: rgba(200,200,200,.8);
+}
+
+.urank-tagcloud-tag.selected, .urank-tagcloud-tag.added {
+    background: -webkit-linear-gradient(top, rgb(0, 102, 255), rgb(20, 122, 255), rgb(0, 102, 255));
+    background: -ms-linear-gradient(top, rgb(0, 102, 255), rgb(20, 122, 255), rgb(0, 102, 255));
+    color: #eee;
+    text-shadow: none;
+    cursor: move;
+}
+
+.urank-tagcloud-tag.added {
+    cursor: pointer !important;
+}
+
+
+.urank-tagcloud-tag.disabled, .urank-tagcloud-tag.dropped, .urank-tagcloud-tag.dropped:hover {
+    border: 2px solid rgba(202, 202, 202, 0.2);
+    background: rgba(230, 230, 230, 0);
+    color: #999;
+    text-shadow: none;
+    cursor: default;
+}
+
+
+.urank-tagcloud-tag.addable {
+    cursor: pointer;
+}
+
+.urank-tagcloud-tag.addable:hover {
+    opacity: 0.8;
+}
+
+/*** tooltip ***/
+
+div.urank-tagcloud-tag-tooltip {
+    display: inline-block;
+    position: absolute;
+    right: 10px;
+    padding: 8px 5px;
+    border-radius: 3px;
+    background: rgba(150,150,150,.9);
+    font-weight: normal;
+    color: snow;
+    z-index: 99;
+    box-shadow: 2px 2px 4px #555, -2px 2px 4px #555;
+}
+
+div.urank-tagcloud-tag-tooltip p {
+    font-size: 0.9em;
+    line-height: 1.4em;
+    -webkit-margin-before: 0em;
+    -webkit-margin-after: 0em;
+}
+div.urank-tagcloud-tag-tooltip p strong {
+    font-size: 0.9em;
+}
+div.urank-tagcloud-tag-tooltip p strong[name="num-docs"],
+div.urank-tagcloud-tag-tooltip p strong[name="pctg-docs"] {
+    color: lawngreen;
+}
+
+div.urank-tagcloud-tag-tooltip p strong[name="num-kw"] {
+    background-color: red;
+    color: white;
+    padding: 2px 4px;
+    border-radius: 8px;
+}
+
+div.urank-tagcloud-tag-tooltip p strong[name="tag"] {
+/*    color: rgb(0, 102, 255);*/
+    color: white;
+    background-color: rgb(0,102,255);
+    padding: 2px 5px;
+    border-radius: 5px;
+}
+
+
+
+/*** add/remove icon ***/
+
+.urank-tagcloud-tag-add-icon {
+    display: none;
+    width: 0px;
+}
+
+.urank-tagcloud-tag.addable:hover .urank-tagcloud-tag-add-icon,
+.urank-tagcloud-tag.added:hover .urank-tagcloud-tag-add-icon {
+    display: inline-block;
+    opacity: 1;
+}
+
+.urank-tagcloud-tag-add-icon:before {
+    font-family: FontAwesome;
+    font-size: 1.1em;
+    position: relative;
+    top: -9px;
+    right: 2px;
+    text-decoration: none;
+}
+
+.urank-tagcloud-tag.addable .urank-tagcloud-tag-add-icon:before {
+    content: '\f067';
+    color: lawngreen;
+    font-size: 12px;
+}
+
+.urank-tagcloud-tag.added .urank-tagcloud-tag-add-icon:before {
+    content: '\f068';
+    color: red;
+    font-size: 12px;
+}
+
+
+.urank-tagcloud-tag-hint {
+    position: absolute;
+    display: inline;
+    width: 14px;
+    height: 14px;
+    text-align: center;
+    cursor: inherit;
+}
+
+
+/* Co-occurren hint */
+
+.urank-tagcloud-tag-cooccurence-hint {
+    display: none;
+    width: 0px;
+    height: 0px;
+    font-size: 9px;
+    cursor: inherit;
+}
+
+.urank-tagcloud-tag.hovered .urank-tagcloud-tag-cooccurence-hint,
+.urank-tagcloud-tag.selected .urank-tagcloud-tag-cooccurence-hint,
+.urank-tagcloud-tag.dropped:hover .urank-tagcloud-tag-cooccurence-hint {
+    display: inline-block;
+}
+
+.urank-tagcloud-tag.dragging .urank-tagcloud-tag-cooccurence-hint {
+    display: none !important;
+}
+
+.urank-tagcloud-tag-cooccurence-hint:before {
+    content: attr(data-content);
+    position: relative;
+    top: 11px;
+    right: 1px;
+    padding: 2px 4px;
+    border-radius: 8px;
+    background-color: red;
+    color: #eee;
+    box-shadow: 0 1px 1px #777;
+    text-decoration: none;
+    text-shadow: none;
+}
+
+
+/* Document hint */
+
+.urank-doc-hint {
+    display: none;
+    width: 0px;
+    height: 0px;
+    font-size: 9px;
+    cursor: inherit;
+}
+
+.urank-tagcloud-tag.hovered .urank-doc-hint,
+.urank-tagcloud-tag.selected .urank-doc-hint,
+.urank-tagcloud-tag.dropped:hover .urank-doc-hint {
+    display: inline-block;
+}
+
+.urank-tagcloud-tag.dragging .urank-doc-hint {
+    display: none !important;
+}
+
+.urank-doc-hint:before {
+    position: relative;
+    top: -2px;
+    right: 0px;
+    text-decoration: none;
+    text-shadow: none;
+}
+
+.urank-doc-hint.urank-doc-hint-0:before { content: url('../media/pie-charts/pie-chart-0.png'); }
+.urank-doc-hint.urank-doc-hint-5:before { content: url('../media/pie-charts/pie-chart-5.png'); }
+.urank-doc-hint.urank-doc-hint-10:before { content: url('../media/pie-charts/pie-chart-10.png'); }
+.urank-doc-hint.urank-doc-hint-15:before { content: url('../media/pie-charts/pie-chart-15.png'); }
+.urank-doc-hint.urank-doc-hint-20:before { content: url('../media/pie-charts/pie-chart-20.png'); }
+.urank-doc-hint.urank-doc-hint-25:before { content: url('../media/pie-charts/pie-chart-25.png'); }
+.urank-doc-hint.urank-doc-hint-30:before { content: url('../media/pie-charts/pie-chart-30.png'); }
+.urank-doc-hint.urank-doc-hint-35:before { content: url('../media/pie-charts/pie-chart-35.png'); }
+.urank-doc-hint.urank-doc-hint-40:before { content: url('../media/pie-charts/pie-chart-40.png'); }
+.urank-doc-hint.urank-doc-hint-45:before { content: url('../media/pie-charts/pie-chart-45.png'); }
+.urank-doc-hint.urank-doc-hint-50:before { content: url('../media/pie-charts/pie-chart-50.png'); }
+.urank-doc-hint.urank-doc-hint-55:before { content: url('../media/pie-charts/pie-chart-55.png'); }
+.urank-doc-hint.urank-doc-hint-60:before { content: url('../media/pie-charts/pie-chart-60.png'); }
+.urank-doc-hint.urank-doc-hint-65:before { content: url('../media/pie-charts/pie-chart-65.png'); }
+.urank-doc-hint.urank-doc-hint-70:before { content: url('../media/pie-charts/pie-chart-70.png'); }
+.urank-doc-hint.urank-doc-hint-75:before { content: url('../media/pie-charts/pie-chart-75.png'); }
+.urank-doc-hint.urank-doc-hint-80:before { content: url('../media/pie-charts/pie-chart-80.png'); }
+.urank-doc-hint.urank-doc-hint-85:before { content: url('../media/pie-charts/pie-chart-85.png'); }
+.urank-doc-hint.urank-doc-hint-90:before { content: url('../media/pie-charts/pie-chart-90.png'); }
+.urank-doc-hint.urank-doc-hint-95:before { content: url('../media/pie-charts/pie-chart-95.png'); }
+.urank-doc-hint.urank-doc-hint-100:before { content: url('../media/pie-charts/pie-chart-100.png'); }
+
+/******************************************/
+
+.urank-tagcloud-tag .urank-tagcloud-tag-hint {
+    visibility: hidden;
+    z-index: 999;
+}
+
+.urank-tagcloud-tag:hover .urank-tagcloud-tag-hint {
+    visibility: visible;
+}
+
+
+.urank-tagcloud-tag:hover .urank-tagcloud-tag-hint:hover {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+.urank-tagcloud-tag:hover.disabled .urank-tagcloud-tag-hint {
+    visibility: hidden !important;
+}
+
+.hint--left:after {
+    font-size: 10px;
+}
+
+
+
+
+/************************************************************************************************
+    TAG BOX
+************************************************************************************************/
+
+.urank-tagbox {
+    overflow: hidden;
+}
+
+
+.urank-tagbox-ranking-mode-header {
+    width: 100%;
+    height: 25px;
+    cursor: pointer;
+}
+
+.urank-tagbox-ranking-mode-header-inner {
+    width: 100%;
+    height: 100%;
+}
+
+.urank-tagbox-ranking-mode-header-section {
+    display: inline-block;
+    width: 50%;
+    height: 100%;
+}
+
+.urank-tagbox-ranking-mode-header-section.long {
+    width: 100% !important;
+}
+
+.urank-tagbox-ranking-mode-header-section:hover{
+    background: -webkit-linear-gradient(top, rgba(220, 220, 220, 1), rgba(200, 200, 200, 1));
+    background: -ms-linear-gradient(top, rgba(220, 220, 220, 1), rgba(200, 200, 200, 1));
+}
+
+div.urank-ranking-mode-legend {
+    display: inline-block;
+    padding: 5px 0px;
+}
+
+div.urank-ranking-mode-legend.plus-symbol span {
+    display: inline-block;
+    position: relative;
+    top: 1px;
+    width: 14px;
+    height: 14px;
+    background-image: url(../media/plus2.png);
+    background-repeat: no-repeat;
+}
+
+div.urank-tagbox-ranking-weight-bar {
+    display: inline-block;
+    position: relative;
+    top: 3px;
+    width: 14px;
+    height: 14px;
+    margin: 2px 3px 0px 8px;
+    background: rgba(0,0,0,.5);
+    border: 1px solid#000;
+    border-radius: 2px;
+}
+
+.urank-tagbox-ranking-mode-header-highlighted {
+    color: darkred;
+    font-weight: bold;
+}
+
+.urank-tagbox-ranking-mode-header-highlighted span {
+    display: inline-block;
+    width: 15px;
+    height: 11px;
+    margin-left: 2px;
+    background-image: url(../media/sort-down.png);
+    background-position: 0px 0px;
+    background-repeat: no-repeat;
+}
+
+
+.urank-tagbox-ranking-mode-header button {
+    float: left;
+    min-width: 34px !important;
+    height: 22px;
+    position: relative;
+    top: -24px;
+}
+
+
+.urank-tagbox-ranking-mode-header button.sum {
+    left: calc(50% - 17px);
+}
+
+
+.urank-tagbox-ranking-mode-header button.split {
+    left: 5px;
+}
+
+
+.urank-tagbox-ranking-mode-header button span {
+    display: block;
+    width: 18px;
+    height: 16px;
+    background-repeat: no-repeat;
+    background-position: 2px 0px;
+}
+
+.urank-tagbox-ranking-mode-header button.sum span {
+    background-image: url(../media/add.png);
+}
+
+.urank-tagbox-ranking-mode-header button.split span {
+    background-image: url(../media/split.png);
+}
+
+
+.urank-tagbox-ranking-mode-header .ui-slider {
+    display: inline-block;
+    position: relative;
+    width: 18%;
+    height: 7px;
+    float: right;
+    top: 8px;
+    right: 16px;
+}
+
+.urank-tagbox-ranking-mode-header .ui-slider .ui-slider-handle {
+    top: -4px;
+    width: 13px;
+    height: 13px;
+    border-radius: 7px;
+}
+
+
+/*****/
+
+.urank-tagbox-container {
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    -ms-grid-row-align: center;
+    align-items: center;
+    width: calc(100% - 6px);
+    height: calc(100% - 25px);
+    padding: 0px 3px;
+    list-style-type: none;
+    text-align: left;
+}
+
+/* for content-based ranking only */
+.urank-tagbox-container.large {
+    height: 100%;
+}
+
+a.urank-tagbox-clear-btn {
+    display: inline-block;
+    float: right;
+    height: 0px;
+    width: 0px;
+}
+
+a.urank-tagbox-clear-btn:before {
+    display: none;
+    content: '\f1f8';
+    font-family: FontAwesome;
+    position: relative;
+    top: 2px;
+    right: 14px;
+    font-size: 1.3em;
+    color: black;
+    text-decoration: none;
+}
+
+.urank-tagbox-container:hover a.urank-tagbox-clear-btn:before {
+    display: inline-block;
+}
+
+
+
+.urank-tagbox-container p {
+    display: inline-block;
+    width: 100%;
+    font-size: 1em;
+    text-align: center;
+    color: #888;
+    line-height: 2em;
+    font-weight: bold;
+}
+
+.urank-tagbox-container.large p {
+    padding-top: 15px;
+}
+
+.urank-tagbox-tag {
+    cursor: default;
+    display: inline-block;
+    text-align: left;
+    min-width: 65px;
+    height: 24px;
+    margin: 12px 3px 0px 3px;
+    padding: 2px;
+    font-size: 12px !important;
+    font-weight: bold;
+    white-space: nowrap;
+    border-radius: 3px;
+    box-shadow: 0em 7px 6px -6px #333;
+    color: white;
+    text-shadow: 0px 1px 2px #555, 0px -1px 2px #555;
+}
+
+.urank-tagbox-tag:hover {
+    box-shadow: 2px 2px 5px #555, -2px -2px 5px #555;
+}
+
+
+.urank-tagbox-tag > text {
+    opacity: 0.5;
+}
+
+
+/* slider div*/
+.urank-tagbox-tag-weight-slider {
+    height: 3px !important;
+    margin: 3px 0px 1px 0px !important;
+}
+
+
+/* ui-slider-range */
+.urank-tagbox-tag-weight-slider .urank-tagbox-tag-weight-slider-range
+ {
+     height: 100% !important;
+     border-radius: 0.3em !important;
+}
+
+/* ui-slider-handle */
+.urank-tagbox-tag-weight-slider .urank-tagbox-tag-weight-slider-handle  {
+    top: -4px !important;
+    width: 6px !important;
+    height: 9px !important;
+    border-radius: 3px !important;
+}
+
+
+.urank-tagbox-tag .urank-tagbox-tag-delete-button {
+    visibility: hidden;
+    position: relative;
+    float: right;
+    right: -10px;
+    top: -12px;
+    z-index: 8040;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    background: url(../media/remove.png);
+    background-position: -193px 0px;
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+}
+
+
+.urank-tagbox-tag:hover .urank-tagbox-tag-delete-button {
+    visibility: visible;
+}
+
+
+.urank-tagbox-tag:hover .urank-tagbox-tag-delete-button:hover {
+    -webkit-transform: scale(1.0);
+    transform: scale(1.0);
+}
+
+.urank-tagbox-tag .urank-tagcloud-tag-cooccurence-hint,
+.urank-tagbox-tag .urank-doc-hint {
+    display: none;
+}
+
+
+
+/**********************************************************************************************************************
+                                                    CONTENT LIST (center-left)
+**********************************************************************************************************************/
+
+/***************************    header     ************************************/
+
+.urank-list {
+    overflow-y: hidden !important;
+    overflow-x: hidden !important;
+}
+
+.urank-list-header {
+    width: 100%;
+}
+
+.urank-list-header-pos-and-shift, .urank-list-header-title {
+    height: 100%;
+    display: inline-block;
+    float: left;
+}
+
+.urank-list-header-pos-and-shift {
+    width: 27px;
+}
+
+.urank-list-header-pos-and-shift .label-container {
+
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+    -webkit-transform-origin: 145% 214% 0;
+    transform-origin: 145% 214% 0;
+    color: #888;
+}
+
+.urank-list-header-title {
+    width: calc(100% - 54px);
+    height: calc(100% - 15px);
+    padding-top: 15px;
+}
+
+.urank-list-header-title p {
+    font-size: 1em;
+    text-align: center;
+    line-height: 2em;
+}
+
+
+/***************************/
+
+
+ .urank-list .urank-hidden-scrollbar-inner {
+     height: calc(100% - 80px) !important;
+ }
+
+
+
+.urank-list-ul-padding-bottom {
+    padding-bottom: 50px;
+}
+
+.urank-list-ul-default {
+    clear:both;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: block;
+}
+
+
+/* <li> items */
+.urank-list-li-default {
+    position: relative;
+    height: 28px;
+    vertical-align: top;
+    cursor: pointer;
+    border: 1px solid transparent;
+    -webkit-transition: box-shadow 4s ease-in;
+    transition: box-shadow 4s ease-in;
+}
+
+
+/***************    <li> background style (the first 3 can be overwritteny)  **************/
+
+/* <li> items' hover style */
+.urank-list-li-default.hovered {
+
+    /*background: -webkit-linear-gradient(top, rgba(150, 150, 150,0.3) 25%, rgba(150, 150, 150,0.6) 75%, rgba(150, 150, 150, 0.3));*/
+    background: rgba(200,200,200,1);
+    -webkit-transition: background 0s;
+    transition: background 0s;
+}
+
+.urank-list-li-default.selected {
+    background: rgba(150, 150, 150, 0.5);
+}
+
+.urank-list-li-default.dimmed {
+    opacity: 0.2;
+}
+
+.urank-list-li-lightbackground {
+    background: #fff;
+}
+
+.urank-list-li-darkbackground {
+    background: #fafafa;
+}
+
+.urank-list-li-unranked {
+    background: white;
+    height: 24px;
+    border: 1px dashed #bbb;
+}
+
+.urank-list-li-unranked:hover {
+    background: #eee;
+}
+
+
+/***************    ranking indicators section  **************/
+
+.urank-list-li-ranking-container {
+    display: inline-block;
+    float: left;
+    height: 100%;
+    min-width: 51px;
+    padding-left: 1px;
+}
+
+.urank-list-li-ranking-pos {
+    display: inline-block;
+    float: left;
+    width: 18px;
+    height: 18px;
+    margin: 5px 2px;
+    /*background: -webkit-linear-gradient(top, rgba(255, 175, 0, 0.8) 75%, rgba(235, 155, 0, 0.8));*/
+    background: -webkit-linear-gradient(top, rgba(100, 100, 100, 0.8) 75%, rgba(50, 50, 50, 0.8));
+    background: -ms-linear-gradient(top, rgba(100, 100, 100, 0.8) 75%, rgba(50, 50, 50, 0.8));
+    /*background: linear-gradient(to top, rgba(100, 100, 100, 0.8) 75%, rgba(50, 50, 50, 0.8));*/
+    -webkit-border-radius: 1em;
+    box-shadow: 0.05em 0.15em 0.3em #888;
+    line-height: 1.8em;
+    font-size: 0.8em;
+    vertical-align: middle;
+    text-align: center;
+    color: #fff;
+    text-shadow: 0em 0.1em #888;
+}
+
+.urank-list-li-ranking-posmoved {
+    display: inline-block;
+    float: left;
+    width: 24px;
+    height: 19px;
+    margin: 7px 2px 4px 2px;
+    line-height: 1.4em;
+    font-size: .8em;
+    font-weight: bold;
+    vertical-align: middle;
+    text-align: center;
+    color: #222;
+    text-shadow: 0em 0.1em 0 rgba(136, 136, 136, 0.5);
+}
+
+/***************    title section   **************/
+
+.urank-list-li-title-container {
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    float: left;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    width: calc(100% - 108px);
+    height: 100%;
+    margin-left: 5px;
+    vertical-align: top;
+    text-align: left;
+}
+
+.urank-list-li-title-default {
+    color: #333;
+    cursor: inherit;
+}
+
+
+/***************    Watch icon and fav icon section   **************/
+
+.urank-list-li-buttons-container {
+    float: right;
+    width: 38px;
+    height: 100%;
+    vertical-align: top;
+}
+
+.urank-list-li-button-favicon, .urank-list-li-button-watchicon {
+    margin-right: 2px;
+    cursor: pointer;
+    background: url(../media/sprites.png) no-repeat;
+}
+
+.urank-list-li-button-favicon-default {
+    float: right;
+    margin-top: 6px;
+    padding: 8px;
+}
+
+
+.urank-list-li-button-watchicon-default {
+    float: left;
+    margin-top: 7px;
+    padding: 9px;
+}
+
+
+.urank-list-li-button-favicon-off {
+    background-position: -50px 0;
+}
+
+.urank-list-li-button-watchicon-off {
+    background-position: -400px 0;
+    opacity: 0.5;
+}
+
+.urank-list-li .urank-list-li-button-favicon-off,
+.urank-list-li .urank-list-li-button-watchicon-off {
+    display: none;
+}
+
+.urank-list-li:hover .urank-list-li-button-favicon-off,
+.urank-list-li:hover .urank-list-li-button-watchicon-off {
+    display: inline-block;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+
+.urank-list-li:hover .urank-list-li-button-favicon-off:hover,
+.urank-list-li:hover .urank-list-li-button-watchicon-off:hover {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+
+.urank-list-li-button-favicon-on {
+    display: inline-block;
+    background-position: -100px 0;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+.urank-list-li-button-watchicon-on {
+    display: inline-block;
+    background-position: -350px 0;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+.urank-list-li-button-favicon-on:hover, .urank-list-li-button-watchicon-on:hover {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+
+/***************    Watched effect   **************/
+
+.urank-list-li.watched {
+    box-shadow: inset 1px 1px 2px rgba(128, 128, 128, 0.6), inset -1px -1px 2px rgba(128, 128, 128, 0.6);
+    -webkit-transition: box-shadow 0s linear;
+    z-index: 99;
+}
+
+.urank-list-li.watched .urank-list-li-title {
+    text-decoration: underline;
+}
+
+/***************    Moving effects     **************/
+
+.urank-list-li-movingup {
+    /*box-shadow: inset 1px 1px 2px rgba(0, 250, 0, 0.6), inset -1px -1px 2px rgba(0, 250, 0, 0.6);*/
+    box-shadow: inset 3px 0px rgba(0, 250, 0, 0.6);
+    -webkit-transition: box-shadow 0s linear;
+}
+
+.urank-list-li-movingdown {
+    /*box-shadow: inset 1px 1px 2px rgba(250, 10, 10, 0.6), inset -1px -1px 2px rgba(250, 10, 10, 0.6);*/
+    box-shadow: inset 3px 0px rgba(250, 10, 10, 0.6);
+    -webkit-transition: box-shadow 0s linear;
+}
+
+.urank-list-li-notmoving {
+    box-shadow: inset 1px 1px 2px rgba(128, 128, 128, 0.6), inset -1px -1px 2px rgba(128, 128, 128, 0.6);
+    -webkit-transition: box-shadow 0s linear;
+}
+
+
+
+
+/*****************************************************************************************************************
+Canvas section (right-center) - displays ranking vis
+*****************************************************************************************************************/
+
+
+/*
+<div> wrapping urank stacked bars and future visualizations
+*/
+.urank-viscanvas {
+    text-align: center;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.urank-viscanvas-container {
+ width: 100%;
+ float: left;
+}
+
+
+/*
+<div> appended to canvas when a message should be displayed. E.g. when a new search is triggered or no data are received.
+Contains a <span> for the message and optionally an <img> tag (for the loading icon, only for the case of a new search )
+*/
+.urank-viscanvas-message {
+    display: block;
+    margin-top: 8em;
+    text-align: center;
+    color: #777;
+    font-size: .9em;
+}
+
+.urank-viscanvas-message span{
+    display: block;
+    font-size: 1.1em;
+}
+
+
+
+/********************************************************************************************************************************************
+Document Panel (right) - for visualizing highlighted text
+********************************************************************************************************************************************/
+
+
+/*
+*   Document Controls (right)
+*
+*/
+.urank-docviewer-container-default {
+    background: -webkit-linear-gradient(top, rgba(175, 175, 175, 1), rgba(170, 170, 170, 1));
+    box-shadow: inset .1em .1em .5em #aaa, inset -.1em -.1em .5em #aaa;
+}
+
+
+.urank-docviewer-outer {
+    background: rgba(0,0,0,0.7);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9998;
+}
+
+.urank-docviewer-container {
+    position: relative;
+    display: block;
+    top: 15%;
+    left: 20%;
+    width: 60%;
+    max-height: 70%;
+    background: #999;
+    z-index: 9999;
+    box-shadow: 5px 5px 8px #333, -5px 5px 8px #333;
+    border-radius: 3px;
+}
+
+.urank-docviewer-details-section {
+    width: calc(100% - 10px);
+    padding: 5px 10px;
+    text-align: left;
+    color: snow;
+    text-shadow: 0em .1em #444
+}
+
+.urank-docviewer-details-section div {
+    display: block;
+    width: 100%;
+    padding: 2px 0px;
+}
+
+.urank-docviewer-details-section strong {
+    font-size: 0.9em;
+}
+
+.urank-docviewer-details-section div label {
+    padding: 0px 7px 0px 2px;
+    margin: 2px 0px;
+}
+
+.urank-docviewer-details-section div h3 {
+/*    width: calc(100% - 44px);*/
+    display: inline-block;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    color: snow;
+    /*text-shadow: 0em .1em green;*/
+    font-weight: bold;
+    font-size: 1.1em;
+    line-height: 1.2em;
+    margin: 2px 0px;
+}
+
+.urank-docviewer-details-section div h3 strong {
+    /*text-shadow: 0em .1em .5em white, 0em -.1em .5em white;*/
+    text-shadow: 0em .1em #444;
+}
+
+.urank-docviewer-details-section div span {
+    font-size: 1em;
+    margin: 2px 0px;
+}
+
+
+.urank-docviewer-content-section-outer {
+    display: inline-block;
+    width: calc(100% - 1em);
+    height: calc(100% - 6em);
+    margin: 0.5em;
+    background: -webkit-linear-gradient(top, rgba(185, 185, 185, 1), rgba(180, 180, 180, 1));
+    background: -ms-linear-gradient(top, rgba(185, 185, 185, 1), rgba(180, 180, 180, 1));
+    /*background: linear-gradient(to top, rgba(185, 185, 185, 1), rgba(180, 180, 180, 1));*/
+    box-shadow: inset .2em .2em .5em #ccc, inset -.2em -.2em .5em #ccc;
+    box-shadow: inset 1px 1px 1px #888, inset -1px -1px 1px #888;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.urank-docviewer-content-section {
+    margin: 10px 6px;
+    /*display: inline-block;
+    width: calc(100% - 10px);
+    height: calc(100% - 8em - 10px);
+    margin: 5px;
+    */
+    /*background: -webkit-linear-gradient(top, rgba(185, 185, 185, 1), rgba(180, 180, 180, 1));
+    box-shadow: inset .2em .2em .5em #ccc, inset -.2em -.2em .5em #ccc;*/
+}
+
+.urank-docviewer-content-section p {
+    margin: 2px 1px 2px 5px;
+    font-size: 1em;
+    line-height: 1.3em;
+    text-align: left;
+    color: white;
+}
+
+
+/**********************************************************************************************************************
+*
+*   Extras
+*
+***********************************************************************************************************************/
+
+.urank-hidden-scrollbar {
+    overflow: hidden !important;
+}
+/*
+.urank-hidden-scrollbar:before,
+.urank-hidden-scrollbar:after {
+    content: "";
+    display: block;
+    height: 0;
+    overflow: hidden !important;
+}
+.urank-hidden-scrollbar:after { clear: both; }
+*/
+
+
+
+.urank-hidden-scrollbar-inner {
+    height: calc(100% - 2px);
+    margin: 1px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin-right: -84px;
+    padding-right: 84px;
+}
+/*
+.urank-hidden-scrollbar-inner:before,
+.urank-hidden-scrollbar-inner:after {
+    content: ".";
+    display: block;
+    height: 0;
+    overflow-x: hidden;
+}
+.urank-hidden-scrollbar-inner:after { clear: both; }
+.urank-hidden-scrollbar-inner { zoom: 1; }*/
+
+
+
+.urank-usertagbox {
+    overflow-y: auto;
+}
+
+.urank-usertagbox .urank-usertagbox-inner {
+/*    background: white;
+    box-shadow: inset .2em .2em .5em #ddd, inset -.2em -.2em .5em #ddd;*/
+}
+
+
+
+
+.urank-usertag {
+    display: inline-block;
+    padding: 1px;
+    background: transparent;
+    /*color: crimson;*/
+    color: #ffa32f;
+    font-weight: bold;
+    border-radius: 3px;
+    margin: 2px;
+    cursor: pointer;;
+}
+
+.urank-usertag.selected {
+    background: #ffa32f;
+    color: white;
+}
+
+.urank-usertag.hovered {
+    background: rgba(200,200,200,.8);
+}
+
+
+/*******************************************************
+* RANKING VIEW
+********************************************************/
+
+
+.urank-ranking-svg{
+    float: left;
+}
+
+/*
+.urank-ranking-x.urank-ranking-axis path,
+.urank-ranking-x.urank-ranking-axis line {
+    fill: none;
+    stroke : #000;
+    stroke-width: 1px;
+    shape-rendering: crispEdges;
+}
+
+.urank-ranking-y.urank-ranking-axis path {
+    fill: none;
+    stroke-width : 0;
+}
+*/
+
+.urank-ranking-axis path,
+.urank-ranking-axis line {
+    fill: none;
+    stroke: none;
+    opacity: 0.5;
+}
+
+
+.urank-ranking-axis .tick {
+    stroke : none;
+    stroke-width : 0;
+}
+
+
+.urank-ranking-stackedbar rect.urank-ranking-light-background {
+    fill: #fff;
+}
+
+.urank-ranking-stackedbar rect.urank-ranking-dark-background {
+    fill: #fafafa;
+}
+
+.urank-ranking-stackedbar rect.urank-ranking-background.selected {
+    fill: rgba(150,150,150,0.5) !important;
+}
+
+.urank-ranking-stackedbar rect.urank-ranking-background.dimmed {
+    opacity: 0.3;
+}
+
+.urank-ranking-user-hint > text {
+    fill: dimgrey;
+    font-size: .8em;
+    font-weight: bold;
+}
+
+

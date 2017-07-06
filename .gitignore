@@ -1,0 +1,14 @@
+ENV/
+migrations/
+node_modules/
+assets/bundles/
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+db.sqlite3
+media
+upmc_urank/static/upmc_urank/datasets/
+upmc_urank/pubmed_result.csv
+upmc_urank/static/upmc_urank/datasets/pubmed_result.csv

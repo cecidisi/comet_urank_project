@@ -1,0 +1,413 @@
+
+/************************************************************************************************
+    TAG CLOUD
+************************************************************************************************/
+
+
+.urank-tagcloud { }
+
+    /*  Tag Cloud Controls  */    
+    .urank-tagcloud-controls {
+        width: calc(100% - 10px);
+        height: 70px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        margin: 5px;
+
+
+        label.tag-freq {
+            display: block;
+            font-size: 0.9em;
+            color: white;
+        }
+
+        label.tag-freq strong {
+            color: firebrick;
+        }
+
+
+        div.ui-slider {
+            display: block;
+            width: 90%;
+            height: 5px;
+            margin: 3px 5%;
+
+            .ui-slider-handle {
+                top: -4px;
+                width: 11px;
+                height: 11px;
+                border-radius: 6px;
+                background-color: rgba(208, 62, 62, 1);
+                border: 1px solid rgba(148,4,4, 1);
+            }
+
+            .ui-slider-handle:hover {
+                background-color: rgba(168, 22, 22, 1);
+            }
+
+            .ui-slider-range {
+                background: #ddd;
+            }
+        }
+
+        div.sep-line {
+            height: 0px;
+            width: calc(100% - 4px);
+            margin: 1px 2px;
+            border-bottom: 1px solid rgba(250,250,250,.8);
+        }
+
+        /*** keyword search ***/
+
+        input[type="text"] {
+            display: inline-block;
+            height: 18px;
+            width: calc(100% - 40px);
+            max-width: 250px;
+            background-color: white;
+            border: 1px #eee solid;
+            border-radius: 5px;
+            color: #666;
+            margin-top: 13px;
+            padding-left: 2px;
+        }
+
+        a {
+            position: relative;
+            display: block;
+            margin-top: 13px;
+
+            &.not-found:before,
+            &.not-found:after {
+                right: 100%;
+                bottom: 50%;
+            }
+
+            &.not-found:before {
+                content: '';
+                position: absolute;
+                background: transparent;
+                border: 6px solid transparent;
+                z-index: 1000001;
+                border-left-color: rgb(179, 78, 77);
+                margin-right: -6px;
+                margin-bottom: -6px;
+            }
+
+            &.not-found:after {
+                position: absolute;
+                margin-bottom: -14px;
+                box-shadow: 4px 4px 8px rgba(0,0,0,.3);
+                content: "Keyword not found!";
+                background-color: rgb(179, 78, 77);
+                color: #fff;
+                padding: 8px 10px;
+                font-size: .8em;
+                line-height: 12px;
+                white-space: nowrap;
+                @include vendor-prefix(transition, .3s ease);
+                // -webkit-transition: .3s ease;
+                // transition: .3s ease;
+                @include vendor-prefix(transform, translateX(-6px));
+                // -webkit-transform: translateX(-6px);
+                // transform: translateX(-6px);
+                @include vendor-prefix(transition-delay, 100ms);
+                // -webkit-transition-delay: 100ms;
+                // transition-delay: 100ms;
+            }
+
+            &.search-icon:before {
+                content: '\f002';
+                font-family: FontAwesome;
+                font-size: 1.1em;
+                position: absolute;
+                top: -7px;
+                right: 5px;
+                text-decoration: none;
+            }
+        }
+
+    }
+
+    /* tooltip */
+    .urank-tagcloud-tag-tooltip {
+        display: inline-block;
+        position: absolute;
+        right: 14px;
+        padding: 8px 5px;
+        border-radius: 3px;
+        background: rgba(150,150,150,.9);
+        font-weight: normal;
+        color: snow;
+        z-index: 99;
+        box-shadow: 2px 2px 4px #555, -2px 2px 4px #555;
+
+        p {
+            font-size: 12px;
+            line-height: 18px;
+            @include vendor-prefix(margin-before, 0em);
+            @include vendor-prefix(margin-after, 0em);
+            // -webkit-margin-before: 0em;
+            // -webkit-margin-after: 0em;
+
+            strong {
+                font-size: 0.9em;
+                line-height: 1.1em;
+
+                &[name="num-docs"],
+                &[name="pctg-docs"] {
+                    // color: lawngreen;
+                    background-color: red;
+                    color: white;
+                    padding: 2px 4px;
+                    border-radius: 8px;
+                }
+
+                &[name="num-kw"] {
+                    background-color: red;
+                    color: white;
+                    padding: 2px 4px;
+                    border-radius: 8px;
+                }
+
+                &[name="tag"] {
+                /*    color: rgb(0, 102, 255);*/
+                    color: white;
+                    background-color: rgb(0,102,255);
+                    padding: 2px 5px;
+                    border-radius: 5px;
+                }
+
+
+            }
+        }
+        
+    }
+
+    /*   Tag Cloud Container  */
+    .urank-tagcloud-tag-container-outer {
+        height: calc(100% - 87px);
+        width: calc(100% - 12px);
+        margin: 5px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0px 1px #ddd;
+        background: white;
+
+        .urank-tagcloud-tag-container {
+            width: calc(100% - 6px);
+            min-height: calc(100% - 12px);
+            padding: 5px 2px;
+        }
+    
+    }
+
+
+    /* TAG STYLE */
+    .urank-tagcloud-tag {
+        display: inline-block;
+        pointer-events: all;
+        margin: 2px;
+        padding: 1px 2px;
+        border-radius: 3px;
+        font-weight: bold;
+        border: 1px solid transparent;
+        background: transparent;
+    
+
+        &.badge {
+            box-shadow: 0em 0.1em 0.1em #888;
+            font-size: 0.9em;
+
+            &.hovered {
+                @include bg-linear-gradient(top, rgba(0, 102, 255, 0.7), rgba(20, 122, 255, 0.7), rgba(0, 102, 255, 0.7));            
+            }
+        }
+
+        &.word {
+            &.hovered {
+                background: rgba(200,200,200,.8);
+            }
+        }
+
+        &.active {
+            color: ghostwhite;
+            cursor: pointer;
+        }
+
+        &.hidden {
+            display: none;
+        }
+
+        &.focused {
+            color: yellow;
+        }
+        
+        &.selected, &.added {
+            @include bg-linear-gradient(top, rgb(0, 102, 255), rgb(20, 122, 255), rgb(0, 102, 255));
+            // background: -webkit-linear-gradient(top, rgb(0, 102, 255), rgb(20, 122, 255), rgb(0, 102, 255));
+            // background: -ms-linear-gradient(top, rgb(0, 102, 255), rgb(20, 122, 255), rgb(0, 102, 255));
+            color: #eee;
+            text-shadow: none;
+            cursor: move;
+        }
+
+        &.disabled, &.dropped, &.dropped:hover {
+            border: 2px solid rgba(202, 202, 202, 0.2);
+            background: rgba(230, 230, 230, 0);
+            color: #999;
+            text-shadow: none;
+            cursor: default;
+        }
+
+        &.added, &.addable {
+            cursor: pointer !important;
+            &:hover { opacity: 0.8; }
+        }
+
+        // ELEMENTS INSIDE TAG (originally hidden)
+
+        /* Tag Hint */
+        .urank-tagcloud-tag-hint {
+            position: absolute;
+            display: inline;
+            width: 14px;
+            height: 14px;
+            text-align: center;
+            cursor: inherit;
+            z-index: 999;   
+            visibility: hidden; // hide tag hint
+        }
+
+        &.hover {
+            .urank-tagcloud-tag-hint {
+                visibility: visible;    // show hin on hover
+
+                &:hover {
+                    @include vendor-prefix(transform, scale(1.1));
+                }
+            }
+
+            &.disabled {
+                .urank-tagcloud-tag-hint {
+                    visibility: hidden !important;
+                }
+            }
+        }
+
+        /* add/remove icons */
+        .urank-tagcloud-tag-add-icon {
+            display: none;
+            width: 0px;
+
+            &:before {
+                font-family: FontAwesome;
+                font-size: 1.1em;
+                position: relative;
+                top: -9px;
+                right: 2px;
+                text-decoration: none;
+            }    
+        }
+
+        &.added {
+            .urank-tagcloud-tag-add-icon:before {
+                content: '\f068';
+                color: red;
+                font-size: 12px;
+            }
+
+            &:hover {
+                .urank-tagcloud-tag-add-icon {
+                    display: inline-block;
+                    opacity: 1;
+                }
+            }
+        }
+
+        &.addable {
+            .urank-tagcloud-tag-add-icon:before {
+                content: '\f067';
+                color: lawngreen;
+                font-size: 12px;
+            }
+            &:hover {
+                .urank-tagcloud-tag-add-icon {
+                    display: inline-block;
+                    opacity: 1;
+                }
+            }
+        }
+
+        /* Co-occurren hint */
+        .urank-tagcloud-tag-cooccurence-hint {
+            display: none;
+            width: 0px;
+            height: 0px;
+            font-size: 9px;
+            cursor: inherit;
+
+            &:before {
+                content: attr(data-content);
+                position: relative;
+                top: 11px;
+                right: 1px;
+                padding: 2px 4px;
+                border-radius: 8px;
+                background-color: red;
+                color: #eee;
+                box-shadow: 0 1px 1px #777;
+                text-decoration: none;
+                text-shadow: none;
+            }
+        }
+
+        // Visibility & = .urank-tagcloud-tag
+        &.hovered, &.selected, &.dropped:hover {
+            .urank-tagcloud-tag-cooccurence-hint { display: inline-block; }
+        }
+        &.dragging {
+            .urank-tagcloud-tag-cooccurence-hint { display: none !important; }
+        } 
+        
+        /* Document hint */
+        .urank-doc-hint {
+            display: none;
+            width: 0px;
+            height: 0px;
+            font-size: 9px;
+            cursor: inherit;
+
+            &:before {
+                position: relative;
+                top: -2px;
+                right: 0px;
+                text-decoration: none;
+                text-shadow: none;
+            }
+
+            // Pie chart images            
+            $pctg: 0 10 20 30 40 50 60 70 80 90 100;
+            @each $p in $pctg {
+                &.urank-doc-hint-#{$p}:before  { 
+                    content: url('../media/pie-charts/pie-chart-#{$p}.png'); 
+                }
+            }
+            
+        }
+        // Visibility & = .urank-tagcloud-tag
+        &.hovered, &.selected, &.dropped:hover {
+            .urank-doc-hint { display: inline-block; }
+        } 
+
+        &.dragging {
+            .urank-doc-hint { display: none !important; }
+        } 
+    }   
+    /* END TAG STYLE */
+
+
+
+

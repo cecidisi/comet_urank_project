@@ -1,0 +1,63 @@
+/*******************************************************
+* RANKING VIEW
+********************************************************/
+
+
+.urank-ranking-svg{
+    float: left;
+}
+
+/*
+.urank-ranking-x.urank-ranking-axis path,
+.urank-ranking-x.urank-ranking-axis line {
+    fill: none;
+    stroke : #000;
+    stroke-width: 1px;
+    shape-rendering: crispEdges;
+}
+
+.urank-ranking-y.urank-ranking-axis path {
+    fill: none;
+    stroke-width : 0;
+}
+*/
+
+.urank-ranking-axis path,
+.urank-ranking-axis line {
+    fill: none;
+    stroke: none;
+    opacity: 0.5;
+}
+
+
+.urank-ranking-axis .tick {
+    stroke : none;
+    stroke-width : 0;
+}
+
+
+.urank-ranking-stackedbar {
+    rect.urank-ranking-light-background {
+        fill: #fff;
+    }
+
+    rect.urank-ranking-dark-background {
+        fill: #fafafa;
+    }
+
+    rect.urank-ranking-background {
+        &.selected {
+            fill: rgba(150,150,150,0.5) !important;
+        }
+        &.dimmed {
+            opacity: 0.3;
+        }    
+    }    
+}
+
+
+.urank-ranking-user-hint > text {
+    fill: dimgrey;
+    font-size: .8em;
+    font-weight: bold;
+}

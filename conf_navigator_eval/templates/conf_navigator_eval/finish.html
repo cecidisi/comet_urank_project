@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CN uRank</title>
+    {% load static %}
+    {% load render_bundle from webpack_loader %}
+
+    {% block css %}
+        <!-- <link rel="stylesheet" type="text/css" href="{% static 'comet_urank/css/style.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'plugins/urank/css/urank.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'plugins/urank/css/urank-blocks-default.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'plugins/urank/css/vis-ranking.css' %}"> -->
+    {% endblock %}
+</head>
+
+
+<body>
+        
+    <header>
+        <div class="logo">Finished</div>
+        <div class="right-aligned">
+            <a href="/cn_urank_eval/test/">TEST AGAIN</a>
+        </div>
+    </header>
+
+
+    {% render_bundle 'vendor' %}
+    {% render_bundle 'conf_nav_eval_questions' %}
+    {% block js %}
+    {% endblock js %}
+
+</body>
+</html>
+
+

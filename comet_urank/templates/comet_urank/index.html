@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>COMET uRank</title>
+    {% load static %}
+
+    {% block css %}
+        <link rel="stylesheet" type="text/css" href="{% static 'comet_urank/css/style.css' %}" />
+    
+        <link rel="stylesheet" type="text/css" href="{% static 'plugins/urank/css/urank.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'plugins/urank/css/urank-blocks-default.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'plugins/urank/css/vis-ranking.css' %}">
+    {% endblock %}
+
+
+    {% load render_bundle from webpack_loader %}
+</head>
+
+
+<body>
+        
+    <header>
+    <!--     <select id="select-dataset"></select>
+        <div class="num-results-msg"></div>
+        <input type="button" id="btn-finish" value="Finish"/> -->
+    </header>
+
+
+    <div class="main-panel">
+
+        <div class="control-panel">
+            <div class="container">
+                <span class="favicon"></span>
+                <h4>Bookmarked Documents (0)</h4>
+                <div class="bookmark-area"></div>
+            
+            </div>
+        </div>
+
+        <div class="left-panel">
+            <div id="contentlist" ></div>
+        </div>
+        <div class="central-panel">
+            <div id="tagbox"></div>
+            <div id="viscanvas"></div>
+        </div>
+
+        <!-- <div class="right-panel" id="tagcloud"></div> -->
+        <div class="right-panel">
+            <div id="tagcloud"></div>
+            <div id="usertags"></div>
+        </div>
+        
+    </div>
+
+    <div class="processing-message" style="display:none;">
+       <div class="content">Processing Data...</div>
+    </div>
+
+
+    {% render_bundle 'vendor' %}
+    <!-- {% render_bundle 'plugins' %}
+    {% render_bundle 'main' %} -->
+
+<!--     <script type="text/javascript" src="/static/plugins/urank/js/libs/natural-custom.js"></script>
+    <script type="text/javascript" src="/static/plugins/urank/js/libs/pos/lexer.js"></script>
+    <script type="text/javascript" src="/static/plugins/urank/js/libs/pos/lexicon.js"></script>
+    <script type="text/javascript" src="/static/plugins/urank/js/libs/pos/pos.js"></script>
+    <script type="text/javascript" src="/static/plugins/urank/js/libs/pos/POSTagger.js"></script>
+    <script type="text/javascript" src="/static/plugins/urank/js/model/keywordExtractor.js"></script>
+    <script type="text/javascript" src="/static/plugins/urank/js/model/RSContent.js"></script>
+    <script type="text/javascript" src="/static/plugins/urank/js/model/RSTagUser.js"></script>
+    <script type="text/javascript" src="/static/plugins/urank/js/model/rankingModel.js"></script>
+    <script type="text/javascript" src="/static/plugins/urank/js/views/tagcloud/tagCloudDefault.js"></script>
+    <script type="text/javascript" src="/static/plugins/urank/js/views/viscanvas/ranking.js"></script>
+    <script type="text/javascript" src="/static/plugins/urank/js/views/viscanvas/detailedview.js"></script>
+    <script type="text/javascript" src="/static/plugins/urank/js/views/contentList.js"></script>
+    <script type="text/javascript" src="/static/plugins/urank/js/views/docViewer.js"></script>
+    <script type="text/javascript" src="/static/plugins/urank/js/views/tagBox.js"></script>
+    <script type="text/javascript" src="/static/plugins/urank/js/views/tagCloud.js"></script>
+    <script type="text/javascript" src="/static/plugins/urank/js/views/visCanvas.js"></script>
+    <script type="text/javascript" src="/static/plugins/urank/js/helper/utils.js"></script>
+    <script type="text/javascript" src="/static/plugins/urank/js/helper/colorbrewer.js"></script>
+    <script type="text/javascript" src="/static/plugins/urank/js/helper/jquery_functions/outerHTML.js"></script>
+    <script type="text/javascript" src="/static/plugins/urank/js/helper/jquery_functions/scrollTo.js"></script>
+    <script type="text/javascript" src="/static/plugins/urank/js/helper/jquery_functions/fullOffset.js"></script>
+    <script type="text/javascript" src="/static/plugins/urank/js/helper/jquery_functions/fullWidth.js"></script>
+    <script type="text/javascript" src="/static/plugins/urank/js/helper/jquery_functions/fullHeight.js"></script>
+    <script type="text/javascript" src="/static/plugins/urank/js/helper/jquery_functions/getText.js"></script>
+    <script type="text/javascript" src="/static/plugins/urank/js/helper/jquery_functions/pin.js"></script>
+    <script type="text/javascript" src="/static/plugins/urank/js/config/globals.js"></script>
+    <script type="text/javascript" src="/static/plugins/urank/js/config/config.js"></script>
+    <script type="text/javascript" src="/static/plugins/urank/js/controller/urank.js"></script> -->
+    
+
+
+    {% block js %}
+        <script type="text/javascript" src="{% static 'plugins/urank/js/libs/natural-custom.js' %}"></script>
+        <script type="text/javascript" src="{% static 'plugins/urank/js/libs/pos/lexer.js' %}"></script>
+        <script type="text/javascript" src="{% static 'plugins/urank/js/libs/pos/lexicon.js' %}"></script>
+        <script type="text/javascript" src="{% static 'plugins/urank/js/libs/pos/pos.js' %}"></script>
+        <script type="text/javascript" src="{% static 'plugins/urank/js/libs/pos/POSTagger.js' %}"></script>
+        <script type="text/javascript" src="{% static 'plugins/urank/js/model/keywordExtractor.js' %}"></script>
+        <script type="text/javascript" src="{% static 'plugins/urank/js/views/tagcloud/tagCloudDefault.js' %}"></script>
+        <script type="text/javascript" src="{% static 'plugins/urank/js/views/viscanvas/ranking.js' %}"></script>
+        <script type="text/javascript" src="{% static 'plugins/urank/js/views/viscanvas/detailedview.js' %}"></script>
+        <script type="text/javascript" src="{% static 'plugins/urank/js/views/contentList.js' %}"></script>
+        <script type="text/javascript" src="{% static 'plugins/urank/js/views/docViewer.js' %}"></script>
+        <script type="text/javascript" src="{% static 'plugins/urank/js/views/tagBox.js' %}"></script>
+        <script type="text/javascript" src="{% static 'plugins/urank/js/views/tagCloud.js' %}"></script>
+        <script type="text/javascript" src="{% static 'plugins/urank/js/views/visCanvas.js' %}"></script>
+        <script type="text/javascript" src="{% static 'plugins/urank/js/views/usertagBox.js' %}"></script>
+        <script type="text/javascript" src="{% static 'plugins/urank/js/helper/utils.js' %}"></script>
+        <script type="text/javascript" src="{% static 'plugins/urank/js/helper/colorbrewer.js' %}"></script>
+        <script type="text/javascript" src="{% static 'plugins/urank/js/helper/jquery_functions/outerHTML.js' %}"></script>
+        <script type="text/javascript" src="{% static 'plugins/urank/js/helper/jquery_functions/scrollTo.js' %}"></script>
+        <script type="text/javascript" src="{% static 'plugins/urank/js/helper/jquery_functions/fullOffset.js' %}"></script>
+        <script type="text/javascript" src="{% static 'plugins/urank/js/helper/jquery_functions/fullWidth.js' %}"></script>
+        <script type="text/javascript" src="{% static 'plugins/urank/js/helper/jquery_functions/fullHeight.js' %}"></script>
+        <script type="text/javascript" src="{% static 'plugins/urank/js/helper/jquery_functions/getText.js' %}"></script>
+        <script type="text/javascript" src="{% static 'plugins/urank/js/helper/jquery_functions/pin.js' %}"></script>
+
+        <script type="text/javascript" src="{% static 'plugins/urank/js/config/globals.js' %}"></script>
+        <script type="text/javascript" src="{% static 'plugins/urank/js/config/config.js' %}"></script>
+
+        <script type="text/javascript" src="{% static 'plugins/urank/js/model/RSContent.js' %}"></script>
+        <script type="text/javascript" src="{% static 'plugins/urank/js/model/RSTagUser.js' %}"></script>
+        <script type="text/javascript" src="{% static 'plugins/urank/js/model/rankingModel.js' %}"></script>
+        <script type="text/javascript" src="{% static 'plugins/urank/js/model/dataConnector.js' %}"></script>        
+        <script type="text/javascript" src="{% static 'plugins/urank/js/controller/urank.js' %}"></script>
+
+
+    	<script type="text/javascript" src="{% static 'comet_urank/js/actionLogger.js' %}"></script>
+        <!-- <script type="text/javascript" src="{% static 'comet_urank/js/test.js' %}"></script> -->
+    	<script type="text/javascript" src="{% static 'comet_urank/js/server-connector.js' %}"></script>
+        <script type="text/javascript" src="{% static 'comet_urank/js/main.js' %}"></script>
+    {% endblock js %}
+
+</body>
+</html>
+
+
