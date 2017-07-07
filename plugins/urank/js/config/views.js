@@ -1,4 +1,4 @@
-var TagCloudDefault = require('../views/tagcloud/TagCloudDefault');
+var TagCloudDefault = require('../views/tagcloud/tagCloudDefault');
 var Ranking = require('../views/viscanvas/ranking');
 
 var VIEWS = {

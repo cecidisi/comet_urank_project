@@ -1,8 +1,8 @@
 // var $ = require('jquery');
 var VIEWS = require('../config/views');
 var Config = require('../config/config');
-var DataConnector = require('../model/DataConnector');
-var KeywordExtractor = require('../model/KeywordExtractor');
+var DataConnector = require('../model/dataConnector');
+var KeywordExtractor = require('../model/keywordExtractor');
 var RankingModel = require('../model/rankingModel');
 var ContentList = require('../views/contentList');
 var DocViewer = require('../views/docViewer');
