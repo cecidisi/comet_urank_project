@@ -25,7 +25,7 @@ SECRET_KEY = '_z7vrte-i6d(tcn3h5#bgx+@6o#6h!a#^r@v==nsed1p+3fpn9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'pawscomp2.sis.pitt.edu']
 
 
 # Application definition
@@ -88,25 +88,25 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'django_default',
-        'USER': 'root',
+        'USER': 'cecidisi',
         'PASSWORD': 'asdf',
         'HOST':  'localhost',
         'PORT': '3306',
         'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
     },
-    'cometdb': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'colloquia',
-        'USER': 'root',
-        'PASSWORD': 'asdf',
-        'HOST':  'localhost',
-        'PORT': '3306',
-        'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-    },
+    # 'cometdb': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'colloquia',
+    #     'USER': 'root',
+    #     'PASSWORD': 'asdf',
+    #     'HOST':  'localhost',
+    #     'PORT': '3306',
+    #     'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+    # },
     'confnavdb': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'conf_navigator',
-        'USER': 'root',
+        'USER': 'cecidisi',
         'PASSWORD': 'asdf',
         'HOST':  'localhost',
         'PORT': '3306',
@@ -115,7 +115,7 @@ DATABASES = {
     'confnavevaldb': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'conf_navigator_eval',
-        'USER': 'root',
+        'USER': 'cecidisi',
         'PASSWORD': 'asdf',
         'HOST':  'localhost',
         'PORT': '3306',
