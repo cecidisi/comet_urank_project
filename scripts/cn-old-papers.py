@@ -4,6 +4,7 @@ import urllib2
 import json
 import unicodedata
 from bs4 import BeautifulSoup as bs
+from bs4 import UnicodeDammit
 from conf_navigator.models import *
 from nlp.keyword_extractor import *
 from nlp.stopwords import *
@@ -14,16 +15,41 @@ def clear_db():
 	OldPaper.objects.all().delete()
 
 
+
+def clean_text(text):
+	if isinstance(text, str):
+		return text
+	# Replace smart quotes and other known unicode characters
+	text = text.replace(u'\u201c', '"').replace(u'\u201d', '"') \
+		.replace("‘", "'").replace("’", "'") \
+		.replace(u'\xe2??', "'")
+	return unicodedata.normalize('NFKD', text).encode('ascii','ignore')
+
+
 def fetch_paper(contentID):
 	url_temp = "http://halley.exp.sis.pitt.edu/cn3/social_api_getcontents.php?cid=[contentID]"
 	url = url_temp.replace('[contentID]', str(contentID))
 	resp = urllib2.urlopen(url).read()
 	soup = bs(resp, 'lxml')
 	if soup.find('title') and soup.find('title').get_text() != '':
+		title = ''
+		try:
+			title = clean_text(soup.find('title').get_text())
+		except Exception, e:
+			print str(e)
+			print soup.find('title').get_text()
+
+		abstract = ''
+		try:
+			abstract = clean_text(soup.find('abstract').get_text())
+		except Exception, e:
+			print str(e) 
+			print soup.find('abstract').get_text()
+
 		return {
 			'id': contentID,
-			'title': soup.find('title').get_text(),
-			'abstract': soup.find('abstract').get_text(),
+			'title': title,
+			'abstract': abstract,
 			'authorids': soup.find('authorids').get_text()[:-1] #.split(',')[:-1]
 		}
 	return None
@@ -76,14 +102,20 @@ def save_and_extact_keywords(old_papers):
 	ke.extract()
 	for idx, op in enumerate(old_papers):
 		doc_keywords = ke.get_document_keywords(idx)
-		old_paper = OldPaper.objects.create(
-			id = op['id'], 
-			title = op['title'], 
-			abstract = op['abstract'], 
-			authorids = op['authorids'],
-			keyword_str = json.dumps(doc_keywords) 
-		)
-		print 'Saved old paper #' +str(old_paper.id)+ ' (with '+ str(len(doc_keywords)) +' keywords)'
+		try:
+			old_paper = OldPaper.objects.create(
+				id = op['id'], 
+				title = op['title'] if op['title'] else '', 
+				abstract = op['abstract'] if op['abstract'] else '', 
+				authorids = op['authorids'],
+				keyword_str = json.dumps(doc_keywords) 
+			)
+			print 'Saved old paper #' +str(old_paper.id)+ ' (with '+ str(len(doc_keywords)) +' keywords)'
+		except Exception, e:
+			print str(e)
+			print op['title']
+			print op['abstract']
+
 
 				
 
