@@ -1,5 +1,6 @@
 var ServerConnector = (function(){
-	var host = 'http://localhost:8000/cn_urank_eval';
+	// var host = 'http://localhost:8000/cn_urank_eval';
+	var host = '/cn_urank_eval';
 
 	var sendRrequest = function(options, cb){
 		$.ajax(options)

@@ -34,13 +34,14 @@ class TaskManager:
 
 	def get_eval_setting_list(self):
 		self.ltsq = None
-		eval_settings = EvalSetting.objects.latest('id')
-		if eval_settings:
+		try:
+			eval_settings = EvalSetting.objects.latest('id')
+			print_red(str(eval_settings.ltsq_id))
 			last_ltsq_id = eval_settings.ltsq_id
-			cur_ltsq_id = (last_ltsq_id + 1) % 4
+			cur_ltsq_id = (last_ltsq_id + 1) if last_ltsq_id < 4 else 1
 			print cur_ltsq_id
 			self.ltsq = LatinSquares.objects.get(pk=cur_ltsq_id)
-		else:
+		except:
 			self.ltsq = LatinSquares.objects.get(pk=1)
 
 		print_blue('LTSQ sequence = ' + str(self.ltsq.sequence))

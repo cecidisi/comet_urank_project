@@ -1,5 +1,6 @@
 var ServerConnector = (function(){
-	var host = 'http://localhost:8000/comet_urank/';
+	// var host = 'http://localhost:8000/comet_urank/';
+	var host = '/comet_urank/';
 	var cur_col_page = 1;
 
 	var sendRrequest = function(options){

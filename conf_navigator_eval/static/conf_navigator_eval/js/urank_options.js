@@ -22,10 +22,14 @@ var default_options = {
     },
     dataConnector : {
         urls: {
-            get_data: 'http://localhost:8000/cn_urank/get-talks/',
-            get_keywords: 'http://localhost:8000/cn_urank/get-keywords/',
-            get_neighbors: 'http://localhost:8000/cn_urank/get-neighbors/',
-            urank: 'http://localhost:8000/cn_urank/urank_service/'
+            // get_data: 'http://localhost:8000/cn_urank/get-talks/',
+            // get_keywords: 'http://localhost:8000/cn_urank/get-keywords/',
+            // get_neighbors: 'http://localhost:8000/cn_urank/get-neighbors/',
+            // urank: 'http://localhost:8000/cn_urank/urank_service/'
+            get_data: '/cn_urank/get-talks/',
+            get_keywords: '/cn_urank/get-keywords/',
+            get_neighbors: '/cn_urank/get-neighbors/',
+            urank: '/cn_urank/urank_service/'
         }
     },
     keywordExtractor: {

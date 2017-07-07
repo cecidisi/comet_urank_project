@@ -6,7 +6,6 @@ var ActionLogger = require('./action-logger')
 module.exports = (function(){
     var logger = new ActionLogger();
     var bookmarks = [];  // { id, pos, title }
-    // var timer = 
 
     var $message = $('.processing-message'),
         $numResultsMsg = $('.num-results-msg'),
