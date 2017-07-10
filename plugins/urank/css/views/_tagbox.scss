@@ -30,7 +30,7 @@
             &.sum { left: calc(50% - 17px); }
             &.split { left: 5px; }
 
-            span {
+            .icon {
                 display: block;
                 width: 18px;
                 height: 18px;
@@ -38,18 +38,25 @@
                 background-position: 2px 0px;
             }
 
-            &.sum span { background-image: url(../media/add.png); }
-            &.split span { background-image: url(../media/split.png); }
+            &.sum span { 
+                @extend .icon;
+                background-image: url(../media/add.png); 
+            }
+            &.split span { 
+                @extend .icon;
+                background-image: url(../media/split.png); 
+            }
         }
 
         .ui-slider {
             display: inline-block;
-            position: relative;
+            // position: relative;
             width: 18%;
             height: 7px;
-            float: right;
-            top: 8px;
-            right: 16px;
+            // float: right;
+            // top: 8px;
+            // right: 16px;
+            margin: 0px 5px;
 
             .ui-slider-handle {
                 top: -4px;
@@ -108,7 +115,7 @@
         top: 3px;
         width: 14px;
         height: 14px;
-        margin: 2px 3px 0px 8px;
+        margin: 0px 3px 0px 3px;
         background: rgba(0,0,0,.5);
         border: 1px solid#000;
         border-radius: 2px;
@@ -118,7 +125,7 @@
         color: darkred;
         font-weight: bold;
 
-         span {
+         .icon {
             display: inline-block;
             width: 15px;
             height: 11px;

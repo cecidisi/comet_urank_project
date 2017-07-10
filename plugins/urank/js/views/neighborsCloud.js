@@ -21,8 +21,33 @@ var NeighborsCloud = (function(){
 	   	$root = $(s.root);
 	}
 
+	var setTagProperties = function($tag, t, index) {
+		$tag.off().on({
+				'click': function(evt){
+					var tid = '#urank-neighbortag-' + t.neighbor.id;
+					var $tag = $(tid)
+					if(!$tag.hasClass('selected')) {
+						s.cb.onNeighborTagSelected(index, t.neighbor.id);	
+					}
+				},
+				'mouseenter': function(evt){
+					s.cb.onNeighborTagMouseEnter(index, t.neighbor.id)
+				},
+				'mouseleave': function(evt){
+					s.cb.onNeighborTagMouseLeave(index, t.neighbor.id)
+				}
+			})
+			.css({
+				'color': _this.colors(t.neighbor.name),
+				'font-size': (s.options.minFontSize + t.score * s.options.fontSizeGrowth)+'px',
+				'background': ''
+			});
+
+	}
+
 	var build = function(neighbors, colors){
 		this.neighbors = neighbors;
+		this.colors = colors;
 
 		$root.addClass('urank-tag-container');
 		$neighborcloud = $('<div/>', { class: 'urank-tag-container-inner' }).appendTo($root);
@@ -37,27 +62,7 @@ var NeighborsCloud = (function(){
 				'html': t.neighbor.name
 			}).appendTo($neighborcloud);
 			// Bind event handlers and set style
-			$tag.off()
-				.on({
-					'click': function(evt){
-						var tid = '#urank-neighbortag-' + t.neighbor.id;
-						var $tag = $(tid)
-						if(!$tag.hasClass('selected')) {
-							s.cb.onNeighborTagSelected(index, t.neighbor.id);	
-						}
-					},
-					'mouseenter': function(evt){
-						s.cb.onNeighborTagMouseEnter(index, t.neighbor.id)
-					},
-					'mouseleave': function(evt){
-						s.cb.onNeighborTagMouseLeave(index, t.neighbor.id)
-					}
-				})
-				.css({
-					'color': colors(t.neighbor.name),
-					'font-size': (s.options.minFontSize + t.score * s.options.fontSizeGrowth)+'px'	
-				});
-
+			setTagProperties($tag, t, index);
 		});
 	};
 
@@ -81,11 +86,39 @@ var NeighborsCloud = (function(){
 			$tag.addClass('hovered');
 	};
 
+
 	var onNeighborTagMouseLeft = function(index, id){
 		var $tag = $('#urank-neighbortag-' + id);
 		$tag.removeClass('hovered');
 	};
 
+
+	var restoreTag = function(index, id){
+		var $tag = $('#urank-neighbortag-' + id);		            // is in tagcloud
+		var $clonedTag = $('#urank-neighbortag-' + id + '-clon');   // is in tagbox, will be deleted sync
+		var $dummyTag = $clonedTag.clone();                     	// need dummy for animation, clone is removed
+		$dummyTag.attr('id', 'dummy-tag-' + id);
+		console.log('Animating ' + $dummyTag.attr('id'));
+		//  Save offset in tagBox before detaching
+		var oldOffset = $clonedTag.offset();
+		var newOffset = $tag.offset();
+		// Detach tag from tag cloud, attach temporarily to body and place it in old position (in tagBox)
+		$dummyTag.appendTo('body')
+		    .css({ position: 'absolute', top: oldOffset.top, left: oldOffset.left, 'z-index': 9999 });
+		// Animate tag moving from tag box to tag cloud
+		$dummyTag.animate({ top: newOffset.top, left: newOffset.left }, 800, 'swing', function() {
+		    //  Detach from body after motion animation is complete and append to tag container again
+		    $dummyTag.remove();
+		    $tag.removeClass().addClass('urank-tag'); //.setTagStyle();
+		    setTagProperties($tag, _this.neighbors[index], index);
+		    // $tag = $tag.detach();
+		    // $clonedTag.after($tag);
+		    // $clonedTag.remove();
+		    // $tag.css({ position: '', top: '', left: '', 'z-index': '' }).setTagStyle();
+		    // setTagProperties($tag);
+		});
+
+	}
 
 	
 
@@ -93,7 +126,8 @@ var NeighborsCloud = (function(){
 		build : build,
 		selectNeighborTag: selectNeighborTag,
 		onNeighborTagMouseEnter: onNeighborTagMouseEntered,
-		onNeighborTagMouseLeave: onNeighborTagMouseLeft
+		onNeighborTagMouseLeave: onNeighborTagMouseLeft,
+		restoreTag: restoreTag
 	};
 
 	return NeighborsCloud;

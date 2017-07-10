@@ -7,7 +7,10 @@
 		height: 100%;
 	}
     
-
+	.form-group {
+		margin-bottom: 25px;
+	}
+	
 	.question-container {
 		height: 100%;
 		padding: 10px;
@@ -20,5 +23,13 @@
 	label.question-text {
 		display: block;
 		font-size: 14px;
+	}
+
+	label.min_max {
+		color: #888;
+	}
+
+	.btn-group {
+		margin: 0px 5px;
 	}
 }

@@ -82,6 +82,8 @@ class BookmarkEval(models.Model):
 class QuestionItem(models.Model):
 	id = models.IntegerField(primary_key=True)
 	text = models.TextField()
+	min_label = models.CharField(max_length=200, default='')
+	max_label = models.CharField(max_length=200, default='')
 
 	class Meta:
 		db_table = 'question_item'

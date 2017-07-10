@@ -33,6 +33,7 @@
                             <label for=question-{{q.id}} class="question-text">
                                 {{q.id}}. {{q.text}}
                             </label>
+                            <label class="min_max">{{q.min_label}}</label>
                             <div class="btn-group question-item" name="question-{{q.id}}" data-toggle="buttons">
                                 {% for point in likert %}
                                     <label class="btn btn-default">
@@ -40,6 +41,7 @@
                                     </label>
                                 {% endfor %}
                             </div>
+                            <label class="min_max">{{q.max_label}}</label>
                         </div>
                     {% endfor %}
                     <!-- <input type="submit" class="btn btn-primary" id="btn-done" value="Submit"/> -->

@@ -67,36 +67,33 @@ var Urank = (function() {
             callbacks.onTagInCloudClick.call(this, tag);
         },
 
-        onTagDeleted: function(index, id) {
-            // var indexToDelete = _.findIndex(_this.selectedKeywords, function(kw){
-            //     return kw.id.toString() === id.toString();
-            // });
-            var indexToDelete = _.findIndex(_this.selectedFeatures.keywords, function(kw){
-                return kw.id.toString() === id.toString();
+        // TAG BOX
+        onTagDeleted: function(tag) {
+            
+            var featureType = tag.type + 's'
+            var indexToDelete = _.findIndex(_this.selectedFeatures[featureType], function(t){
+                return t.id.toString() === tag.id.toString();
             });
             // _this.selectedKeywords.splice(indexToDelete, 1);
-            _this.selectedFeatures.splice(indexToDelete, 1);
-            views.tagCloud.restoreTag(index, id);
-            views.tagBox.deleteTag(index, id);
-            // URANK.update(_this.selectedKeywords);
+            _this.selectedFeatures[featureType].splice(indexToDelete, 1);
+            if(featureType === 'keywords') {
+                views.tagCloud.restoreTag(tag.index, tag.id);
+            } else if (featureType === 'neighbors') {
+                views.neighborsCloud.restoreTag(tag.index, tag.id)
+            }
+            views.tagBox.deleteTag(tag);
             URANK.update(_this.selectedFeatures);
-            // var tag = { index: index, stem: _this.keywords[index].stem, term: _this.keywords[index].term };
-            // callbacks.onTagDeleted.call(this, tag);
+            callbacks.onTagDeleted.call(this, tag);
         },
 
-        onTagWeightChanged: function(index, id, weight){
-            // var indexToUpdate = _.findIndex(_this.selectedKeywords, function(kw){
-            //     return kw.id.toString() === id.toString();
-            // });
-            var indexToUpdate = _.findIndex(_this.selectedFeatures.keywords, function(kw){
-                return kw.id.toString() === id.toString();
+        onTagWeightChanged: function(tag /*index, id, weight*/){
+            var featureType = tag.type + 's'
+            var indexToUpdate = _.findIndex(_this.selectedFeatures[featureType], function(t){
+                return t.id.toString() === tag.id.toString();
             });
-            // _this.selectedKeywords[indexToUpdate].weight = weight;
-            _this.selectedFeatures.keywords[indexToUpdate].weight = weight;
-            // URANK.update(_this.selectedKeywords);
-            URANK.update(_this.selectedFeatures);
-            // var tag = { index: index, stem: _this.keywords[index].stem, term: _this.keywords[index].term, weight: weight };
-            // callbacks.onTagWeightChanged.call(this, tag);
+            _this.selectedFeatures[featureType][indexToUpdate].weight = tag.weight;            
+            URANK.update(_this.selectedFeatures);            
+            callbacks.onTagWeightChanged.call(this, tag);
         },
 
         onTagInCloudMouseEnter: function(index, id) {
@@ -238,9 +235,17 @@ var Urank = (function() {
         },
 
         onRankingWeightChange: function(rWeight) {
-            setTimeout(function(){
-                rankingConf.rs.CB = parseFloat(rWeight);
-                rankingConf.rs.CF = parseFloat(1-rWeight);
+            var indexMapping = {}
+            rankingConf.rs.forEach(function(conf){
+                if(conf.name === 'CB') {
+                    conf.weight = 1.0 - parseFloat(rWeight)
+                } else {
+                    conf.weight = parseFloat(rWeight)
+                }
+            })
+            setTimeout(function() {
+                // rankingConf.rs.CB = parseFloat(rWeight);
+                // rankingConf.rs.CF = parseFloat(1-rWeight);
                 URANK.update(_this.selectedFeatures);
             }, 0);
         },
@@ -442,7 +447,7 @@ var Urank = (function() {
         },
 
         // Update ranking
-        update: function(_selectedFeatures /*_selectedKeywords*/) {
+        update: function(_selectedFeatures) {
             // _this.selectedKeywords = _selectedKeywords || _this.selectedKeywords;
             _this.selectedFeatures = _selectedFeatures
             selectedId = undefined;

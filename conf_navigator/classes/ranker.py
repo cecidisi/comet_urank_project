@@ -98,8 +98,8 @@ class Ranker:
 	def update(self, conf, features):
 		# print '================= FEATURES ======================'
 		# print features
-		# print '================== RS CONF ======================'
-		# print conf
+		print '================== RS CONF ======================'
+		print conf
 
 		self.ranking = self.ranking[:]
 		conf_map = {}
@@ -127,16 +127,24 @@ class Ranker:
 					}
 					# d['ranking']['overall']['score'] += d['ranking'][RS]['score']
 		# Normalize
-		for d in self.ranking:
+		for idx, d in enumerate(self.ranking):
 			for rs in conf['rs']:
 				if rs['active']:
 					RS = rs['name']
 					max_score = self.rs[RS].get_max_score()
-					d['ranking'][RS]['score'] = Ranker.normalize_score(d['ranking'][RS]['score'], max_score)
+					val_before = d['ranking'][RS]['score']
+					d['ranking'][RS]['score'] = Ranker.normalize_score(d['ranking'][RS]['score'], max_score) * float(rs['weight'])
 					# check if it works!!!!!
 					for detail in d['ranking'][RS]['details']:
-						detail['score'] = Ranker.normalize_score(detail['score'], max_score)
+						detail['score'] = Ranker.normalize_score(detail['score'], max_score) * float(rs['weight'])
 					d['ranking']['overall']['score'] += d['ranking'][RS]['score']
+					if idx ==0:
+						print RS  + ' weight = '+ str(rs['weight']) + ', max score = ' + str(max_score)
+						print d['ranking']
+						print 'val before = ' + str(val_before)
+						if max_score:
+							print float(val_before) / float(max_score)
+
 
 		# Sort and assign positions
 		rank_by = conf['rankBy']
@@ -160,6 +168,8 @@ class Ranker:
 	@staticmethod
 	def normalize_score(x, max_x):
 		#  assume min = 0
+		value = float(x) / float(max_x) if max_x else 0.0
+		# print 'x = ' + str(x) + ', max_x = ' + str(max_x) + ', div = ' + str(value)
 		if max_x:
 			return float(x) / float(max_x)
 		return 0.0
