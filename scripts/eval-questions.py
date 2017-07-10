@@ -19,7 +19,7 @@ def run():
 	}, 
 	# Custom questions
 	{
-		'text': 'The system helped me to find interesting talks', 'min_label': 'Strongly Disagree', 'max_label': 'Strongly Agree'
+		'text': 'The system helped me to find interesting papers', 'min_label': 'Strongly Disagree', 'max_label': 'Strongly Agree'
 	}, {
 		'text': 'The system allowed me to easily refine my recommendations', 'min_label': 'Strongly Disagree', 'max_label': 'Strongly Agree'
 	}, {
