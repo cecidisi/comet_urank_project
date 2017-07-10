@@ -18,15 +18,24 @@
 <body>
         
     <header>
-        <div class="logo">Finished</div>
+        <div class="logo">Study Finished</div>
         <div class="right-aligned">
             <a href="/cn_urank_eval/test/">TEST AGAIN</a>
         </div>
     </header>
 
+    <div class="container">
+        <div class="row">
+            <dir class="col-lg-8 col-lg-offset-2">
+                <h3>It's finally over!</h3>
+                <h3>Thank you for your time!</h3>
+            </dir>
+        </div>
+    </div>
+
 
     {% render_bundle 'vendor' %}
-    {% render_bundle 'conf_nav_eval_questions' %}
+    {% render_bundle 'conf_nav_eval_general' %}
     {% block js %}
     {% endblock js %}
 

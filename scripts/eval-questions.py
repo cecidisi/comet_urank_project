@@ -30,12 +30,40 @@ def run():
 		'text': 'The system gave me a sense of transparency', 'min_label': 'Strongly Disagree', 'max_label': 'Strongly Agree'
 	}]
 
+	final_survey = [{
+		'text': 'Which UI provided better recommendations of papers?'
+	}, {
+		'text': 'Which UI was the most fun to use?'
+	}, {
+		'text': 'Which UI was the most useful?'
+	}, {
+		'text': 'Which UI was the easiest to use?'
+	}, {
+		'text': 'Which UI was the most intuitive?'
+	}]
+
 	QuestionItem.objects.all().delete()
+	print '=== Post-task Questions'
 	for idx, q in enumerate(questions):
-		qitem = QuestionItem.objects.create(
-			id = idx+1,
+		qitem = QuestionItem(
+			num = idx+1,
 			text = q['text'],
 			max_label = q['max_label'],
-			min_label = q['min_label']
+			min_label = q['min_label'],
+			type = 'post-task'
 		)
-		print 'saved question --> ' + qitem.text
+		qitem.save()
+		print 'Saved question #' + str(qitem.num) + ' --> ' + qitem.text
+
+	print '\n === Post-study Questions'
+	for idx, q in enumerate(final_survey):
+		qitem = QuestionItem(
+			num = idx+1,
+			text = q['text'],
+			type = 'post-study'
+		)
+		qitem.save()
+		print 'Saved question #' + str(qitem.num) + ' --> ' + qitem.text
+
+
+

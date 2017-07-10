@@ -26,11 +26,15 @@ from conf_navigator.classes.bcolors import *
 
 from .classes.task_manager import *
 
-
-
 urank = Urank()
 tm = TaskManager()
 
+desc_mapping = {
+    'CB': 'Content-based Recommender (CB)',
+    'SF': 'Social-based Recommender (SB)',
+    'CB_SF': 'Parallel Content & Social Recommender (Par CB // SB)',
+    'HYB': 'Hybrid Content + Social Recommender (Hyb CB + SB)',
+}
 
 
 @api_view(['GET', 'POST'])
@@ -53,7 +57,7 @@ def login(request):
             request.session['eventID'] = eventID
             request.session['user'] = user
             tm.set_user(user['UserID'])
-            return redirect('/cn_urank_eval/set-task')
+            return redirect('/cn_urank_eval/introduction')
         else:
             return redirect('/cn_urank_eval/login')
 
@@ -68,6 +72,16 @@ def logout(request):
 
 
 
+# Intro (task description)
+@api_view(['GET'])
+def introduction(request):
+    template = loader.get_template('conf_navigator_eval/introduction.html')
+    context = {}
+    return HttpResponse(template.render(context, request))
+
+
+
+#  Shortcut to avoid login
 @api_view(['GET'])
 def test(request):
     print_blue('Testing with UMAP and Peter')
@@ -81,52 +95,25 @@ def test(request):
     return redirect('/cn_urank_eval/set-task')
 
 
-
+#  Main View
 @api_view(['GET'])
 def index(request, task=1):
     if 'user' in request.session and 'eventID' in request.session and 'settings' in request.session:
-        settings = request.session['settings']
-        print_blue('Settings -> rs = ' + settings['rs'] + \
-            ', use_tagcloud = ' + str(settings['use_tagcloud']) + \
-            ', use_neighborcloud = ' + str(settings['use_neighborcloud']))
+        context = request.session['settings']
+        context['cur_task'] = request.session['cur_task']
+        print_blue('Settings -> rs = ' + context['rs'] + \
+            ', use_tagcloud = ' + str(context['use_tagcloud']) + \
+            ', use_neighborcloud = ' + str(context['use_neighborcloud']))
         template = loader.get_template('conf_navigator_eval/index.html')
-        return HttpResponse(template.render(settings, request))
+        return HttpResponse(template.render(context, request))
     return redirect('/cn_urank_eval/login')
 
 '''
     **************      EVALUATION     *****************
-'''
-
-@api_view(['GET', 'POST'])
-def questions(request, task=1):
-    if request.method == 'GET':
-        template = loader.get_template('conf_navigator_eval/questions.html')
-        questions = tm.get_questions()
-        context = {
-            'task': request.session['cur_task'],
-            'questions': questions,
-            'likert': [1,2,3,4,5,6,7]
-        }
-        return HttpResponse(template.render(context, request))
-    else:
-        print request.POST['question-1']
-        # params = json.loads(request.body.decode("utf-8"))
-    
-        return Response({})
+'''    
 
 
-
-
-@api_view(['POST'])
-@csrf_exempt 
-def submit_questions(request):
-    values = json.loads(request.body)['values']
-    if tm.save_questions(values):
-        return Response({ 'results': 'OK' })
-    return Response({}, status = status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-
-
+#  Set Task based on session data
 @api_view(['GET'])
 def set_task(request):
     tot_tasks = 4
@@ -142,7 +129,7 @@ def set_task(request):
         tm.next_task()
     else:
         # Finish task
-        return redirect('/cn_urank_eval/finish-task/')
+        return redirect('/cn_urank_eval/final-survey/')
 
     cur_task = request.session['cur_task']
     task_list = request.session['task_list']
@@ -150,13 +137,75 @@ def set_task(request):
     print_blue('Current Task = ' +str(cur_task))
     idx = cur_task - 1
     rs = str(task_list[idx])
+    # Set task conditions
     request.session['settings'] =  {
         'rs': rs,
+        'description': desc_mapping[rs],
         'use_tagcloud': True if rs != 'SF' else False,
         'use_neighborcloud': True if rs != 'CB' else False
     }
     request.session.modified = True
     return redirect('/cn_urank_eval/'+str(cur_task)+'/')
+
+
+
+# Submit Task (bookmarks and action logs)
+@api_view(['POST'])
+@csrf_exempt 
+def submit_task(request):
+    if request.method == 'POST':
+        params = json.loads(request.body.decode("utf-8"))
+        if tm.save_task(params):
+            return Response({ 'results': 'OK' })
+        return Response({}, status = status.HTTP_500_INTERNAL_SERVER_ERROR)
+       
+
+
+#  Get Questions View
+@api_view(['GET'])
+def questions(request, task=1):
+    template = loader.get_template('conf_navigator_eval/questions.html')
+    questions = tm.get_post_task_questions()
+    context = {
+        'task': request.session['cur_task'],
+        'questions': questions,
+        'likert': [1,2,3,4,5,6,7]
+    }
+    return HttpResponse(template.render(context, request))
+
+
+
+# Submit Task Questions
+@api_view(['POST'])
+@csrf_exempt 
+def submit_questions(request):
+    values = json.loads(request.body)['values']
+    if tm.save_post_task_questions(values):
+        return Response({ 'results': 'OK' })
+    return Response({}, status = status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+# Post-study survey
+@api_view(['GET'])
+def final_survey(request):
+    template = loader.get_template('conf_navigator_eval/final-survey.html')
+    questions = tm.get_final_survey()
+    values = [{ 'key': rs, 'desc': desc_mapping[rs] } for rs in request.session['task_list'] ]
+    context = {
+        'questions': questions,
+        'values': values
+    }
+    return HttpResponse(template.render(context, request))
+
+
+# Submit Final Survey
+@api_view(['POST'])
+@csrf_exempt 
+def submit_final_survey(request):
+    values = json.loads(request.body)['values']
+    if tm.save_final_survey(values):
+        return Response({ 'results': 'OK' })
+    return Response({}, status = status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 # Finish View
@@ -168,32 +217,16 @@ def finish_task(request):
     return HttpResponse(template.render({}, request))
 
 
-
-
-@api_view(['POST'])
-@csrf_exempt 
-def submit_task(request):
-    if request.method == 'POST':
-        params = json.loads(request.body.decode("utf-8"))
-        if tm.save_task(params):
-            return Response({ 'results': 'OK' })
-        return Response({}, status = status.HTTP_500_INTERNAL_SERVER_ERROR)
-        # return redirect('/cn_urank_eval/set-task');
-        
-
-
-
-
-
 '''
-    **************      API     *****************
+    FROM CONF_NAVIGATOR app
 '''
 
 @api_view(['GET'])
 def get_talks(request):
     eventID = request.session['eventID']
     print 'get_talks: eventID = ' + str(eventID)
-    talks = urank.load_documents(DBconnector.get_documents(eventID))
+    filtered_talks  = tm.filter_out_bookmarked(DBconnector.get_documents(eventID))
+    talks = urank.load_documents(filtered_talks)
     resp = {
         'count': len(talks),
         'results': talks
@@ -232,29 +265,6 @@ def get_neighbors(request):
 
 
 
-@api_view(['GET'])
-def get_keyphrases(request, keyword_id):
-    keyphrases = DBconnector.get_keyphrases(keyword_id)
-    resp = {
-        'count': len(keyphrases),
-        'results': keyphrases 
-    }
-    return Response(resp)
-
-
-
-# Get document keywords in string format
-@api_view(['GET'])
-def get_document_keywords_str(request):
-    keywords_str = TalkKeywordStr.objects.all()
-    serializer = TalkKeywordStrSerializer(keywords_str, many=True)
-    resp = {
-        'results': serializer.data
-    }
-    return Response(resp)
-
-
-
 # @require_http_methods(["POST"])
 @api_view(['POST'])
 @csrf_exempt 
@@ -266,11 +276,7 @@ def urank_service(request):
         'results': data_to_send,
     }
     return Response(resp)
+        
 
 
-
-
-class TalkViewSet(viewsets.ModelViewSet):
-    queryset = Talk.objects.all()
-    serializer_class = TalkSerializer
 

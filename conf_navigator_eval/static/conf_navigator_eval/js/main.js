@@ -62,6 +62,10 @@ module.exports = (function(){
 
     $btnDone.click(function(evt){
         evt.stopPropagation();
+        if(bookmarks.length < 2) {
+            alert('Please bookmark at least 2 papers');
+            return;
+        }
         var logs = logger.getAllLogs();
         var elapsedTime = logger.getElapsedTime();
         server.submitTask({ 

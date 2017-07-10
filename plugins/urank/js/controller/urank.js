@@ -390,6 +390,7 @@ var Urank = (function() {
             data = _data.slice();
             // EVTHANDLER.loadData(_data);
             console.log('Loaded data = ' + _data.length)
+            console.log(data[0])
             //Start ranking model (REPLACE)     
             rankingModel.clear().setData(data);    
             //Build views with data and/or keywords

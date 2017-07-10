@@ -7,18 +7,16 @@
     {% load render_bundle from webpack_loader %}
 
     {% block css %}
-        <!-- <link rel="stylesheet" type="text/css" href="{% static 'comet_urank/css/style.css' %}" />
-        <link rel="stylesheet" type="text/css" href="{% static 'plugins/urank/css/urank.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'plugins/urank/css/urank-blocks-default.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'plugins/urank/css/vis-ranking.css' %}"> -->
     {% endblock %}
 </head>
 
 
-<body>
-        
+<body>        
     <header>
-        <div class="logo">Conference Navigator Evaluation</div>
+        <div class="logo">uRank CN Task #{{cur_task}}</div>
+        <div class="center-aligned">
+            <h5>{{description}}</h5>
+        </div>
         <div class="right-aligned">
             <div class="message">Click here when you finish the task </div>
             <i class="fa fa-arrow-right" aria-hidden="true"></i>
@@ -76,6 +74,7 @@
     </div>
 
     {% render_bundle 'vendor' %}
+    {% render_bundle 'conf_nav_eval_general' %}
     {% render_bundle 'main_conf_nav_eval' %}
  
 

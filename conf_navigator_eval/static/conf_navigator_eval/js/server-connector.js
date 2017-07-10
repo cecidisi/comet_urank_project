@@ -1,5 +1,4 @@
 var ServerConnector = (function(){
-	// var host = 'http://localhost:8000/cn_urank_eval';
 	var host = '/cn_urank_eval';
 
 	var sendRrequest = function(options, cb){
@@ -12,6 +11,11 @@ var ServerConnector = (function(){
 	        if(cb) cb(resp.results);
 	    });
 	};
+
+	var startFirstTask = function(){
+		window.location = host + '/set-task/';
+	};
+
 
 	var submitTask = function(params){
 		sendRrequest({
@@ -33,11 +37,24 @@ var ServerConnector = (function(){
 		}, function(){
 			window.location = host + '/set-task/'
 		});
+	};
+
+	var submitFinalSurvey = function(params){
+		sendRrequest({
+			type: 'POST',
+			url: host + '/submit-final-survey/',
+			data: JSON.stringify(params),
+			contentType: '"application/x-www-form-urlencoded"'			
+		}, function(){
+			window.location = host + '/finish-task/'
+		});
 	}
 
 	return {
+		startFirstTask: startFirstTask,
 		submitTask: submitTask,
-		submitQuestions: submitQuestions
+		submitQuestions: submitQuestions,
+		submitFinalSurvey: submitFinalSurvey
 	}
 
 })();

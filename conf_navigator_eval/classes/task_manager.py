@@ -9,8 +9,11 @@ class TaskManager:
 	def __init__(self):
 		self.user = None
 		self.ltsq = None
+		self.task = None
 		self.cur_task = 1
 		self.questions = []
+		self.bookmarks_eval = {}
+		self.final_questions = []
 
 	def clear(self):
 		self.cur_task = 1
@@ -70,13 +73,13 @@ class TaskManager:
 
 		# save task
 		try:
-			task = Task(
+			self.task = Task(
 				number = self.cur_task,
 				user = self.user,
 				settings = eval_settings,
 				time_taken = int(elapsed_time)
 			)
-			task.save()
+			self.task.save()
 		except Exception, e:
 			print_red('ERROR saving Task --> ' +str(e))
 			return None
@@ -85,7 +88,7 @@ class TaskManager:
 		for log in action_logs:
 			try:
 				action_log = LoggedAction(
-					task = task,
+					task = self.task,
 					action = log['action'],
 					# action_type = '',
 					timestamp = log['timestamp'],
@@ -106,10 +109,12 @@ class TaskManager:
 					rating = b['rating'],
 					talk_id = b['id'],
 					talk_title = b['title'],
-					task = task
+					task = self.task
 					# user = self.user
 				)
 				bm_eval.save()
+				# Save to bookmarks_eval dict to mark talks bookmarked during the task
+				self.bookmarks_eval[bm_eval.talk_id] = bm_eval
 			except Exception, e:
 				print_red('ERROR saving BookmarkEval --> ' + str(e))
 				return None
@@ -118,18 +123,19 @@ class TaskManager:
 
 
 
-	def get_questions(self):
-		self.questions = QuestionItem.objects.all().order_by('id')
+	def get_post_task_questions(self):
+		self.questions = QuestionItem.objects.filter(type='post-task').order_by('num')
 		return QuestionItemSerializer(self.questions, many=True).data
 
 
 
-	def save_questions(self, values):
+	def save_post_task_questions(self, values):
 		for idx, val in enumerate(values):
 			try: 
 				answer = AnswerItem(
 					value = int(val),
 					question = self.questions[idx],
+					task = self.task,
 					user = self.user
 				)
 				answer.save()
@@ -140,7 +146,39 @@ class TaskManager:
 		return True
 
 
+	def get_final_survey(self):
+		self.final_questions = QuestionItem.objects.filter(type='post-study').order_by('num')
+		return QuestionItemSerializer(self.final_questions, many=True).data
 
+
+
+	def save_final_survey(self, choices):
+		for idx, choice in enumerate(choices):
+			try:
+				survey_item = FinalSurveyItem(
+					choice = choice,
+					question = self.final_questions[idx],
+					user = self.user
+				)
+				survey_item.save()
+				print 'Saved value = '+ str(survey_item.choice) + ' for final question: '+ self.final_questions[idx].text
+			except Exception, e:
+				print_red('ERROR saving final survey --> ' + str(e))
+				return None
+		return True
+
+
+
+	def mark_bookmarked(self, talks):
+		for t in talks:
+			t['is_bookmarked'] = True if t['id'] in self.bookmarks_eval else False
+		return talks
+
+
+	def filter_out_bookmarked(self, talks):
+		return [t for t in talks if t['id'] not in self.bookmarks_eval]
+			
+		
 
 
 

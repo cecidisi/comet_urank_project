@@ -15,11 +15,11 @@
 <body>
         
     <header>
-        <div class="logo">Questionnaire Task #{{task}}</div>
+        <div class="logo">Final Survey</div>
         <div class="right-aligned">
             <div class="message">Click here after answering all questions </div>
             <i class="fa fa-arrow-right" aria-hidden="true"></i>
-            <input type="button" class="btn btn-primary" id="btn-done-questions" value="Done"/>
+            <input type="button" class="btn btn-primary" id="btn-done-final" value="Done"/>
         </div>        
     </header>
 
@@ -33,15 +33,16 @@
                             <label for=question-{{q.num}} class="question-text">
                                 {{q.num}}. {{q.text}}
                             </label>
-                            <label class="min_max">{{q.min_label}}</label>
-                            <div class="btn-group question-item" name="question-{{q.id}}" data-toggle="buttons">
-                                {% for point in likert %}
-                                    <label class="btn btn-default">
-                                        <input type="radio" value="{{point}}"> {{point}}
+                            <!-- <div class="btn-group question-item" name="question-{{q.id}}" data-toggle="buttons"> -->
+                            <div class="radio-btn-group" name="question-{{q.id}}">
+                                {% for val in values %}
+                                    <!-- <label class="btn btn-default"> -->
+                                    <label>
+                                        <input name="question-{{q.id}}" type="radio" value="{{val.key}}"> {{val.desc}}
                                     </label>
                                 {% endfor %}
                             </div>
-                            <label class="min_max">{{q.max_label}}</label>
+                            
                         </div>
                     {% endfor %}
                     <!-- <input type="submit" class="btn btn-primary" id="btn-done" value="Submit"/> -->

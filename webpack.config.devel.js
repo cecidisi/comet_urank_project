@@ -10,11 +10,10 @@ module.exports = {
 
   entry: {
     vendor : './assets/vendor',
-    // plugins : './assets/plugins',
     main_comet : './assets/main_comet',
     main_conf_nav: './assets/main_conf_nav',
     main_conf_nav_eval: './assets/main_conf_nav_eval',
-    conf_nav_eval_questions: './assets/conf_nav_eval_questions'
+    conf_nav_eval_general: './assets/conf_nav_eval_general'
   },
 
   output: {

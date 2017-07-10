@@ -80,25 +80,36 @@ class BookmarkEval(models.Model):
 
 
 class QuestionItem(models.Model):
-	id = models.IntegerField(primary_key=True)
+	num = models.IntegerField(default=1)
 	text = models.TextField()
-	min_label = models.CharField(max_length=200, default='')
-	max_label = models.CharField(max_length=200, default='')
+	type = models.CharField(max_length=150,
+		choices=(('post-task', 'post-study'), ('post-task', 'post-study')),
+        default='post-task')
+	min_label = models.CharField(max_length=200, default='', null=True)
+	max_label = models.CharField(max_length=200, default='', null=True)
 
 	class Meta:
 		db_table = 'question_item'
 
 
+# Answers post-task questions
 class AnswerItem(models.Model):
 	value = models.IntegerField()
 	question = models.ForeignKey(QuestionItem, on_delete=models.CASCADE, default='', related_name='answers')
+	task = models.ForeignKey(Task, on_delete=models.CASCADE, default='', related_name='answers')
 	user = models.ForeignKey(UserEval, on_delete=models.CASCADE, default='', related_name='answers')
 
 	class Meta:
 		db_table = 'answer_item'
 
+# Answers for final survey
+class FinalSurveyItem(models.Model):
+	choice = models.CharField(max_length=100)
+	question = models.ForeignKey(QuestionItem, on_delete=models.CASCADE, default='', related_name='final_survey_items')
+	user = models.ForeignKey(UserEval, on_delete=models.CASCADE, default='', related_name='final_survey_items')
 
-
+	class Meta:
+		db_table = 'final_survey_item'
 
 
 
