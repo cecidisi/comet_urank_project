@@ -17,3 +17,8 @@ class EvalSettingSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = EvalSetting
 		fields = ('id', 'date', 'ltsq')
+
+class QuestionItemSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = QuestionItem
+		fields = '__all__'

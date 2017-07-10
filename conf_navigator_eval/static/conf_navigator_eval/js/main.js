@@ -43,10 +43,14 @@ module.exports = (function(){
                 action = logger.action.documentUnbookmarked;
             }
             console.log('Pos in main = ' + pos);
-            console.log(bookmarks);
+            // console.log(bookmarks);
             // log action
             logger.log({ 'action': action, 'pos': pos, 'id': obj.id, 'description': obj.title })
         },
+        onRatingClicked: function(documentId, index, rating) {
+            bookmarks[bookmarks.length - 1].rating = rating;
+            console.log(bookmarks);
+        }
 
 
     }
@@ -62,6 +66,7 @@ module.exports = (function(){
         var elapsedTime = logger.getElapsedTime();
         server.submitTask({ 
             action_logs: logs,
+            bookmarks: bookmarks,
             elapsed_time: elapsedTime
         });
     });

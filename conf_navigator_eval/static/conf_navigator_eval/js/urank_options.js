@@ -48,6 +48,21 @@ var default_options = {
     tagBox: {
 
     },
+    docViewer: {
+        attrToShow: [{
+            attr: 'author_list', label: 'Authors'
+        },{
+            attr: 'content_type', label: 'Type'
+        },{
+            attr: 'session.name', label: 'Session'
+        },{
+            attr: 'date', label: 'Date', style: 'inline'
+        },{
+            attr: 'begin_time', label: 'Begin Time', style: 'inline'
+        },{
+            attr: 'end_time', label: 'End Time', style: 'inline'
+        }] 
+    },
     rankingRepresentation: {
         split_by: 'rs'                  // rs || feature
     }

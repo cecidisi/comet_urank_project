@@ -14,6 +14,7 @@ class UserEval(models.Model):
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=400)
     username = models.CharField(max_length=400, null=True)
+    email = models.TextField(default='')
     type = models.CharField(max_length=100, 
         choices=(('original', 'original'), ('added', 'added')),
         default='original'
@@ -64,6 +65,39 @@ class LoggedAction(models.Model):
 
 	class Meta:
 		db_table = 'logged_action'
+
+
+class BookmarkEval(models.Model):
+	pos = models.IntegerField()
+	rating = models.IntegerField()
+	talk_id = models.IntegerField()
+	talk_title = models.TextField()
+	task = models.ForeignKey(Task, on_delete=models.CASCADE, default='', related_name = 'bookmarks_eval')
+	# user = models.ForeignKey(UserEval, on_delete=models.CASCADE, default='', related_name='bookmarks_eval')
+	
+	class Meta:
+		db_table = 'bookmark_eval'
+
+
+class QuestionItem(models.Model):
+	id = models.IntegerField(primary_key=True)
+	text = models.TextField()
+
+	class Meta:
+		db_table = 'question_item'
+
+
+class AnswerItem(models.Model):
+	value = models.IntegerField()
+	question = models.ForeignKey(QuestionItem, on_delete=models.CASCADE, default='', related_name='answers')
+	user = models.ForeignKey(UserEval, on_delete=models.CASCADE, default='', related_name='answers')
+
+	class Meta:
+		db_table = 'answer_item'
+
+
+
+
 
 
 

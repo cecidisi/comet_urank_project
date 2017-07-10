@@ -1,6 +1,7 @@
 
 import httplib2
 from bs4 import BeautifulSoup as bs
+from conf_navigator_eval.models import UserEval
 
 login_url = "http://halley.exp.sis.pitt.edu/cn3mobile/authenticateUser.jsp?email=[email]&password=[password]"
 # session_key = 'confnav'
@@ -8,13 +9,13 @@ login_url = "http://halley.exp.sis.pitt.edu/cn3mobile/authenticateUser.jsp?email
 class Auth:
 
 	@classmethod
-	def login(cls, email, password):
+	def login(cls, email, password=None):
 		url = login_url.replace('[email]', email).replace('[password]', password)
 		h = httplib2.Http()
 		resp, content = h.request(url, method="GET")
 		soup = bs(content, 'xml')
 		status = soup.find('status').get_text()
-		# print str(status).replace('<status>', '').replace('</status>', '')
+		# Autheticate with API
 		if status == "OK":
 			user =  {
 				'UserID': soup.find('UserID').get_text(),
@@ -26,17 +27,20 @@ class Auth:
 			}
 			print 'Logged in user: ' + user['name']
 			return user
+		else:
+			print 'HERE'
+			ueval = UserEval.objects.filter(email=email)
+			if len(ueval):
+				u = ueval[0]
+				user =  {
+					'UserID': u.pk,
+					'name': u.name,
+					'username': u.username,
+					'email': u.email
+				}
+				print user
+				return user
+
 		return False
-
-	# @classmethod 
-	# def set_session(cls, session_data):
-	# 	request.session[session_key] = session_data
-
-
-	# @classmethod
-	# def validate(cls, request):
-	# 	if session_key in request.session:
-	# 		return True
-	# 	return False
 
 

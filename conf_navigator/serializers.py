@@ -44,21 +44,28 @@ class TalkKeywordStrSerializer(serializers.ModelSerializer):
         fields = ('keyword_str',)
 
 
+class SessionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Session
+        fields = ('id', 'name')
+
 
 class TalkSerializer(serializers.ModelSerializer):
+    session = SessionSerializer(read_only=True)
     keywords_str = TalkKeywordStrSerializer(read_only=True)
 
     @classmethod
     def setup_eager_loading(cls, queryset):
         """ Perform necessary eager loading of data. """
+        queryset = queryset.prefetch_related('session')
         queryset = queryset.prefetch_related('keywords_str')
         return queryset
 
     class Meta:
         model = Talk
-        fields = ('id', 'title', 'abstract', 'content_type', 'author_list', 'keywords_str')
-        # fields = ('id', 'title', 'abstract', 'content_type', 'author_list')
-
+        fields = ('id', 'title', 'abstract', 'content_type', 'author_list', 'date', 'begin_time', 'end_time', 
+            'keywords_str', 'session')
+    
 
 
 class TalkKeyphraseSerilizer(serializers.ModelSerializer):

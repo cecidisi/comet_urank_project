@@ -72,7 +72,8 @@ var ContentList = (function() {
                 onItemMouseLeave: function(documentId, index){},
                 onFaviconClicked: function(documentId, indext){},
                 onWatchiconClicked: function(documentId, index){},
-                onScroll: function(caller, scrollTop){}
+                onScroll: function(caller, scrollTop){},
+                onRatingClicked: function(documentId, index, rating){}
             }
         }, params);
 
@@ -582,10 +583,53 @@ var ContentList = (function() {
 
     var _toggleFavicon = function(id, index, state){
         //var favIcon = $(liItem + '' + id).find(' .' + faviconClass);
-        var favIcon = $('.'+liClass+'['+urankIdAttr+'="'+id+'"]').find(' .' + faviconClass);
+        var $favIcon = $('.'+liClass+'['+urankIdAttr+'="'+id+'"]').find(' .' + faviconClass);
         var classToAdd = state === 'on' ? onClass : offClass;
-        var classToRemove = classToAdd === onClass ? offClass : onClass;
-        favIcon.switchClass(classToRemove, classToAdd);
+        var classToRemove = state === 'on' ? offClass : onClass;
+        $favIcon.switchClass(classToRemove, classToAdd);
+
+        if(state === 'on') {
+            // background
+            $bgCover = $('<div/>', { class: 'bg-cover' }).appendTo($('body'));
+            var top = $favIcon.offset().top;
+            var left = $favIcon.offset().left;
+            console.log(top + ' - ' + left);
+            var $rating = $('<div/>', { class: 'tooltip-rating'}).appendTo($('body'));
+            $rating.css({
+                top: (parseInt(top) - 76) + 'px', 
+                left: parseInt(left) + 15 + 'px'
+            });
+            // .appendTo($favIcon.parent());
+            $('<div/>', { class: 'rating-message', html: Globals.LEGENDS.rating }).appendTo($rating);
+            var $starContainer = $('<div/>', { class: 'star-container' }).appendTo($rating);
+            // append stars
+            for(i = 1; i <= 5; i++) {
+                var $star = $('<div/>', { class: 'star', id: 'star-'+i, pos: i }).appendTo($starContainer);
+                $star.on({
+                    mouseover: function(evt) {
+                        evt.stopPropagation();
+                        var pos = parseInt($(this).attr('pos'));
+                        for(j=1; j<=pos; j++) {
+                            $('#star-'+j).addClass('hovered');
+                        }
+                    },
+                    mouseleave: function(evt) {
+                        evt.stopPropagation();
+                        $('.star').removeClass('hovered');
+                    },
+                    click : function(evt) {
+                        evt.stopPropagation();
+                        var rating = parseInt($(this).attr('pos'));
+                        s.cb.onRatingClicked(id, index, rating)
+
+                        setTimeout(function(){
+                            $bgCover.remove();
+                            $rating.remove();
+                        }, 800);
+                    }
+                })
+            }
+        }
     };
 
 

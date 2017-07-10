@@ -19,8 +19,8 @@ module.exports = {
 
   output: {
       path: path.resolve('./assets/bundles/'),
-      publicPath: '/static/bundles/',
-      // publicPath: 'http://localhost:8080/assets/bundles/', // Tell django to use this URL to load packages and not use STATIC_URL + bundle_name
+      // publicPath: '/static/bundles/',
+      publicPath: 'http://localhost:8080/assets/bundles/', // Tell django to use this URL to load packages and not use STATIC_URL + bundle_name
       filename: "[name]-[hash].js",
   },
 
@@ -29,31 +29,31 @@ module.exports = {
   module: {
     loaders: [    
       /* Generates separate css files */
-      {
-          test: /\.css$/,
-          use: ExtractTextPlugin.extract({
-            use: "css-loader",
-            fallback: "style-loader",
-            allChunks: true
-          })
-      },
-      {
-          test: /\.scss$/,
-          use: ExtractTextPlugin.extract({
-            use: "css-loader!sass-loader",
-            fallback: "style-loader",
-            allChunks: true
-          })
-      },
+      // {
+      //     test: /\.css$/,
+      //     use: ExtractTextPlugin.extract({
+      //       use: "css-loader",
+      //       fallback: "style-loader",
+      //       allChunks: true
+      //     })
+      // },
+      // {
+      //     test: /\.scss$/,
+      //     use: ExtractTextPlugin.extract({
+      //       use: "css-loader!sass-loader",
+      //       fallback: "style-loader",
+      //       allChunks: true
+      //     })
+      // },
       /*  Style embedded in js (for debugging) */
-      // {
-      //   test: /\.css$/,
-      //   loader:  'style-loader!css-loader?sourceMap'
-      // },
-      // {
-      //   test: /\.scss$/,
-      //   loader:  'style-loader!css-loader?sourceMap!sass-loader?sourceMap'
-      // },
+      {
+        test: /\.css$/,
+        loader:  'style-loader!css-loader?sourceMap'
+      },
+      {
+        test: /\.scss$/,
+        loader:  'style-loader!css-loader?sourceMap!sass-loader?sourceMap'
+      },
 
       { 
         test: /\.(jpe?g|png|gif)$/i, 

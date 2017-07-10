@@ -7,10 +7,7 @@
     {% load render_bundle from webpack_loader %}
 
     {% block css %}
-        <!-- <link rel="stylesheet" type="text/css" href="{% static 'comet_urank/css/style.css' %}" />
-        <link rel="stylesheet" type="text/css" href="{% static 'plugins/urank/css/urank.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'plugins/urank/css/urank-blocks-default.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'plugins/urank/css/vis-ranking.css' %}"> -->
+
     {% endblock %}
 </head>
 
@@ -18,14 +15,44 @@
 <body>
         
     <header>
-        <div class="logo">Questionnaire</div>
+        <div class="logo">Questionnaire Task #{{task}}</div>
         <div class="right-aligned">
-            <div class="message">Click here when you finish the task </div>
+            <div class="message">Click here after answering all questions </div>
             <i class="fa fa-arrow-right" aria-hidden="true"></i>
             <input type="button" class="btn btn-primary" id="btn-done" value="Done"/>
+        </div>        
+    </header>
+
+    <div class="container">
+        <div class="row">
+            <div class="question-container col-lg-6 col-lg-offset-3"> 
+                <!-- <form action="POST", action="/cn-urank-eval/submit-task/"> -->
+                <form action="POST">
+                    {% for q in questions %}
+                        <div class="form-group">                    
+                            <label for=question-{{q.id}} class="question-text">
+                                {{q.id}}. {{q.text}}
+                            </label>
+                            <div class="btn-group question-item" name="question-{{q.id}}" data-toggle="buttons">
+                                {% for point in likert %}
+                                    <label class="btn btn-default">
+                                        <input type="radio" value="{{point}}"> {{point}}
+                                    </label>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <!-- <input type="submit" class="btn btn-primary" id="btn-done" value="Submit"/> -->
+
+                </form>    
+            </div>
+            
         </div>
         
-    </header>
+        
+
+    </div>
+
 
 
     {% render_bundle 'vendor' %}

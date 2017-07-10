@@ -49,6 +49,7 @@ def login(request):
         # Login with conference navigator, if OK  set session and go to urank
         user = Auth.login(email, password)
         if user:
+            request.session.flush()
             request.session['eventID'] = eventID
             request.session['user'] = user
             tm.set_user(user['UserID'])
@@ -96,17 +97,33 @@ def index(request, task=1):
     **************      EVALUATION     *****************
 '''
 
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 def questions(request, task=1):
-    template = loader.get_template('conf_navigator_eval/questions.html')
-    return HttpResponse(template.render({}, request))
+    if request.method == 'GET':
+        template = loader.get_template('conf_navigator_eval/questions.html')
+        questions = tm.get_questions()
+        context = {
+            'task': request.session['cur_task'],
+            'questions': questions,
+            'likert': [1,2,3,4,5,6,7]
+        }
+        return HttpResponse(template.render(context, request))
+    else:
+        print request.POST['question-1']
+        # params = json.loads(request.body.decode("utf-8"))
+    
+        return Response({})
+
+
 
 
 @api_view(['POST'])
 @csrf_exempt 
 def submit_questions(request):
-    params = json.loads(request.body.decode("utf-8"))
-    return Response({})
+    values = json.loads(request.body)['values']
+    if tm.save_questions(values):
+        return Response({ 'results': 'OK' })
+    return Response({}, status = status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 

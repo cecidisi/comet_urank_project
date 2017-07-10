@@ -10,6 +10,7 @@ class TaskManager:
 		self.user = None
 		self.ltsq = None
 		self.cur_task = 1
+		self.questions = []
 
 	def clear(self):
 		self.cur_task = 1
@@ -23,7 +24,8 @@ class TaskManager:
 			self.user = user
 			print_blue('Set user in task mananager ID = ' + str(self.user.pk) + ' NAME = ' + self.user.name)
 		except Exception, e:
-			print_red('ERROR --> ' +str(e))
+			print_red('ERROR in set_user --> ' + user_id)
+			print_red(str(e))
 
 
 
@@ -51,6 +53,7 @@ class TaskManager:
 
 	def save_task(self, params):
 		action_logs = params['action_logs']
+		bookmarks = params['bookmarks']
 		elapsed_time = params['elapsed_time']
 		
 		# save eval settings
@@ -61,7 +64,8 @@ class TaskManager:
 			eval_settings = EvalSetting(user = self.user, ltsq = self.ltsq)
 			eval_settings.save()
 		except Exception, e:
-			print_red('ERROR --> ' +str(e))
+			print_red('ERROR saving Eval Setting --> ' +str(e))
+			print self.user
 			return None
 
 		# save task
@@ -74,10 +78,10 @@ class TaskManager:
 			)
 			task.save()
 		except Exception, e:
-			print_red('ERROR --> ' +str(e))
+			print_red('ERROR saving Task --> ' +str(e))
 			return None
 		
-		# saved logged actions
+		# save logged actions
 		for log in action_logs:
 			try:
 				action_log = LoggedAction(
@@ -91,10 +95,56 @@ class TaskManager:
 				)
 				action_log.save()
 			except Exception, e:
-				print_red('ERROR --> ' +str(e))
+				print_red('ERROR saving LoggedAction --> ' +str(e))
+				return None
+
+		# save bookmarks eval
+		for b in bookmarks:
+			try:
+				bm_eval = BookmarkEval(
+					pos = b['pos'],
+					rating = b['rating'],
+					talk_id = b['id'],
+					talk_title = b['title'],
+					task = task
+					# user = self.user
+				)
+				bm_eval.save()
+			except Exception, e:
+				print_red('ERROR saving BookmarkEval --> ' + str(e))
 				return None
 
 		return True
+
+
+
+	def get_questions(self):
+		self.questions = QuestionItem.objects.all().order_by('id')
+		return QuestionItemSerializer(self.questions, many=True).data
+
+
+
+	def save_questions(self, values):
+		for idx, val in enumerate(values):
+			try: 
+				answer = AnswerItem(
+					value = int(val),
+					question = self.questions[idx],
+					user = self.user
+				)
+				answer.save()
+				print 'Saved value = ' + str(answer.value) +' for question '+ self.questions[idx].text
+			except Exception, e:
+				print_red('ERROR saving answers --> ' + str(e))
+				return None
+		return True
+
+
+
+
+
+
+
 
 
 			

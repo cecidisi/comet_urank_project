@@ -18,10 +18,10 @@ class Event(models.Model):
 class Session(models.Model):
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=400)
-    date = models.DateField(blank=True, null=True,default=datetime.date.today)
-    start_time = models.TimeField()
-    end_time = models.TimeField()
-    location = models.CharField(max_length=400)
+    date = models.DateField(blank=True, null=True, default=datetime.date.today)
+    start_time = models.TimeField(null=True)
+    end_time = models.TimeField(null=True)
+    location = models.CharField(max_length=400, null=True)
     event = models.ForeignKey(Event, on_delete=models.CASCADE, default='', related_name='sessions')
 
     class Meta:

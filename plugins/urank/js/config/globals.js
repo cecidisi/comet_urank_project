@@ -25,6 +25,10 @@ var Globals  = {
         watched: 'watching document',
         unwatched: 'document unwatched',
         mode: 'ranking mode changed'
+    },
+
+    LEGENDS: {
+        rating: 'How would you rate this item?'
     }
 };
 

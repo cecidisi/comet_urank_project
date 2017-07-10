@@ -248,6 +248,9 @@ var Urank = (function() {
         onReset: function(event) {
             if(event) event.stopPropagation();
             URANK.reset();
+        },
+        onRatingClicked: function(documentId, index, rating){
+            callbacks.onRatingClicked.call(this, documentId, index, rating);
         }
     };
 
@@ -269,7 +272,8 @@ var Urank = (function() {
                         onItemMouseLeave: EVTHANDLER.onItemMouseLeave,
                         onFaviconClicked: EVTHANDLER.onFaviconClicked,
                         onWatchiconClicked: EVTHANDLER.onWatchiconClicked,
-                        onScroll: EVTHANDLER.onParallelBlockScrolled
+                        onScroll: EVTHANDLER.onParallelBlockScrolled,
+                        onRatingClicked: EVTHANDLER.onRatingClicked
                     }
                 },
 

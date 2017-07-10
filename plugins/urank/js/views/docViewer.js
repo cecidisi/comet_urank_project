@@ -80,11 +80,15 @@ var DocViewer = (function(){
         // $('<label/>').appendTo($authorSection).html('Author:');
         // $('<span/>', { id: 'urank-docviewer-details-author' }).appendTo($authorSection);
 
-        // s.options.attrToShow.forEach(function(facetName){
-        //     var $fieldContainer = $('<div></div>').appendTo($detailsSection);
-        //     $("<label>" + facetName.capitalizeFirstLetter() + ":</label>").appendTo($fieldContainer);
-        //     $("<span id='urank-docviewer-details-" + facetName + "'></span>").appendTo($fieldContainer);
-        // });
+        s.options.attrToShow.forEach(function(field){
+            var field_name = field.attr.replace('.', '-')
+            var $fieldContainer = $('<div/>').appendTo($detailsSection);
+            if (field.style ) {
+                $fieldContainer.addClass(field.style)
+            }
+            $("<label id='label-'" + field_name + ">" + field.label + ":</label>").appendTo($fieldContainer);
+            $("<span id='details-" + field_name + "'></span>").appendTo($fieldContainer);
+        });
 
         // Append content section for snippet placeholder
         $contentSectionOuter = $('<div></div>').appendTo($container).addClass(contentSectionOuterClass);
@@ -98,15 +102,15 @@ var DocViewer = (function(){
     };
 
 
-    var addField = function(field, value){
-        var $fieldContainer = $('<div></div>').appendTo($detailsSection);
-        $("<label>" + field.pretty + ":</label>").appendTo($fieldContainer);
-        if(field.type === 'url') {
-            value = "<a href='" + value +"'>" + value.substr(0,30) + "...</a>";
-        } else if(field.type === 'date') {
-            value = value;
+    var addField = function(field, doc){
+        var field_name = field.attr.replace('.', '-')
+        var attrs = field.attr.split('.')
+        var value = doc[attrs[0]]
+        for(var j=1; j < attrs.length; j++) {
+            value = value[attrs[j]]
         }
-        $("<span id='urank-docviewer-details-" + field.name + "'>" + value + "</span>").appendTo($fieldContainer);
+        $("#label-" + field_name).html(field.label);
+        $("#details-" + field_name).html(value);
     };
 
     /**
@@ -122,10 +126,10 @@ var DocViewer = (function(){
         $(detailItemIdPrefix + 'title').html(doc[s.attr.title]);
         // $(detailItemIdPrefix + 'title').html(getStyledText(doc[s.attr.title], keywords, colorScale));
         // $(detailItemIdPrefix + 'author').html(doc.creator);
-        // var facets = (s.options && s.options.attrToShow) ? s.options.attrToShow : [];
-        // facets.forEach(function(facet){
-        //     $(detailItemIdPrefix + '' + facet).html(doc.facets[facet]);
-        // });
+        var fields = (s.options && s.options.attrToShow) ? s.options.attrToShow : [];
+        fields.forEach(function(field){
+            addField(field, doc)
+        });
 
         $contentSection.empty();
         // var $p = $('<p></p>').appendTo($contentSection).html(getStyledText(doc[s.attr.description], keywords, colorScale));

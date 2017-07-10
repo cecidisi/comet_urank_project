@@ -219,7 +219,8 @@ var Config = {
         onTagFrequencyChanged: function(min, max){},
         onKeywordEntered: function(term){},
         onDocViewerHidden: function(){},
-        onReset: function(){}
+        onReset: function(){},
+        onRatingClicked: function(documentId, index, rating){}
     }    
 };
 

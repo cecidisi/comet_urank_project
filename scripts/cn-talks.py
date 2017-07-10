@@ -12,13 +12,18 @@ import urllib2
 from bs4 import BeautifulSoup as bs
 from bs4 import UnicodeDammit
 from conf_navigator.models import *
+from conf_navigator.classes.bcolors import *
 import datetime
 import json
 import unicodedata
 
 
 def get_date(date):
-	return datetime.datetime.strptime(date, "%m-%d-%Y")
+	try:
+		return datetime.datetime.strptime(date, "%m-%d-%Y")
+	except Exception, e:
+		print str(e)
+		return None
 
 
 def clean_text(text):
@@ -41,10 +46,10 @@ def process_papers(papers):
 		session, created = Session.objects.get_or_create(
 			id = item.find('eventSessionID').get_text(),
 			name = item.find('sessionName').get_text(),
-			date = get_date(item.find('sessionDate').get_text()),
-			start_time = item.find('sessionStartTime').get_text(),
-			end_time = item.find('sessionEndTime').get_text(),
-			location = item.find('location').get_text(),
+			date = get_date(item.find('sessionDate').get_text()) if item.find('sessionDate') else None,
+			start_time = item.find('sessionStartTime').get_text() if item.find('sessionStartTime') else None,
+			end_time = item.find('sessionEndTime').get_text() if item.find('sessionEndTime') else None,
+			location = item.find('location').get_text() if item.find('location') else None,
 			event = event
 		)
 		if created:
@@ -55,21 +60,25 @@ def process_papers(papers):
 		abstract = clean_text(item.find('paperAbstract').get_text())
 		
 		if content_type != 'no-paper':
-			talk = Talk.objects.create(
-				id = item.find('contentID').get_text(),
-				title =  title,
-				abstract = abstract,
-				content_type = item.find('contentType').get_text(),
-				author_list = item.find('authors').get_text() if item.find('authors') else '', 
-				address = item.find('address').get_text() if item.find('address') else '',
-				presentation_id = item.find('presentationID').get_text() if item.find('presentationID') else None,
-				date = get_date(item.find('paperDate').get_text()) if item.find('paperDate') else None,
-				begin_time = item.find('begintime').get_text() if item.find('begintime') else None,
-				end_time = item.find('endtime').get_text() if item.find('endtime') else None,
-				event = event,
-				session = session
-			)
-			print '* Saved talk #'+ str(talk.pk)+' --> ' + talk.title
+			try:
+				talk = Talk.objects.create(
+					id = item.find('contentID').get_text(),
+					title =  title,
+					abstract = abstract,
+					content_type = item.find('contentType').get_text(),
+					author_list = item.find('authors').get_text() if item.find('authors') else '', 
+					address = item.find('address').get_text() if item.find('address') else '',
+					presentation_id = item.find('presentationID').get_text() if item.find('presentationID') else None,
+					date = get_date(item.find('paperDate').get_text()) if item.find('paperDate') else None,
+					begin_time = item.find('begintime').get_text() if item.find('begintime') else None,
+					end_time = item.find('endtime').get_text() if item.find('endtime') else None,
+					event = event,
+					session = session
+				)
+				print '* Saved talk #'+ str(talk.pk)+' --> ' + talk.title
+			except Exception, e:
+				print_red(str(session.pk))
+				print_red(str(e))
 
 			# Link talk to each author. If author not exist, create w/ type = 'added'
 			# talk.authors.clear()
