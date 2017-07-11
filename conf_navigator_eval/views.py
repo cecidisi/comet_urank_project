@@ -21,7 +21,7 @@ from conf_navigator.models import *
 from conf_navigator.serializers import *
 from conf_navigator.classes.urank_handler import *
 from conf_navigator.classes.db_connector import *
-from conf_navigator.classes.authentication import *
+from conf_navigator.classes.cn_connector import *
 from conf_navigator.classes.bcolors import *
 
 from .classes.task_manager import *
@@ -51,7 +51,7 @@ def login(request):
         email = request.POST['email']
         password = request.POST['password']
         # Login with conference navigator, if OK  set session and go to urank
-        user = Auth.login(email, password)
+        user = CN_connector.login(email, password)
         if user:
             request.session.flush()
             request.session['eventID'] = eventID
@@ -208,6 +208,7 @@ def submit_final_survey(request):
     return Response({}, status = status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
+
 # Finish View
 @api_view(['GET'])
 def finish_task(request):
@@ -215,6 +216,27 @@ def finish_task(request):
     template = loader.get_template('conf_navigator_eval/finish.html')
     print_blue('Finished Task')
     return HttpResponse(template.render({}, request))
+
+
+
+# Bookmark in CN
+@api_view(['GET'])
+def bookmark_cn(request, content_id):
+    userid = request.session['user']['UserID']
+    if CN_connector.bookmark(userid, content_id):
+        return Response({ 'results': 'OK' })
+    return Response({}, status = status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+
+# Unbookmark in CN
+@api_view(['GET'])
+def unbookmark_cn(request, content_id):
+    userid = request.session['user']['UserID']
+    if CN_connector.unbookmark(userid, content_id):
+        return Response({ 'results': 'OK' })
+    return Response({}, status = status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
 
 '''

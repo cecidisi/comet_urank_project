@@ -9,7 +9,7 @@ var ActionLogger = (function(){
         this.action = {
             // urank
             tagHovered: 'tag hovered',
-            tagClicked: 'tag clicked',
+            tagSelected: 'tag selected',
             tagDropped: 'tag dropped',
             tagWeightChanged: 'tag weight changed',
             tagDeleted: 'tag deleted',

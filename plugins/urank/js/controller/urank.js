@@ -31,13 +31,12 @@ var Urank = (function() {
             // { type: 'keyword', id: id, index: index, color: color, weight: 1 };
             views.tagBox.appendTag(tag);
             views.tagCloud.updateClonOfDroppedTag(index, id, tag_color);
-            _this.selectedKeywords.push(tag);
             _this.selectedFeatures.keywords.push(tag);
             
-            if(!is_multiple) {
-                URANK.update(_this.selectedFeatures);
-                // callbacks.onTagSelected.call(this, droppedTags, dropMode);
-            }
+            // if(!is_multiple) {
+            URANK.update(_this.selectedFeatures);
+            callbacks.onTagSelected.call(this, tag);
+            // }
         },
         onMultipleTagsSelected: function(tags_arr) {
             // var droppedTags = []
@@ -135,6 +134,7 @@ var Urank = (function() {
             views.neighborsCloud.selectNeighborTag(index, id, tag_color);
             views.tagBox.appendTag(neighbortag);
             URANK.update(_this.selectedFeatures);
+            callbacks.onTagSelected.call(this, neighbortag);
         },
         onNeighborTagMouseEnter: function(index, id) {
             views.neighborsCloud.onNeighborTagMouseEnter(index, id);
@@ -254,6 +254,7 @@ var Urank = (function() {
             if(event) event.stopPropagation();
             URANK.reset();
         },
+
         onRatingClicked: function(documentId, index, rating){
             callbacks.onRatingClicked.call(this, documentId, index, rating);
         }
@@ -453,6 +454,16 @@ var Urank = (function() {
             _this.selectedFeatures = _selectedFeatures
             selectedId = undefined;
             console.log(rankingConf);
+
+            var emptyFeat = true;
+            for(var feature in _this.selectedFeatures) {
+                if(_this.selectedFeatures[feature].length){
+                    emptyFeat = false;
+                }
+            }
+            if(emptyFeat) {
+                return URANK.reset();
+            }
             // Update ranking config
             var params = {
                 rs_conf: rankingConf,
@@ -512,11 +523,22 @@ var Urank = (function() {
             //tagCloud.reset();
             views.visCanvas.reset();
             views.docViewer.clear();
-            _this.selectedFeatures.keywords.forEach(function(kw, i){
-                setTimeout(function(){
-                    views.tagCloud.restoreTag(kw.index);
-                }, (i+1)*50);
-            });
+            for(var feature in _this.selectedFeatures){
+                _this.selectedFeatures[feature].forEach(function(tag, i){
+                    setTimeout(function(){
+                        if(feature === 'keywords') {
+                            views.tagCloud.restoreTag(tag.index, tag.id);    
+                        } else if(feature === 'neighbors') {
+                            views.neighborsCloud.restoreTag(tag.index, tag.id)
+                        } else if (feature === 'usertags') {
+                            views.usertagBox.restoreTag(tag.index, tag.id);
+                        }
+                        views.tagBox.deleteTag(tag);
+                        
+                    }, (i+1)*50);
+                });    
+            }
+            
             // _this.selectedKeywords = [];
             _this.selectedFeatures.keywords = [];
             callbacks.onReset.call(this);

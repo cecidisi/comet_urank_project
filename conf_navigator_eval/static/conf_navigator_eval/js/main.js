@@ -35,12 +35,15 @@ module.exports = (function(){
                 bookmarks.push({ 'id': obj.id, 'pos': pos, 'title': obj.title });
                 // assign action
                 action = logger.action.documentBookmarked;
-                // call server
+                // call server to bookmark in CN
+                server.bookmarkCN(obj.id);
             } else {
                 var idx = _.findIndex(bookmarks, function(bm){ return bm.id === obj.id });
                 bookmarks.splice(idx, 1);
                 // assign action
                 action = logger.action.documentUnbookmarked;
+                // call server to unbookmark in CN
+                server.unbookmarkCN(obj.id);
             }
             console.log('Pos in main = ' + pos);
             // console.log(bookmarks);
@@ -50,6 +53,24 @@ module.exports = (function(){
         onRatingClicked: function(documentId, index, rating) {
             bookmarks[bookmarks.length - 1].rating = rating;
             console.log(bookmarks);
+        },
+        onTagSelected: function(tag){
+            var action = logger.action.tagSelected;
+            var obj = { 'action': action, 'pos': parseInt(tag.index)+1, 'id': tag.id, 'description': tag.type+'-'+tag.name }
+            console.log(obj);
+            logger.log(obj);
+        },
+        onTagWeightChanged: function(tag){
+            var action = logger.action.tagWeightChanged;
+            var obj = { 'action': action, 'pos': parseInt(tag.index)+1, 'id': tag.id, 'description': tag.type+'-'+tag.name+'-'+tag.weight }
+            console.log(obj);
+            logger.log(obj);
+        },
+        onTagDeleted: function(tag){
+            var action = logger.action.tagDeleted;
+            var obj = { 'action': action, 'pos': parseInt(tag.index)+1, 'id': tag.id, 'description': tag.type+'-'+tag.name }
+            console.log(obj);
+            logger.log(obj);
         }
 
 

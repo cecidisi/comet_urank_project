@@ -91,11 +91,10 @@ var Ranking = (function(){
             return a;
         },
         getXUpperLimit: function(conf) {
+            if(conf.rankBy === 'overall')
+                return 1.0;
             var x_limit = conf.rs.filter(function(rs){ return rs.active }).length;
-            console.log('x limit = ' + x_limit)
-            console.log(data[0].ranking)
-            // return x_limit;
-            return 1.0;
+            return x_limit;
         }
     };
 

@@ -6,7 +6,7 @@ from conf_navigator_eval.models import UserEval
 login_url = "http://halley.exp.sis.pitt.edu/cn3mobile/authenticateUser.jsp?email=[email]&password=[password]"
 # session_key = 'confnav'
 
-class Auth:
+class CN_connector:
 
 	@classmethod
 	def login(cls, email, password=None):
@@ -40,7 +40,34 @@ class Auth:
 				}
 				print user
 				return user
-
 		return False
 
+
+
+	@classmethod
+	def bookmark(cls, user_id, content_id):
+		temp_url = 'http://halley.exp.sis.pitt.edu/cn3mobile/bookmarkPaper.jsp?userid=[userid]&contentid=[contentid]'
+		url = temp_url.replace('[userid]', user_id).replace('[contentid]', content_id)
+		h = httplib2.Http()
+		resp, content = h.request(url, method="GET")
+		soup = bs(content, 'xml')
+		print soup
+		status = soup.find('status').get_text()
+		if status == "OK":
+			return True
+		return None
+
+
+	@classmethod
+	def unbookmark(cls, user_id, content_id):
+		temp_url = 'http://halley.exp.sis.pitt.edu/cn3mobile/unbookmarkPaper.jsp?userID=[userid]&contentID=[contentid]'
+		url = temp_url.replace('[userid]', user_id).replace('[contentid]', content_id)
+		h = httplib2.Http()
+		resp, content = h.request(url, method="GET")
+		soup = bs(content, 'xml')
+		print soup
+		status = soup.find('status').get_text()
+		if status == "OK":
+			return True
+		return None
 

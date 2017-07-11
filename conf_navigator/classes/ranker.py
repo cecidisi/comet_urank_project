@@ -1,5 +1,6 @@
 from conf_navigator.classes.rs_content_based import *
 from conf_navigator.classes.rs_collaborative_filtering import *
+from conf_navigator.classes.bcolors import *
 import copy
 
 class Ranker:
@@ -108,7 +109,9 @@ class Ranker:
 			rs_idx = next(idx for (idx, c) in enumerate(conf['rs']) if c["name"] == RS)
 			conf_map[RS] = conf['rs'][rs_idx]
 		
+		print_blue('empty features = ' + str(Ranker.are_features_empty(features)))
 		if Ranker.are_features_empty(features):
+			print_blue('Returning here')
 			return self.reset()
 		#  Compute recommendation scores
 		for d in self.ranking:

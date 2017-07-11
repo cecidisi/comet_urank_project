@@ -1,14 +1,3 @@
-// var VIEWS = {
-//     VISCANVAS : {
-//         default: Ranking
-//         // ,ranking: Ranking,
-//         // detailedView: DetailedView
-//     },
-//     TAGCLOUD : {
-//         default: TagCloudDefault
-//     //    ,landscape: LandscapeTagCloud
-//     }    
-// };
 
 var Config = {
     // ROOT DOM ELEMENTS FOR EACH VIEW
@@ -207,6 +196,7 @@ var Config = {
         onItemMouseLeave: function(document){},
         onFaviconClicked: function(document){},
         onWatchiconClicked: function(document){},
+        onTagSelected: function(tag){},
         onTagInCloudMouseEnter: function(tag){},
         onTagInCloudMouseLeave: function(tag){},
         onTagInCloudClick: function(tag){},

@@ -50,11 +50,29 @@ var ServerConnector = (function(){
 		});
 	}
 
+	var bookmarkCN = function(content_id){
+		sendRrequest({
+			url: host + '/bookmark-cn/' + content_id
+		}, function(){
+			console.log('Bookmarked paper #' + content_id + ' in CN')
+		})
+	};
+
+	var unbookmarkCN = function(content_id){
+		sendRrequest({
+			url: host + '/unbookmark-cn/' + content_id
+		}, function(){
+			console.log('Unbookmarked paper #' + content_id + ' in CN')
+		})
+	}
+
 	return {
 		startFirstTask: startFirstTask,
 		submitTask: submitTask,
 		submitQuestions: submitQuestions,
-		submitFinalSurvey: submitFinalSurvey
+		submitFinalSurvey: submitFinalSurvey,
+		bookmarkCN: bookmarkCN,
+		unbookmarkCN: unbookmarkCN
 	}
 
 })();
