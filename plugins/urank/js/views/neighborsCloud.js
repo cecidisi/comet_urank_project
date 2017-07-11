@@ -1,7 +1,14 @@
 var NeighborsCloud = (function(){
 
-	var _this, $root, $neighborcloud;
+	var _this, $root, $neighborcloud, $tooltip;
 	var s;
+	var simFeat = {
+			'co_auth': 'Co-authorship', 
+			'geo_dist': 'Geographic Distance', 
+			'interest': 'Similar Interests', 
+			'pub_sim': 'Publication Similarity', 
+			'soc_ctx': 'Social Context'
+		};
 
 	function NeighborsCloud(params){
 		_this = this;
@@ -45,18 +52,37 @@ var NeighborsCloud = (function(){
 
 	}
 
+	var addTooltip = function(){
+		var top = parseInt($neighborcloud.offset().top);
+		var left = parseInt($neighborcloud.offset().left);
+		var width = parseInt($neighborcloud.width());
+
+		$tooltip = $('<div/>', { id: 'neighbor-tag-tooltip', class: 'tag-tooltip' }).appendTo($root);
+		$tooltip.css({ top: top - 120, left: left, width: width });
+		
+		$('<div/>', { class: 'title' }).appendTo($tooltip);
+		$('<div/>', { class: 'friend' }).appendTo($tooltip);
+
+		for(feat in simFeat){
+			var $feat = $('<div/>', { class: 'sim-feature' }).appendTo($tooltip);
+			$('<label/>', { html: simFeat[feat] }).appendTo($feat)
+			$('<span/>', { name: feat }).appendTo($feat);
+		}
+		$tooltip.hide();
+
+	};
+
 	var build = function(neighbors, colors){
 		this.neighbors = neighbors;
 		this.colors = colors;
 
 		$root.addClass('urank-tag-container');
 		$neighborcloud = $('<div/>', { class: 'urank-tag-container-inner' }).appendTo($root);
+		addTooltip();
 
 		this.neighbors.forEach(function(t, index) {
 			var $tag = $('<div/>', {
 				id: 'urank-neighbortag-' + t.neighbor.id,
-				// 'vtag-id': t.neighbor.id,
-				// 'vtag-pos': index,
 				'class': 'urank-tag',
 				'name': t.tag,
 				'html': t.neighbor.name
@@ -79,17 +105,37 @@ var NeighborsCloud = (function(){
 		}
 	};
 
+	var tooltipTimeout, fadeOutTimeOut;
 
 	var onNeighborTagMouseEntered = function(index, id){
 		var $tag = $('#urank-neighbortag-' + id);
 		if(!$tag.hasClass('selected'))
 			$tag.addClass('hovered');
+
+		// fill tooltip
+		tooltipTimeout = setTimeout(function(){
+			var tag = _this.neighbors[index];
+			$tooltip.find('.title').html(tag.neighbor.name);
+			var friendMsg = tag.friend ? ' Friend' : ''
+			$tooltip.find('.friend').html(friendMsg);
+			for(var feat in simFeat) {
+				$tooltip.find('[name="'+feat+'"]').html(tag[feat]);
+			}
+			$tooltip.fadeIn();
+			fadeOutTimeOut = setTimeout(function(){
+			    $tooltip.fadeOut();
+			}, 4000);
+		}, 500);
+		
 	};
 
 
 	var onNeighborTagMouseLeft = function(index, id){
 		var $tag = $('#urank-neighbortag-' + id);
 		$tag.removeClass('hovered');
+		clearTimeout(tooltipTimeout);
+        clearTimeout(fadeOutTimeOut);
+        $tooltip.hide();
 	};
 
 

@@ -91,7 +91,8 @@ class SimUserNeighborSerializer(serializers.ModelSerializer):
     neighbor = UserSerializer()
     class Meta:
         model = SimUserNeighbor
-        fields = ('neighbor', 'score')
+        fields = ('neighbor', 'score', 'co_auth', 'geo_dist', 'interest', 'pub_sim', 'soc_ctx', 'friend')
+
 
 class SimUserTalkSerializer(serializers.ModelSerializer):
     # user = UserSerializer()

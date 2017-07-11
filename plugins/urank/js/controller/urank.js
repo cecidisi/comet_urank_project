@@ -445,6 +445,7 @@ var Urank = (function() {
         loadNeighbors: function(_neighbors) {
             // TODO
             _this.neighbors = _neighbors
+            console.log(_this.neighbors[0])
             views.neighborsCloud.build(_this.neighbors, colorScales.neighbor)
         },
 
