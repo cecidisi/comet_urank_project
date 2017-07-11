@@ -94,7 +94,7 @@ var Config = {
         tagStyle: 'word',               // word || badge
         highlight: 'background',        // body || background
         minFontSize : 12,               // in px    
-        fontSizeGrowth: 0.025           // minFontSize + fontSizeGrowth * keyword.score (df) 
+        fontSizeGrowth: 0.1           // minFontSize + fontSizeGrowth * keyword.score (df) 
     },
     // USERTAG BOX
     usertagBox: {

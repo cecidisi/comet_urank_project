@@ -115,6 +115,7 @@ var TagCloudDefault = (function(){
                     border: '',
                 });
             } else if(s.options.tagStyle === 'word') {
+                console.log(s.options.minFontSize + s.options.fontSizeGrowth * kw.score);
                 return $tag.addClass('word').css({
                     // 'color': kw.color,
                     'color': $tag.data('originalColor'),
