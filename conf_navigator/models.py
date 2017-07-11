@@ -172,6 +172,7 @@ class SimUserNeighbor(models.Model):
     interest = models.FloatField(null=True)
     geo_dist= models.FloatField(null=True)
     soc_ctx = models.FloatField(null=True)
+    friend = models.FloatField(null=True)
     event = models.ForeignKey(Event, on_delete=models.CASCADE, default='', related_name='sim_user_neighbor')
 
     class Meta:
