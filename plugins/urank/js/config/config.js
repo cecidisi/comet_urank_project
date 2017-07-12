@@ -210,6 +210,7 @@ var Config = {
         onKeywordEntered: function(term){},
         onDocViewerHidden: function(){},
         onReset: function(){},
+        onRankingWeightChanged: function(rsWeight){},
         onRatingClicked: function(documentId, index, rating){}
     }    
 };

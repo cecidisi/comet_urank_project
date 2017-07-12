@@ -84,8 +84,9 @@ var NeighborsCloud = (function(){
 		this.colors = colors;
 
 		$root.addClass('urank-tag-container');
-
-		$scrollable = $('<div/>').appendTo($root).addClass('urank-hidden-scrollbar-inner')
+		$container = $('<div/>', { class: 'urank-tag-container-outer'}).appendTo($root);
+		$('<div/>', { class: 'urank-hidden-scrollbar' }).appendTo($container)
+		$scrollable = $('<div/>').appendTo($container).addClass('urank-hidden-scrollbar-inner')
             // .on('scroll', onRootScrolled);
         $neighborcloud = $('<div/>').appendTo($scrollable).addClass('urank-tag-container-inner');
 		// $neighborcloud = $('<div/>', { class: 'urank-tag-container-inner' }).appendTo($scrollable);

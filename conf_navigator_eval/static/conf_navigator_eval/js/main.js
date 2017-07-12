@@ -71,6 +71,12 @@ module.exports = (function(){
             var obj = { 'action': action, 'pos': parseInt(tag.index)+1, 'id': tag.id, 'description': tag.type+'-'+tag.name }
             console.log(obj);
             logger.log(obj);
+        },
+        onRankingWeightChanged: function(rsWeight){
+            var action = logger.action.rsWeightChanged;
+            var obj = { 'action':action, 'pos': null, 'id': null, 'description': rsWeight }
+            logger.log(obj);
+            console.log(obj);
         }
 
 

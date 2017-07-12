@@ -247,6 +247,7 @@ var Urank = (function() {
                 // rankingConf.rs.CB = parseFloat(rWeight);
                 // rankingConf.rs.CF = parseFloat(1-rWeight);
                 URANK.update(_this.selectedFeatures);
+                callbacks.onRankingWeightChanged.call(this, rWeight);
             }, 0);
         },
 

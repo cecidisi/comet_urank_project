@@ -316,32 +316,41 @@ $border: 1px solid #dfdfdf;
     @extend .bg-gradient;
 }
 
+$height_search: 0px;
+
+
+#search-area {
+    height: $height_search;
+    float: left;
+    width: 100%;
+}
+
 #tagcloud {
     float: left;
     width: 100%;
-    height: 50%;
+    height: calc(50% - #{$height_search} / 2);
 
     &.large {
-        height: 100%;
+        height: calc(100% - #{$height_search} / 2);
     }
 }
 
 #usertags {
     float: left;
-    width: calc(100% - 10px);
-    height: calc(50% - 10px);
-    margin: 5px;
-    background: white;
-    border: 1px solid #ddd;
-    box-shadow: 1px 0px #eee;
-    border-radius: 5px;
+    width: 100%;
+    height: calc(50% - #{$height_search} / 2);
+    // padding: 5px;
+    // background: white;
+    // border: 1px solid #ddd;
+    // box-shadow: 1px 0px #eee;
+    // border-radius: 5px;
 }
 
 #neighborscloud {
     @extend #usertags;
 
     &.large {
-        height: 100%;
+        height: calc(100% - #{$height_search} / 2);
     }
 }
 

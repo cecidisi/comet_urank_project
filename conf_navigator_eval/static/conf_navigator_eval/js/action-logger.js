@@ -20,6 +20,7 @@ var ActionLogger = (function(){
             documentUnwatched: 'document unwatched',
             frequencyChanged: 'frequency range changed',
             wordSearched: 'keyword searched',
+            rsWeightChanged: 'RS weight changed',
             reset: 'reset'
         };
         this.buffer = [];
