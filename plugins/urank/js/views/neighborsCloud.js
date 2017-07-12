@@ -3,11 +3,11 @@ var NeighborsCloud = (function(){
 	var _this, $root, $neighborcloud, $tooltip;
 	var s;
 	var simFeat = {
-			'co_auth': 'Co-authorship', 
-			'geo_dist': 'Geographic Distance', 
-			'interest': 'Similar Interests', 
-			'pub_sim': 'Publication Similarity', 
-			'soc_ctx': 'Social Context'
+			'C': 'Co-authorship', 
+			'G': 'Geographic Distance', 
+			'I': 'Similar Interests', 
+			'P': 'Publication Similarity', 
+			'S': 'Social Context'
 		};
 
 	function NeighborsCloud(params){
@@ -52,22 +52,32 @@ var NeighborsCloud = (function(){
 
 	}
 
-	var addTooltip = function(tag){
+	var addTooltip = function(tag, $tag){
+		$('#neighbor-tag-tooltip').remove();
 		$tooltip = $('<div/>', { id: 'neighbor-tag-tooltip', class: 'tag-tooltip' }).appendTo($root);
 		var height = $tooltip.height();
 		var width = parseInt($neighborcloud.width());
-		var top = parseInt($neighborcloud.offset().top) - height;
+		var top = parseInt($tag.offset().top) - height;
 		var left = parseInt($neighborcloud.offset().left) - width;
-		
+		console.log('top = ' + top)
 		$tooltip.css({ top: top, left: left, width: width });
 		
-		$('<div/>', { class: 'title', html: tag.neighbor.name }).appendTo($tooltip);
+		var $titleWrapper = $('<div/>', { class: 'title-wrapper' }).appendTo($tooltip);
+		$('<div/>', { class: 'title', html: tag.neighbor.name }).appendTo($titleWrapper);
+			
 		$('<div/>', { class: 'friend' }).appendTo($tooltip);
 
+		if(tag.explanations.friend)
+			var $feat = $('<div/>', { class: 'sim-feature' }).appendTo($tooltip);
+			$('<span/>', { name: 'friend', html: 'Friend' }).appendTo($feat)
+				.css('font-size', '14px');
 		for(feat in simFeat){
 			var $feat = $('<div/>', { class: 'sim-feature' }).appendTo($tooltip);
-			$('<label/>', { html: simFeat[feat] }).appendTo($feat)
-			$('<span/>', { name: feat }).appendTo($feat);
+			// $('<label/>', { html: simFeat[feat] }).appendTo($feat)
+			// $('<span/>', { name: feat }).appendTo($feat);
+			var fontSize = Math.min(8 + tag.explanations[feat] * 8, 20);
+			$('<span/>', { name: feat, html: simFeat[feat] }).appendTo($feat)
+				.css('font-size', fontSize+'px');
 		}
 
 		// var friendMsg = tag.friend ? ' Friend' : ''
@@ -127,13 +137,13 @@ var NeighborsCloud = (function(){
 		// fill tooltip
 		tooltipTimeout = setTimeout(function(){
 			var tag = _this.neighbors[index];
-			addTooltip(tag);
+			addTooltip(tag, $tag);
 			
-			// $tooltip.fadeIn();
-			// fadeOutTimeOut = setTimeout(function(){
-			//     $tooltip.fadeOut();
-			// }, 4000);
-		}, 50);
+			$tooltip.fadeIn();
+			fadeOutTimeOut = setTimeout(function(){
+			    $tooltip.fadeOut();
+			}, 4000);
+		}, 100);
 		
 	};
 
@@ -143,7 +153,7 @@ var NeighborsCloud = (function(){
 		$tag.removeClass('hovered');
 		clearTimeout(tooltipTimeout);
         clearTimeout(fadeOutTimeOut);
-        // $tooltip.hide();
+        $tooltip.hide();
 	};
 
 
