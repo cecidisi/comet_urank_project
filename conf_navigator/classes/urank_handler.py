@@ -144,7 +144,7 @@ class Urank:
 	def load_keywords(self, keywords):
 		self.keywords = keywords
 		print 'urank: Loaded ' + str(len(self.keywords)) + ' keywords'
-		keywords_to_send = self.keywords[self.kw_offset:self.kw_limit]
+		keywords_to_send = self.keywords[:] #[self.kw_offset:self.kw_limit]
 		print 'urank: Sending ' + str(len(keywords_to_send)) + ' keywords'
 		return keywords_to_send
 

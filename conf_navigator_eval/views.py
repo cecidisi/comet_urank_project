@@ -84,18 +84,18 @@ def introduction(request):
 #  Shortcut to avoid login
 @api_view(['GET'])
 def test(request):
-    # print_blue('Testing with UMAP and Peter')
-    print_blue('Testing with UMAP and Veronika')
     request.session.flush()
     request.session['eventID'] = '149'
-    # user = {
-    #     'UserID': '16',
-    #     'name': 'Peter Brusilovsky'
-    # }
+    print_blue('Testing with UMAP and Peter')
     user = {
-        'UserID': '100004640',
-        'name': 'Veronika'
+        'UserID': '16',
+        'name': 'Peter Brusilovsky'
     }
+    # print_blue('Testing with UMAP and Veronika')
+    # user = {
+    #     'UserID': '100004640',
+    #     'name': 'Veronika'
+    # }
     request.session['user'] = user
     return redirect('/cn_urank_eval/set-task')
 

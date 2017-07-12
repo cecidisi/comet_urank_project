@@ -98,13 +98,13 @@ var Config = {
     },
     // USERTAG BOX
     usertagBox: {
-        minFontSize : 13,               // in px    
-        fontSizeGrowth: 0.75            // minFontSize + fontSizeGrowth * keyword.score (df)   
+        minFontSize : 9,               // in px    
+        fontSizeGrowth: 0.8            // minFontSize + fontSizeGrowth * keyword.score (df)   
     },
     // NEIGHBORS CLOUD
     neighborscloud: {
-        minFontSize : 11,               // in px    
-        fontSizeGrowth: 1               // minFontSize + fontSizeGrowth * keyword.score (df)   
+        minFontSize : 10,               // in px    
+        fontSizeGrowth: 0.8               // minFontSize + fontSizeGrowth * keyword.score (df)   
     },
     // TAG BOX (droppable area)
     tagBox: {

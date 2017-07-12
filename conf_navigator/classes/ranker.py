@@ -182,7 +182,8 @@ class Ranker:
 	def get_ranking(self, offset=0, limit=50):
 		limit = offset + limit
 		# Return a copy by value
-		return copy.deepcopy(self.ranking[offset:limit]) 
+		# return copy.deepcopy(self.ranking[offset:limit]) 
+		return copy.deepcopy(self.ranking[:]) 
 
 
 	def get_item(self, idx):

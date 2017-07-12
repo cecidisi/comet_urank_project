@@ -53,40 +53,29 @@ var NeighborsCloud = (function(){
 	}
 
 	var addTooltip = function(tag, $tag){
-		$('#neighbor-tag-tooltip').remove();
+		$('.tag-tooltip').remove();
 		$tooltip = $('<div/>', { id: 'neighbor-tag-tooltip', class: 'tag-tooltip' }).appendTo($root);
-		var height = $tooltip.height();
-		var width = parseInt($neighborcloud.width());
-		var top = parseInt($tag.offset().top) - height;
-		var left = parseInt($neighborcloud.offset().left) - width;
-		console.log('top = ' + top)
-		$tooltip.css({ top: top, left: left, width: width });
-		
+	
 		var $titleWrapper = $('<div/>', { class: 'title-wrapper' }).appendTo($tooltip);
 		$('<div/>', { class: 'title', html: tag.neighbor.name }).appendTo($titleWrapper);
-			
 		$('<div/>', { class: 'friend' }).appendTo($tooltip);
 
 		if(tag.explanations.friend)
 			var $feat = $('<div/>', { class: 'sim-feature' }).appendTo($tooltip);
 			$('<span/>', { name: 'friend', html: 'Friend' }).appendTo($feat)
-				.css('font-size', '14px');
+				.css('font-size', '18px');
 		for(feat in simFeat){
 			var $feat = $('<div/>', { class: 'sim-feature' }).appendTo($tooltip);
-			// $('<label/>', { html: simFeat[feat] }).appendTo($feat)
-			// $('<span/>', { name: feat }).appendTo($feat);
-			var fontSize = Math.min(8 + tag.explanations[feat] * 8, 20);
+			var fontSize = Math.min(6 + tag.explanations[feat] * 8, 20);
 			$('<span/>', { name: feat, html: simFeat[feat] }).appendTo($feat)
 				.css('font-size', fontSize+'px');
 		}
 
-		// var friendMsg = tag.friend ? ' Friend' : ''
-		// $tooltip.find('.friend').html(friendMsg);
-		// for(var feat in simFeat) {
-		// 	$tooltip.find('[name="'+feat+'"]').html(tag[feat]);
-		// }
-
-		// $tooltip.hide();
+		var height = $tooltip.height();
+		var width = $tooltip.width();
+		var top = parseInt($tag.offset().top) - height+50;
+		var left = parseInt($neighborcloud.offset().left) - width;
+		$tooltip.css({ top: top, left: left, width: width });
 
 	};
 
@@ -153,7 +142,8 @@ var NeighborsCloud = (function(){
 		$tag.removeClass('hovered');
 		clearTimeout(tooltipTimeout);
         clearTimeout(fadeOutTimeOut);
-        $tooltip.hide();
+        if($tooltip)
+        	$tooltip.hide();
 	};
 
 
