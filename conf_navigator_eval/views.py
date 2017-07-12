@@ -84,21 +84,34 @@ def introduction(request):
 #  Shortcut to avoid login
 @api_view(['GET'])
 def test(request):
-    print_blue('Testing with UMAP and Peter')
+    # print_blue('Testing with UMAP and Peter')
+    print_blue('Testing with UMAP and Veronika')
     request.session.flush()
     request.session['eventID'] = '149'
+    # user = {
+    #     'UserID': '16',
+    #     'name': 'Peter Brusilovsky'
+    # }
     user = {
-        'UserID': '16',
-        'name': 'Peter Brusilovsky'
+        'UserID': '100004640',
+        'name': 'Veronika'
     }
     request.session['user'] = user
     return redirect('/cn_urank_eval/set-task')
 
 
+
 #  Main View
 @api_view(['GET'])
-def index(request, task=1):
+def index(request, task=None):
+    # Ensure user is logged in
     if 'user' in request.session and 'eventID' in request.session and 'settings' in request.session:
+        
+        # # if task is explicitely set, check session. if session not found, go to /set-task/task
+        # if task and 'cur_task' not in request.session or str(request.session['cur_task']) != str(task):
+        #     return redirect('/cn_urank_eval/set-task/')
+        urank = Urank()
+
         context = request.session['settings']
         context['cur_task'] = request.session['cur_task']
         print_blue('Settings -> rs = ' + context['rs'] + \
@@ -113,30 +126,34 @@ def index(request, task=1):
 '''    
 
 
-#  Set Task based on session data
+
 @api_view(['GET'])
-def set_task(request):
+def set_task(request, task=None):
+
+    #  assumes user is logged in
+    user_id = int(request.session['user']['UserID'])
+    tm.set_user(user_id)
+    # Pick where user left off
     tot_tasks = 4
-    if 'cur_task' not in request.session:
-        # Init task
-        request.session['cur_task'] = 1
-        request.session['task_list'] = tm.get_eval_setting_list()
-        tm.clear()
-        tm.set_user(request.session['user']['UserID'])
-    elif request.session['cur_task'] < tot_tasks:
-        # Update task
-        request.session['cur_task'] = request.session['cur_task'] + 1
-        tm.next_task()
-    else:
-        # Finish task
+    cur_task = tm.get_last_task(user_id)
+    cur_task += 1
+    tm.set_task(cur_task)
+    task_list = tm.get_eval_setting_list()
+
+    # update session
+    request.session['cur_task'] = cur_task
+    request.session['task_list'] = task_list
+
+    # Finish task
+    if cur_task > tot_tasks:
         return redirect('/cn_urank_eval/final-survey/')
 
-    cur_task = request.session['cur_task']
-    task_list = request.session['task_list']
+
     print_blue('Task List = ' + str(', '.join(task_list)))
     print_blue('Current Task = ' +str(cur_task))
     idx = cur_task - 1
     rs = str(task_list[idx])
+ 
     # Set task conditions
     request.session['settings'] =  {
         'rs': rs,
@@ -155,7 +172,10 @@ def set_task(request):
 def submit_task(request):
     if request.method == 'POST':
         params = json.loads(request.body.decode("utf-8"))
-        if tm.save_task(params):
+        action_logs = params['action_logs']
+        bookmarks = params['bookmarks']
+        elapsed_time = params['elapsed_time']
+        if tm.save_task(action_logs, bookmarks, elapsed_time):
             return Response({ 'results': 'OK' })
         return Response({}, status = status.HTTP_500_INTERNAL_SERVER_ERROR)
        
@@ -164,6 +184,9 @@ def submit_task(request):
 #  Get Questions View
 @api_view(['GET'])
 def questions(request, task=1):
+    if 'user' not in request.session:
+        return redirect('/cn_urank_eval/login')
+
     template = loader.get_template('conf_navigator_eval/questions.html')
     questions = tm.get_post_task_questions()
     context = {
@@ -188,6 +211,10 @@ def submit_questions(request):
 # Post-study survey
 @api_view(['GET'])
 def final_survey(request):
+    # Check login
+    if 'user' not in request.session:
+        return redirect('/cn_urank_eval/login')
+
     template = loader.get_template('conf_navigator_eval/final-survey.html')
     questions = tm.get_final_survey()
     values = [{ 'key': rs, 'desc': desc_mapping[rs] } for rs in request.session['task_list'] ]

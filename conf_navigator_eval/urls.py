@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^logout/$', views.logout, name='logout'),
     url(r'^introduction/$', views.introduction, name='introduction'),
     url(r'^set-task/$', views.set_task, name='set-task'), 
+    url(r'^set-task/(?P<task>\d+)/$', views.set_task, name='set-task'), 
     url(r'^submit-task/$', views.submit_task, name='submit-task'),   
     url(r'^questions/(?P<task>\d+)/$', views.questions, name='questions'),
     url(r'^questions/$', views.questions, name='questions'),

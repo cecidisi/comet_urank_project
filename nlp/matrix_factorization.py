@@ -1,7 +1,7 @@
 import numpy
 
 def matrix_factorization(R, K, steps=5000, alpha=0.0002, beta=0.02):
-    print 'Preparing for MF ...'
+    print 'Preparing for Matrix Factorization ...'
     N = len(R)
     M = len(R[0])
     P = numpy.random.rand(N, K)

@@ -34,7 +34,7 @@
                                 {{q.num}}. {{q.text}}
                             </label>
                             <!-- <div class="btn-group question-item" name="question-{{q.id}}" data-toggle="buttons"> -->
-                            <div class="radio-btn-group" name="question-{{q.id}}">
+                            <div class="radio-btn-group" name="question-{{q.id}}" qid={{q.id}} >
                                 {% for val in values %}
                                     <!-- <label class="btn btn-default"> -->
                                     <label>

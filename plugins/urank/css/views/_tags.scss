@@ -1,13 +1,13 @@
 .urank-tag-container {
-    overflow-y: auto;
+    // overflow-y: auto;
 
     .urank-tag-container-inner {
-        height: calc(100% - 10px);
-        margin: 5px;
-        background: white;
-        border: 1px solid #ddd;
-        box-shadow: 1px 0px #eee;
-        border-radius: 5px;
+        // height: calc(100% - 10px);
+        // margin: 5px;
+        // background: white;
+        // border: 1px solid #ddd;
+        // box-shadow: 1px 0px #eee;
+        // border-radius: 5px;
     }
 
     .urank-tag {
@@ -35,7 +35,7 @@
 
 .tag-tooltip {
     position: absolute;
-    height: 120px;
+    // height: 120px;
     padding: 5px 15px;
     background: rgba(150, 150, 150, .8);
     border-radius: 10px;

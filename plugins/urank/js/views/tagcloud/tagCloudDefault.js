@@ -355,13 +355,13 @@ var TagCloudDefault = (function(){
                 .hide()
                 .fadeIn((i+1)*20);
             // Pie chart section for document hint
-            var docPctg = parseInt((k.df * 100) / _this.data.length);
-            if(docPctg > 0 && docPctg < 5) { docPctg = 5; }
-            else {
-                if(docPctg%5 < 3) docPctg = docPctg - docPctg%5;
-                else docPctg = docPctg + 5 - docPctg%5;
-            }
-            var $docHint = $('<a/>', { class: 'urank-doc-hint urank-doc-hint-'+docPctg, href: '#' }).appendTo($tag);
+            // var docPctg = parseInt((k.df * 100) / _this.data.length);
+            // if(docPctg > 0 && docPctg < 5) { docPctg = 5; }
+            // else {
+            //     if(docPctg%5 < 3) docPctg = docPctg - docPctg%5;
+            //     else docPctg = docPctg + 5 - docPctg%5;
+            // }
+            // var $docHint = $('<a/>', { class: 'urank-doc-hint urank-doc-hint-'+docPctg, href: '#' }).appendTo($tag);
 //            var $docHint = $('<div/>', { class: tagHintClass+' '+documentHintClass, id: 'urank-tag-pie-' + i }).appendTo($tag);
 //            pieOptions.data.content[0].value = k.df;
 //            pieOptions.data.content[1].value = _this.data.length - k.df || 0.1;

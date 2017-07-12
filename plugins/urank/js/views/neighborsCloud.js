@@ -52,15 +52,16 @@ var NeighborsCloud = (function(){
 
 	}
 
-	var addTooltip = function(){
-		var top = parseInt($neighborcloud.offset().top);
-		var left = parseInt($neighborcloud.offset().left);
-		var width = parseInt($neighborcloud.width());
-
+	var addTooltip = function(tag){
 		$tooltip = $('<div/>', { id: 'neighbor-tag-tooltip', class: 'tag-tooltip' }).appendTo($root);
-		$tooltip.css({ top: top - 120, left: left, width: width });
+		var height = $tooltip.height();
+		var width = parseInt($neighborcloud.width());
+		var top = parseInt($neighborcloud.offset().top) - height;
+		var left = parseInt($neighborcloud.offset().left) - width;
 		
-		$('<div/>', { class: 'title' }).appendTo($tooltip);
+		$tooltip.css({ top: top, left: left, width: width });
+		
+		$('<div/>', { class: 'title', html: tag.neighbor.name }).appendTo($tooltip);
 		$('<div/>', { class: 'friend' }).appendTo($tooltip);
 
 		for(feat in simFeat){
@@ -68,7 +69,14 @@ var NeighborsCloud = (function(){
 			$('<label/>', { html: simFeat[feat] }).appendTo($feat)
 			$('<span/>', { name: feat }).appendTo($feat);
 		}
-		$tooltip.hide();
+
+		// var friendMsg = tag.friend ? ' Friend' : ''
+		// $tooltip.find('.friend').html(friendMsg);
+		// for(var feat in simFeat) {
+		// 	$tooltip.find('[name="'+feat+'"]').html(tag[feat]);
+		// }
+
+		// $tooltip.hide();
 
 	};
 
@@ -77,8 +85,12 @@ var NeighborsCloud = (function(){
 		this.colors = colors;
 
 		$root.addClass('urank-tag-container');
-		$neighborcloud = $('<div/>', { class: 'urank-tag-container-inner' }).appendTo($root);
-		addTooltip();
+
+		$scrollable = $('<div/>').appendTo($root).addClass('urank-hidden-scrollbar-inner')
+            // .on('scroll', onRootScrolled);
+        $neighborcloud = $('<div/>').appendTo($scrollable).addClass('urank-tag-container-inner');
+		// $neighborcloud = $('<div/>', { class: 'urank-tag-container-inner' }).appendTo($scrollable);
+		// addTooltip();
 
 		this.neighbors.forEach(function(t, index) {
 			var $tag = $('<div/>', {
@@ -115,17 +127,13 @@ var NeighborsCloud = (function(){
 		// fill tooltip
 		tooltipTimeout = setTimeout(function(){
 			var tag = _this.neighbors[index];
-			$tooltip.find('.title').html(tag.neighbor.name);
-			var friendMsg = tag.friend ? ' Friend' : ''
-			$tooltip.find('.friend').html(friendMsg);
-			for(var feat in simFeat) {
-				$tooltip.find('[name="'+feat+'"]').html(tag[feat]);
-			}
-			$tooltip.fadeIn();
-			fadeOutTimeOut = setTimeout(function(){
-			    $tooltip.fadeOut();
-			}, 4000);
-		}, 500);
+			addTooltip(tag);
+			
+			// $tooltip.fadeIn();
+			// fadeOutTimeOut = setTimeout(function(){
+			//     $tooltip.fadeOut();
+			// }, 4000);
+		}, 50);
 		
 	};
 
@@ -135,7 +143,7 @@ var NeighborsCloud = (function(){
 		$tag.removeClass('hovered');
 		clearTimeout(tooltipTimeout);
         clearTimeout(fadeOutTimeOut);
-        $tooltip.hide();
+        // $tooltip.hide();
 	};
 
 

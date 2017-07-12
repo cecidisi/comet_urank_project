@@ -46,7 +46,10 @@ class DBconnector:
 	@classmethod
 	def get_neighbors(cls, eventID, userID):
 		neighbors = SimUserNeighbor.objects.filter(event_id=eventID).filter(user_id=userID).order_by('-score')
-		return SimUserNeighborSerializer(neighbors, many=True).data
+		neighbors = SimUserNeighborSerializer(neighbors, many=True).data
+		for v in neighbors:
+			v['explanations'] = json.loads(v['explanations'])
+		return neighbors
 
 
 	@classmethod

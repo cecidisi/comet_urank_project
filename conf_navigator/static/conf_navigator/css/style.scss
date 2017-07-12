@@ -328,8 +328,13 @@ $border: 1px solid #dfdfdf;
 
 #usertags {
     float: left;
-    width: 100%;
-    height: 50%;
+    width: calc(100% - 10px);
+    height: calc(50% - 10px);
+    margin: 5px;
+    background: white;
+    border: 1px solid #ddd;
+    box-shadow: 1px 0px #eee;
+    border-radius: 5px;
 }
 
 #neighborscloud {

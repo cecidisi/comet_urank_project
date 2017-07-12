@@ -16,13 +16,15 @@ module.exports = (function($) {
 		var values = [];
 		var goodToSubmit = true;
 		$('.question-item').each(function(idx){			
-			var value = $(this).find('.active').find('input[type="radio"]').val();
+			var qid = parseInt($(this).attr('qid'));
+			var value = parseInt($(this).find('.active').find('input[type="radio"]').val());
 			if(value)
-				values.push(value);
+				values.push({ qid: qid, val: value });
 			else
 				goodToSubmit = false;
 
 		})
+		console.log(values)
 		if(goodToSubmit){
 			server.submitQuestions({ 'values': values }, function(){
 				console.log('Submitted questions')
@@ -38,12 +40,14 @@ module.exports = (function($) {
 		var values = [];
 		var goodToSubmit = true;
 		$('.radio-btn-group').each(function(idx){						
+			var qid = parseInt($(this).attr('qid'));
 			var value = $(this).find('input[type="radio"]:checked').val();
 			if(value)
-				values.push(value);
+				values.push({ qid: qid, val: value });
 			else
 				goodToSubmit = false;
 		})
+		console.log(values)
 		if(goodToSubmit){
 			console.log('Ready to submit')
 			server.submitFinalSurvey({ 'values': values }, function(){

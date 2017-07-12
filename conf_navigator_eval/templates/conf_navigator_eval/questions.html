@@ -34,7 +34,7 @@
                                 {{q.num}}. {{q.text}}
                             </label>
                             <label class="min_max">{{q.min_label}}</label>
-                            <div class="btn-group question-item" name="question-{{q.id}}" data-toggle="buttons">
+                            <div class="btn-group question-item" name="question-{{q.id}}" qid={{q.id}} data-toggle="buttons">
                                 {% for point in likert %}
                                     <label class="btn btn-default">
                                         <input type="radio" value="{{point}}"> {{point}}

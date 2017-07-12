@@ -103,8 +103,8 @@ var Config = {
     },
     // NEIGHBORS CLOUD
     neighborscloud: {
-        minFontSize : 12,               // in px    
-        fontSizeGrowth: 2               // minFontSize + fontSizeGrowth * keyword.score (df)   
+        minFontSize : 11,               // in px    
+        fontSizeGrowth: 1               // minFontSize + fontSizeGrowth * keyword.score (df)   
     },
     // TAG BOX (droppable area)
     tagBox: {
