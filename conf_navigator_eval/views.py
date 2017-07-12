@@ -110,7 +110,6 @@ def index(request, task=None):
         # # if task is explicitely set, check session. if session not found, go to /set-task/task
         # if task and 'cur_task' not in request.session or str(request.session['cur_task']) != str(task):
         #     return redirect('/cn_urank_eval/set-task/')
-        urank = Urank()
 
         context = request.session['settings']
         context['cur_task'] = request.session['cur_task']
@@ -129,7 +128,7 @@ def index(request, task=None):
 
 @api_view(['GET'])
 def set_task(request, task=None):
-
+    urank.clear()
     #  assumes user is logged in
     user_id = int(request.session['user']['UserID'])
     tm.set_user(user_id)

@@ -36,6 +36,36 @@ class Urank:
 		self.utags = []
 		self.kw_colors = {}
 
+	def clear(self):
+				# documents
+		self.documents = []
+		# self.docs_to_send = []
+		self.doc_offset = 0
+		self.doc_limit = 50
+		# document features
+		self.doc_id_to_index = {}
+		self.doc_keywords = []
+		self.doc_tags = []
+		# keywords
+		self.keywords = []
+		self.kw_offset = 0
+		self.kw_limit = 100
+		# usertags
+		self.usertags = []
+		# neighbors
+		self.neighbors = []
+		self.nb_offset = 0
+		self.nb_limit = 100
+		# self.ranking =  []
+		self.attr_remove = ['keywords_str', 'tags_str']
+		# set on update
+		self.rs_conf = {}
+		self.query = []
+		self.utags = []
+		self.kw_colors = {}
+
+		ranker.clear()
+
 
 	# STATIC METHODS
 	@staticmethod
