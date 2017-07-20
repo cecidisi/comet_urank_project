@@ -121,6 +121,15 @@ DATABASES = {
         'PORT': '3306',
         'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
     }
+    # 'upmcdb': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'upmc',
+    #     'USER': 'cecidisi',
+    #     'PASSWORD': 'asdf',
+    #     'HOST':  'localhost',
+    #     'PORT': '3306',
+    #     'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+    # }
 }
 
 DATABASE_ROUTERS = [

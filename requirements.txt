@@ -12,3 +12,5 @@ xml==0.2.13
 httplib2==0.10.3
 numpy==1.13.0
 beautifulsoup4==4.6.0
+requests-2.18.1
+tornado-4.5.1
