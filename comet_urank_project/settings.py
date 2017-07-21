@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'comet_urank',
     'conf_navigator',
     'conf_navigator_eval',
-    'upmc_urank',    
+    'upmc_urank',  
     'plugins',
     'nlp',
     'debug_toolbar',
