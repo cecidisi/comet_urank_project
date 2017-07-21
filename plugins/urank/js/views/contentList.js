@@ -181,9 +181,9 @@ var ContentList = (function() {
         console.log('In showRankingPositions. data.length = ' + _this.data.length);
         _this.data.forEach(function(d, i){
             if(d.ranking.overall.score ){
-                try {
-                    console.log(i);
-                    console.log(d);
+                console.log(i);
+                console.log(d);
+                    try {
                     //var rankingDiv = $(liItem + '' + d[s.attr.id]).find('.'+liRankingContainerClass);
                     var rankingDiv = $('.'+liClass+'['+urankIdAttr+'="'+d[s.attr.id]+'"]').find('.'+liRankingContainerClass);
                     rankingDiv.css('visibility', 'visible');
