@@ -182,7 +182,8 @@ var ContentList = (function() {
         _this.data.forEach(function(d, i){
                 console.log(i);
                 console.log(d);
-                if(d.ranking.overall.score ){
+                // if(d.ranking.overall.score ){
+                if(d.ranking.ranking.pos){
                     try {
                     //var rankingDiv = $(liItem + '' + d[s.attr.id]).find('.'+liRankingContainerClass);
                     var rankingDiv = $('.'+liClass+'['+urankIdAttr+'="'+d[s.attr.id]+'"]').find('.'+liRankingContainerClass);
