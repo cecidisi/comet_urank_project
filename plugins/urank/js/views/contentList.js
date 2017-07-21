@@ -180,9 +180,9 @@ var ContentList = (function() {
 
         console.log('In showRankingPositions. data.length = ' + _this.data.length);
         _this.data.forEach(function(d, i){
-            if(d.ranking.overall.score ){
                 console.log(i);
                 console.log(d);
+                if(d.ranking.overall.score ){
                     try {
                     //var rankingDiv = $(liItem + '' + d[s.attr.id]).find('.'+liRankingContainerClass);
                     var rankingDiv = $('.'+liClass+'['+urankIdAttr+'="'+d[s.attr.id]+'"]').find('.'+liRankingContainerClass);
