@@ -178,10 +178,7 @@ var ContentList = (function() {
             return "=";
         };
 
-        console.log('In showRankingPositions. data.length = ' + _this.data.length);
         _this.data.forEach(function(d, i){
-                // console.log(i);
-                // console.log(d);
                 // if(d.ranking.overall.score ){
                 if(d.ranking.pos){
                     try {

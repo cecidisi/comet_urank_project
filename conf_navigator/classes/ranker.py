@@ -97,8 +97,8 @@ class Ranker:
 
 	# ,query, utags
 	def update(self, conf, features):
-		# print '================= FEATURES ======================'
-		# print features
+		print '================= FEATURES ======================'
+		print features
 		print '================== RS CONF ======================'
 		print conf
 
@@ -109,10 +109,10 @@ class Ranker:
 			rs_idx = next(idx for (idx, c) in enumerate(conf['rs']) if c["name"] == RS)
 			conf_map[RS] = conf['rs'][rs_idx]
 		
-		print_blue('empty features = ' + str(Ranker.are_features_empty(features)))
+		print 'Empty features = ' + str(Ranker.are_features_empty(features))
 		if Ranker.are_features_empty(features):
 			print_blue('Returning here')
-			return self.reset()
+			# return self.reset()
 		#  Compute recommendation scores
 		for d in self.ranking:
 			idx = d['idx']
@@ -141,12 +141,12 @@ class Ranker:
 					for detail in d['ranking'][RS]['details']:
 						detail['score'] = Ranker.normalize_score(detail['score'], max_score) * float(rs['weight'])
 					d['ranking']['overall']['score'] += d['ranking'][RS]['score']
-					if idx ==0:
-						print RS  + ' weight = '+ str(rs['weight']) + ', max score = ' + str(max_score)
-						print d['ranking']
-						print 'val before = ' + str(val_before)
-						if max_score:
-							print float(val_before) / float(max_score)
+					# if idx ==0:
+					# 	print RS  + ' weight = '+ str(rs['weight']) + ', max score = ' + str(max_score)
+					# 	print d['ranking']
+					# 	print 'val before = ' + str(val_before)
+					# 	if max_score:
+					# 		print float(val_before) / float(max_score)
 
 
 		# Sort and assign positions
@@ -155,7 +155,10 @@ class Ranker:
 		self.ranking = Ranker.assign_positions(self.ranking, rank_by)
 		# print self.ranking[0]['ranking']
 		#  Return copy by value
-		return self.get_ranking()
+		r = self.get_ranking()
+		print "Ranker: returns " + str(len(r))
+		print r[0]['ranking']
+		return r
 
 
 
