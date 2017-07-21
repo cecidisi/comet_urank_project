@@ -24,6 +24,9 @@ DataConnector = (function(){
 	    }).done(function(resp) {
 	        timelapse = $.now() - timelapse
 	        console.log('DataConnector: successful request ' + request_options.type + ' ' + request_options.url + ' (' + timelapse + ' ms)');
+	        if(options.data.operation == 'update') {
+	        	console.log(resp.results.length);
+	        }
 	        onDone(resp.results);
 	    });
 

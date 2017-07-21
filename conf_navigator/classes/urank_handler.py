@@ -187,6 +187,7 @@ class Urank:
 				doc_kw = self.doc_keywords[ self.doc_id_to_index[doc['id']] ]
 				doc['title'] = Urank.get_formatted_text(doc['title'], doc_kw, 'pos_title', self.kw_colors, decoration)  
 			# print docs_to_send[0]['title']
+			print 'Sending ranking with ' + str(len(docs_to_send)) + ' documents'
 			return docs_to_send
 		
 
