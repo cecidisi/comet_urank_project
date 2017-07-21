@@ -181,11 +181,18 @@ var ContentList = (function() {
         console.log('In showRankingPositions. data.length = ' + _this.data.length);
         _this.data.forEach(function(d, i){
             if(d.ranking.overall.score ){
-                //var rankingDiv = $(liItem + '' + d[s.attr.id]).find('.'+liRankingContainerClass);
-                var rankingDiv = $('.'+liClass+'['+urankIdAttr+'="'+d[s.attr.id]+'"]').find('.'+liRankingContainerClass);
-                rankingDiv.css('visibility', 'visible');
-                rankingDiv.find('.'+rankingPosClass).text(d.ranking.pos);
-                rankingDiv.find('.'+rankingPosMovedClass).css('color', color(d)).text(posMoved(d));
+                try {
+                    console.log(i);
+                    console.log(d);
+                    //var rankingDiv = $(liItem + '' + d[s.attr.id]).find('.'+liRankingContainerClass);
+                    var rankingDiv = $('.'+liClass+'['+urankIdAttr+'="'+d[s.attr.id]+'"]').find('.'+liRankingContainerClass);
+                    rankingDiv.css('visibility', 'visible');
+                    rankingDiv.find('.'+rankingPosClass).text(d.ranking.pos);
+                    rankingDiv.find('.'+rankingPosMovedClass).css('color', color(d)).text(posMoved(d));    
+                } catch(e){
+                    console.log(e)
+                }
+                
             }
         });
     };
