@@ -65,10 +65,13 @@ var NeighborsCloud = (function(){
 			$('<span/>', { name: 'friend', html: 'Friend' }).appendTo($feat)
 				.css('font-size', '18px');
 		for(feat in simFeat){
-			var $feat = $('<div/>', { class: 'sim-feature' }).appendTo($tooltip);
-			var fontSize = Math.min(6 + tag.explanations[feat] * 8, 20);
-			$('<span/>', { name: feat, html: simFeat[feat] }).appendTo($feat)
-				.css('font-size', fontSize+'px');
+			if(simFeat[feat]) {
+				var $feat = $('<div/>', { class: 'sim-feature' }).appendTo($tooltip);
+				var fontSize = Math.min(6 + tag.explanations[feat] * 8, 20);
+				$('<span/>', { name: feat, html: simFeat[feat] }).appendTo($feat)
+					.css('font-size', fontSize+'px');	
+			}
+			
 		}
 
 		var height = $tooltip.height();

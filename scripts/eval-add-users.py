@@ -10,15 +10,16 @@ def run():
 	# UserEval.objects.all().delete()
 	users = User.objects.all()
 	for u in users:
-		user, created = UserEval.objects.get_or_create(
-			id = u.id,
-			name = u.name,
-			username = u.username,
-			email = email_mapping[u.id] if u.id in email_mapping else '',
-			type = u.type
-		)
-		if created:
-			print 'Copied user #' + str(user.pk) + ' ' + user.name + ' to Eval DB (' + user.email + ')'
+		if len(UserEval.objects.filter(pk=u.pk)) == 0:
+			user, created = UserEval.objects.get_or_create(
+				id = u.id,
+				name = u.name,
+				username = u.username,
+				email = email_mapping[u.id] if u.id in email_mapping else '',
+				type = u.type
+			)
+			if created:
+				print 'Copied user #' + str(user.pk) + ' ' + user.name + ' to Eval DB (' + user.email + ')'
 
 
 def get_email_mapping():
