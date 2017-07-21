@@ -111,7 +111,7 @@ def process_papers(papers):
 
 def fetch_url(url):
 	# resp = urllib2.urlopen(url).read().decode("windows-1252").encode("utf8")
-	resp = urllib2.urlopen(url).read() #.decode("windows-1252").encode("utf8")
+	resp = urllib2.urlopen(url).read()
 	soup = bs(resp, 'xml')
 	return soup
 
@@ -123,7 +123,7 @@ def delete_from_db():
 
 def run():
 	url = 'http://halley.exp.sis.pitt.edu/cn3mobile/allSessionsAndPapers.jsp?conferenceID='
-	conf_ids = [149,150]
+	conf_ids = [149]
 	delete_from_db()
 	for conf_id in conf_ids:
 		papers = fetch_url(url + str(conf_id)).find_all('Item')

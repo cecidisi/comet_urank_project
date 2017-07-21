@@ -67,8 +67,8 @@ def login(request):
 @csrf_exempt 
 def logout(request):
     request.session.flush()
-    return redirect('test')
-    # return redirect('login')
+    # return redirect('test')
+    return redirect('login')
 
 
 
@@ -78,26 +78,6 @@ def introduction(request):
     template = loader.get_template('conf_navigator_eval/introduction.html')
     context = {}
     return HttpResponse(template.render(context, request))
-
-
-
-#  Shortcut to avoid login
-@api_view(['GET'])
-def test(request):
-    request.session.flush()
-    request.session['eventID'] = '149'
-    print_blue('Testing with UMAP and Peter')
-    user = {
-        'UserID': '16',
-        'name': 'Peter Brusilovsky'
-    }
-    # print_blue('Testing with UMAP and Veronika')
-    # user = {
-    #     'UserID': '100004640',
-    #     'name': 'Veronika'
-    # }
-    request.session['user'] = user
-    return redirect('/cn_urank_eval/set-task')
 
 
 
@@ -120,10 +100,30 @@ def index(request, task=None):
         return HttpResponse(template.render(context, request))
     return redirect('/cn_urank_eval/login')
 
+
+
+#  Shortcut to avoid login
+@api_view(['GET'])
+def test(request):
+    request.session.flush()
+    request.session['eventID'] = '149'
+    print_blue('Testing with UMAP and Peter')
+    user = {
+        'UserID': '16',
+        'name': 'Peter Brusilovsky'
+    }
+    # print_blue('Testing with UMAP and Veronika')
+    # user = {
+    #     'UserID': '100004640',
+    #     'name': 'Veronika'
+    # }
+    request.session['user'] = user
+    return redirect('/cn_urank_eval/set-task')
+
+
 '''
     **************      EVALUATION     *****************
 '''    
-
 
 
 @api_view(['GET'])
@@ -175,8 +175,9 @@ def submit_task(request):
         bookmarks = params['bookmarks']
         elapsed_time = params['elapsed_time']
         if tm.save_task(action_logs, bookmarks, elapsed_time):
-            return Response({ 'results': 'OK' })
-        return Response({}, status = status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({ 'message': 'OK' })
+        return Response({ 'message': 'Error saving task'})
+        # return Response({ 'message': 'Error saving task'}, status = status.HTTP_500_INTERNAL_SERVER_ERROR)
        
 
 
@@ -203,8 +204,9 @@ def questions(request, task=1):
 def submit_questions(request):
     values = json.loads(request.body)['values']
     if tm.save_post_task_questions(values):
-        return Response({ 'results': 'OK' })
-    return Response({}, status = status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({ 'message': 'OK' })
+    return Response({ 'message': 'Error saving questions' })
+    # return Response({}, status = status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 # Post-study survey
@@ -230,8 +232,9 @@ def final_survey(request):
 def submit_final_survey(request):
     values = json.loads(request.body)['values']
     if tm.save_final_survey(values):
-        return Response({ 'results': 'OK' })
-    return Response({}, status = status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({ 'message': 'OK' })
+    return Response({ 'message': 'Error saving final survey' })
+    # return Response({}, status = status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 

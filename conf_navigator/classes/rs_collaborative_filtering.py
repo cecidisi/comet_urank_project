@@ -32,17 +32,9 @@ class RSCollaborativeFiltering:
 		# print 'CF weight = ' + str(cf_weight)
 		for v in neighbors:
 			vid = v['id']
-			# print 'doc id = '+ str(doc_id) + '; vid = ' + str(vid)
-			if doc_id in self.sim_iv:
-				if vid in self.sim_iv[doc_id]:
-					print 'string vid, score = ' + str(self.sim_iv[doc_id][vid])
-				elif int(vid) in self.sim_iv[doc_id]:
-					print 'int vid, score = ' + str(self.sim_iv[doc_id][int(vid)])					
-			
-			# print self.sim_iv[doc_id] if doc_id in self.sim_iv else 'no entries'
-
 			vweight = v['weight']
 			sim_neighbor_item = 0.0
+			
 			if doc_id in self.sim_iv and vid in self.sim_iv[doc_id]:
 				sim_neighbor_item = self.sim_iv[doc_id][vid]	
 			# score = self.sim_v[vid] * sim_neighbor_item

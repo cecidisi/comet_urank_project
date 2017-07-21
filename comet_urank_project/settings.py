@@ -120,7 +120,7 @@ DATABASES = {
         'HOST':  'localhost',
         'PORT': '3306',
         'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-    }
+    },
     # 'upmcdb': {
     #     'ENGINE': 'django.db.backends.mysql',
     #     'NAME': 'upmc',
@@ -133,9 +133,10 @@ DATABASES = {
 }
 
 DATABASE_ROUTERS = [
-    'comet_urank.db_router.CometRouter', 
+    'conf_navigator_eval.db_router.ConfNavigatorEvalRouter',
     'conf_navigator.db_router.ConfNavigatorRouter',
-    'conf_navigator_eval.db_router.ConfNavigatorEvalRouter'
+    'upmc_urank.db_router.UpmcUrankRouter',
+    'comet_urank.db_router.CometRouter', 
 ]
 
 # Password validation
@@ -209,5 +210,9 @@ WEBPACK_LOADER = {
 }
 
 
+CSRF_COOKIE_SECURE = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_BROWSER_XSS_FILTER = True
 
+CONN_MAX_AGE = None
 

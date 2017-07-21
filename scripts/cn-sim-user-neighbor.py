@@ -74,7 +74,8 @@ def get_old_papers():
 def get_friends(user_id):
 	temp_url = "http://halley.exp.sis.pitt.edu/cn3mobile/friendlist.jsp?userID=[userID]"
 	url = temp_url.replace('[userID]', str(user_id))
-	soup = bs(urllib2.urlopen(url).read(), 'xml')
+	resp = urllib2.urlopen(url).read()
+	soup = bs(resp, 'xml')
 	# friends of current user
 	friends = {}
 	for f in soup.find_all('Item'):
@@ -87,7 +88,8 @@ def get_friends(user_id):
 def get_social_neighbors(cid, uid, friends):
 	url_temp = "http://halley.exp.sis.pitt.edu/cn3/social_api_getrelevance.php?cid=[cid]&uid=[uid]"
 	url = url_temp.replace('[cid]', str(cid)).replace('[uid]', str(uid))
-	soup = bs(urllib2.urlopen(url).read(), 'lxml')
+	resp = urllib2.urlopen(url).read()
+	soup = bs(resp, 'lxml')
 	text = clean_text(soup.find('body').get_text())
 	rows = text.split('\n')
 	header = rows[0].split(',')

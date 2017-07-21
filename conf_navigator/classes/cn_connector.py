@@ -3,13 +3,11 @@ import httplib2
 from bs4 import BeautifulSoup as bs
 from conf_navigator_eval.models import UserEval
 
-login_url = "http://halley.exp.sis.pitt.edu/cn3mobile/authenticateUser.jsp?email=[email]&password=[password]"
-# session_key = 'confnav'
-
 class CN_connector:
 
 	@classmethod
 	def login(cls, email, password=None):
+		# login_url = "http://halley.exp.sis.pitt.edu/cn3mobile/authenticateUser.jsp?email=[email]&password=[password]"
 		# url = login_url.replace('[email]', email).replace('[password]', password)
 		# h = httplib2.Http()
 		# resp, content = h.request(url, method="GET")
@@ -28,7 +26,7 @@ class CN_connector:
 		# 	print 'Logged in user: ' + user['name']
 		# 	return user
 		# else:
-		# 	print 'HERE'
+		# 	# Login with DB
 		# 	ueval = UserEval.objects.filter(email=email)
 		# 	if len(ueval):
 		# 		u = ueval[0]

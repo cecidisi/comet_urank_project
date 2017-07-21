@@ -37,6 +37,7 @@ var default_options = {
     },
     rankingModel: {
         useLocal : false
+        // useLocal : true
     },
     tagCloud: {
         numCategories : 1

@@ -9,6 +9,9 @@ class bcolors:
     UNDERLINE = '\033[4m'
 
 
+def print_green(text):
+    print bcolors.OKGREEN + text + bcolors.ENDC
+
 
 def print_blue(text):
 	print bcolors.OKBLUE + text + bcolors.ENDC

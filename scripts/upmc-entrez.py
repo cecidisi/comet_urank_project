@@ -5,12 +5,11 @@ import time
 import urllib2
 import requests
 import unicodedata
-
-import tornado.ioloop
-from tornado.httpclient import AsyncHTTPClient
+import datetime
 
 from bs4 import BeautifulSoup as bs
 from conf_navigator.classes.bcolors import *
+from upmc_urank.models import *
 
 
 def clean_text(text):
@@ -22,36 +21,52 @@ def clean_text(text):
 		.replace(u'\xe2??', "'")
 	return unicodedata.normalize('NFKD', text).encode('ascii','ignore')
 
-
-
 def run():
-	print_red('RUN')
-	base_url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/'
-	search_url = 'esearch.fcgi?db=pubmed&usehistory=y'
-	fetch_url = 'efetch.fcgi?db=pubmed&rettype=abstract&retmode=text'
+	print 'RUN'
+	clean_db()
 	term = 'migraine'
 	retstart = 0
 	retmax = 100
+	count = 1000
+	search(term, retstart, retmax, count)
 
+
+def clean_db():
+	Affiliation.objects.all().delete()
+	Author.objects.all().delete()
+	PublicationDetails.objects.all().delete()
+	Article.objects.all().delete()
+
+
+
+def search(term, retstart, retmax, count=0):
+	base_url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/'
 	url_search = base_url + 'esearch.fcgi?db=pubmed&usehistory=y&term=' + term + '&retstart=' + str(retstart) + '&retmax=' + str(retmax)
 	start1 = time.time()
 
 	# Search Request
 	resp = requests.get(url_search)
 	soup = bs(resp.text, 'xml')
-	count =  int(soup.find('Count').get_text())
+	_count = int(soup.find('Count').get_text())
+	count = min(count, _count) if count else _count
 	query_key = soup.find('QueryKey').get_text()
 	web_env = soup.find('WebEnv').get_text()
-	print_red('Finished SEARCH = ' + str(time.time() - start1))
+	print_green('Finished SEARCH = ' + str(time.time() - start1))
 	print_blue('Count = ' + str(count))
 	print_blue('Query Key = ' + str(query_key))
 	print_blue('WebEnv = ' + str(web_env))
+	fetch(base_url, query_key, web_env, retstart, retmax, count)
 	
 
-	papers = []
+
+def fetch(base_url, query_key, web_env, retstart, retmax, count):
+
 	tot_batches = int(count / retmax)
 	# Fetch in batches
+	start1 = time.time()
 	while retstart < count:
+		# Save articles after fetching a whole batch
+		papers = []
 		run = (retstart / retmax) + 1
 		url_fetch = base_url + 'efetch.fcgi?db=pubmed&rettype=abstract&query_key=' + query_key + '&WebEnv=' + web_env + '&retstart=' + str(retstart) + '&retmax=' + str(retmax)
 
@@ -59,29 +74,34 @@ def run():
 		resp = requests.get(url_fetch)
 		end_req = time.time()
 
-		print_red('#' +str(run)+'/'+ str(tot_batches) +' Finished FETCH batch ' + str(end_req - start2))
+		print_green('#' +str(run)+'/'+ str(tot_batches) +' Finished FETCH batch ' + str(end_req - start2))
 
 		# Parse Response
 		soup = bs(resp.text.encode('utf-8'), 'xml')
 		raw_papers = soup.find_all('PubmedArticle')
-		print_blue('Fetched ' + str(len(raw_papers)) + ' papers')
+		print 'Fetched ' + str(len(raw_papers)) + ' papers'
 		
 		for i, p in enumerate(raw_papers):
+			obj = {}
 			art = p.MedlineCitation.Article
+			# PMID
+			obj['pmid'] = int(p.MedlineCitation.PMID.get_text())
+			# Publication Type
+			obj['pub_type'] = art.PublicationType.get_text()
 			# Title
-			title =  art.ArticleTitle.get_text()
+			obj['title'] =  art.ArticleTitle.get_text()
 			# Abstract
-			abstract = ''
+			obj['abstract'] = ''
 			if art.Abstract:
 				abstract_chunks = art.Abstract.find_all('AbstractText')
 				for j, chunk in enumerate(abstract_chunks):
 					label = chunk.get('Label') or ''
 					if label:
-						abstract += label + ': '
-					abstract += chunk.get_text() + '\n'
-				abstract = abstract[:-1]
+						obj['abstract'] += label + ': '
+					obj['abstract'] += chunk.get_text() + '\n'
+				obj['abstract'] = obj['abstract'][:-1]
 			# Authors
-			authors = []
+			obj['authors'] = []
 			if art.AuthorList:
 				author_list = art.AuthorList.find_all('Author')
 				for a in author_list:
@@ -90,7 +110,7 @@ def run():
 						if a.AffiliationInfo and a.AffiliationInfo.Affiliation:
 							affiliation = a.AffiliationInfo.Affiliation.get_text()
 						try:
-							authors.append((
+							obj['authors'].append((
 								a.LastName.get_text(),
 								a.ForeName.get_text(),
 								a.Initials.get_text(),
@@ -98,114 +118,127 @@ def run():
 							))
 						except:
 							if a.CollectiveName:
-								authors.append((a.CollectiveName.get_text(), '', '', ''))
+								obj['authors'].append((a.CollectiveName.get_text(), '', '', ''))
 			# Publication Details
+			obj['publication_details'] = {
+				'journal': '', 'abbr': '', 'issn': '', 'volume': '', 'issue': '', 'date_str': '', 'year': None
+			}
 			if art.Journal :
-				journal = art.Journal.Title.get_text()
-				abbr = ''
+				obj['publication_details']['journal'] = art.Journal.Title.get_text()
 				if art.Journal.ISOAbbreviation:
-					abbr = art.Journal.ISOAbbreviation.get_text()
-				issn = ''
+					obj['publication_details']['abbr'] = art.Journal.ISOAbbreviation.get_text()
 				if art.Journal.ISSN:
-					issn = art.Journal.ISSN.get_text()
-				volume = ''
+					obj['publication_details']['issn'] = art.Journal.ISSN.get_text()
 				if art.Journal.JournalIssue.Volume:
-					volume = art.Journal.JournalIssue.Volume.get_text()
-				issue = ''
+					obj['publication_details']['volume'] = art.Journal.JournalIssue.Volume.get_text()
 				if art.Journal.JournalIssue.Issue:
-					issue = art.Journal.JournalIssue.Issue.get_text()
-				date = ''
+					obj['publication_details']['issue'] = art.Journal.JournalIssue.Issue.get_text()
 				if art.Journal.JournalIssue.PubDate.Year:
 					year = art.Journal.JournalIssue.PubDate.Year.get_text()
-					date += year
-				if art.Journal.JournalIssue.PubDate.Month:
-					month = art.Journal.JournalIssue.PubDate.Month.get_text()
-					date += '/' + month				
-					if art.Journal.JournalIssue.PubDate.Day:
-						day = art.Journal.JournalIssue.PubDate.Day.get_text()
-						date += '/' + day
+					date_str = ''
+					if art.Journal.JournalIssue.PubDate.Month:
+						month = art.Journal.JournalIssue.PubDate.Month.get_text()
+						date_str += month
+						if art.Journal.JournalIssue.PubDate.Day:
+							day = art.Journal.JournalIssue.PubDate.Day.get_text()
+							date_str += ' ' + day
+						date_str += ', ' 
+					date_str += str(year)
+					# date_str format = Jun 12, 2000
+					obj['publication_details']['date_str'] = date_str
+					obj['publication_details']['year'] = int(year)
 
 			# Author Keywords
 			author_kw = []
-			for kw in p.find_all('Keyword'):
-				author_kw.append(kw.get_text())
+			if p.MedlineCitation.KeywordList:
+				for kw in p.MedlineCitation.KeywordList.find_all('Keyword'):
+					author_kw.append(kw.get_text())
+			obj['author_keywords'] = '; '.join(author_kw)
+			papers.append(obj)
 
-			# print '\n '+ str(i+1) +'. ================================'
-			# print 'JOURNAL: ' + journal
-			# print abbr + ' ' + issn + ' ' + volume + ' ' + issue + ' ' + date
- 			# print 'TITLE: ' + title
-			# print 'ABSTRACT: ' +abstract
-			# print 'AUTHORS: ' + '; '.join([a[0]+' '+a[1] for a in authors])
-			# print 'AUTHOR KEYWORDS: ' + '; '.join(author_kw)
-		
-			
+			# IDs (doi)
+			if p.PubmedData.ArticleIdList:
+				doi = p.PubmedData.ArticleIdList.find('ArticleId', { 'IdType': 'doi' })
+				obj['doi'] = doi.get_text() if doi else None
+
 		retstart += retmax
-		print_red('#' +str(run)+'/'+ str(tot_batches) +' Finished processing papers = ' + str(time.time() - end_req))
+		print_green('#' +str(run)+'/'+ str(tot_batches) +' Finished processing papers = ' + str(time.time() - end_req))
+		start2 = time.time()
+		save_papers(papers)
+		print_green('Time to process articles = ' + str(time.time() - start2))
+		
 
-	print_red('TOTAL TIME ELAPSED = ' + str(time.time() - start1) + ' sec.')
+	print_blue('TOTAL TIME ELAPSED = ' + str(time.time() - start1) + ' sec.')
+
+
+
+def save_papers(papers):
+	start1 = time.time()
+	for idx, p in enumerate(papers):
+		authors = []
+		for a in p['authors']:
+			# Affiliation
+			affiliation = None
+			if a[3] != '':
+				try:
+					affiliation, created = Affiliation.objects.get_or_create(name=a[3])
+				except Exception, e:
+					print a[3]
+					print_red(str(e))
+			# Author
+			try:
+				author, created = Author.objects.get_or_create(
+					last_name = a[0],
+					fore_name = a[1],
+					initials = a[2]
+				)
+				# Link author to affiliation
+				if affiliation and not author.affiliations.filter(pk=affiliation.pk).exists():
+					author.affiliations.add(affiliation)
+				authors.append(author)
+			except Exception, e:
+				print a
+				print_red(str(e))
+
+		# Publication Details
+		pd = p['publication_details']
+		pub_details = PublicationDetails(
+			journal = pd['journal'],
+			abbr = pd['abbr'],
+			issn = pd['issn'],
+			volume = pd['volume'],
+			issue = pd['issue'],
+			date_str = pd['date_str'],
+			year = pd['year']
+		)
+		pub_details.save()
+
+		# Article
+		try:
+			article = Article.objects.create(
+				pmid = p['pmid'],
+				doi = p['doi'],
+				title = p['title'],
+				abstract = p['abstract'],
+				pub_type = p['pub_type'],
+				pub_details = pub_details,
+				author_keywords = p['author_keywords']
+			)
+			# Link article to authors
+			for a in authors:
+				article.authors.add(a)
+			# print 'Saved article pmid = ' + str(article.pmid)
+		except Exception, e:
+			print_red(str(e))
 
 		
-	# 	print 'VENUE'
-	# 	print venue
-	# 	print "TITLE"
-	# 	print title
-	# 	print 'AUTHORS'
-	# 	print authors
-	# 	print 'AUTHORS INFO'
-	# 	print author_info
-	# 	print 'ABSTRACT'
-	# 	print abstract
-	# 	print 'UIDS'
-	# 	for uid in uids:
-	# 		print uid
+	print 'Saved ' + str(len(papers)) + ' articles'
 
 
 
 
 
-	# http_client = AsyncHTTPClient()
-	# http_client.fetch(url_fetch, handle_response)
-	# tornado.ioloop.IOLoop.instance().start()
 
-
-
-
-	'''  EXAMPLE
-	1. Neurol Int. 2017 Jun 23;9(2):7015. doi: 10.4081/ni.2017.7015. eCollection 2017
-	Jun 23.
-
-	Somatoform Dissociation, Fatigue Severity and Pain Behavior Compared in Patients
-	with Migraine Headache and in Healthy Individuals.
-
-	Fattahzadeh-Ardalani G(1), Aghazadeh V(2), Atalu A(1), Abbasi V(1).
-
-	Author information:
-	(1)Department of Neurology, Ardabil University of Medical Sciences, Ardabil,
-	Iran.
-	(2)Young Researchers Club and Elite Club, Ardabil Branch, Islamic Azad
-	University, Ardabil, Iran.
-
-	The prevalence of migraine in the world is about 15 and 7% among women and men,
-	respectively. The purpose of this study was comparison of somatoform
-	dissociation, fatigue severity and pain behavior in patients with migraine
-	headache and its relationship with coping strategies. This descriptive analytical
-	study has been done on 120 patients with migraine headache and 120 healthy
-	subjects were selected randomly. Data collected by somatoform dissociation
-	questionnaire (SDQ-20), fatigue severity scale, pain behavior scale and coping
-	strategies scale. For data analysis we used SPSS.19. The means of the somatoform
-	dissociation, pain behavior scale, help searching subscale and pain compliant in
-	migraine and healthy subjects were statistically significant. There was not
-	significant difference in avoidance subscales between the two groups. Comparison
-	of fatigue severity in patients with migraine and control group was meaningful.
-	There was significant positive correlation between all four scales and coping
-	strategies. It seems that these symptoms can play an important role in this
-	disease; thus, their careful evaluation in the treatment of migraine headache is
-	essential.
-
-	DOI: 10.4081/ni.2017.7015
-	PMCID: PMC5505118
-	PMID: 28713529
-	'''
 
 
 

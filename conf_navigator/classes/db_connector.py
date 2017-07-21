@@ -19,6 +19,11 @@ class DBconnector:
 		talks = TalkSerializer.setup_eager_loading(talks)
 		return TalkSerializer(talks, many=True).data
 
+		# talks = TalkSerializer(talks, many=True).data
+		# for idx, d in enumerate(talks):
+		# 	d['keywords'] = json.loads(d['keywords_str']['keyword_str'])
+		# return talks
+	
 
 	@classmethod
 	def get_keywords(cls, eventID):

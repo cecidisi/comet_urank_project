@@ -32,7 +32,7 @@ def extract_keywords(event):
 		'attend', 'disclaimer', 'appointment', 'involvement', 'become', 'employ', 'moreover', 'definition', 
 		'difficulty', 'schedule', 'attempt', 'extend', 'extension', 'scholar', 'anyone', 'everyone', 'start',
 		'advisor', 'january', 'bring', 'mentor', 'deputy', 'begin', 'extent', 'consider', 'briefly',
-		'highlight', 'apply', 'insight', 'taught', 'paper']
+		'highlight', 'apply', 'insight', 'taught', 'paper', 'analysis']
 
 
 
