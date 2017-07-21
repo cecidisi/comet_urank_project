@@ -135,7 +135,7 @@ DATABASES = {
 DATABASE_ROUTERS = [
     'conf_navigator_eval.db_router.ConfNavigatorEvalRouter',
     'conf_navigator.db_router.ConfNavigatorRouter',
-    'upmc_urank.db_router.UpmcUrankRouter',
+    # 'upmc_urank.db_router.UpmcUrankRouter',
     'comet_urank.db_router.CometRouter', 
 ]
 
@@ -211,8 +211,8 @@ WEBPACK_LOADER = {
 
 
 # CSRF_COOKIE_SECURE = True
-SECURE_CONTENT_TYPE_NOSNIFF = True
-SECURE_BROWSER_XSS_FILTER = True
+# SECURE_CONTENT_TYPE_NOSNIFF = True
+# SECURE_BROWSER_XSS_FILTER = True
 
-CONN_MAX_AGE = None
+# CONN_MAX_AGE = None
 
