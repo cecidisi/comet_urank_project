@@ -148,18 +148,18 @@ var ContentList = (function() {
     };
 
 
-    var getColor = function(d) {
-        if(d.ranking.pos_changed > 0) return "rgba(0, 200, 0, 0.8)";
-        if(d.ranking.pos_changed < 0) return "rgba(250, 0, 0, 0.8)";
-        return "rgba(128, 128, 128, 0.8)";
-    };
+    // var getColor = function(d) {
+    //     if(d.ranking.pos_changed > 0) return "rgba(0, 200, 0, 0.8)";
+    //     if(d.ranking.pos_changed < 0) return "rgba(250, 0, 0, 0.8)";
+    //     return "rgba(128, 128, 128, 0.8)";
+    // };
 
-    var getPosMoved = function(d) {
-        if(d.ranking.pos_changed == 1000) return Globals.STR.JUST_RANKED;
-        if(d.ranking.pos_changed > 0) return "+" + d.ranking.pos_changed;
-        if(d.ranking.pos_changed < 0) return d.ranking.pos_changed;
-        return "=";
-    };
+    // var getPosMoved = function(d) {
+    //     if(d.ranking.pos_changed == 1000) return Globals.STR.JUST_RANKED;
+    //     if(d.ranking.pos_changed > 0) return "+" + d.ranking.pos_changed;
+    //     if(d.ranking.pos_changed < 0) return d.ranking.pos_changed;
+    //     return "=";
+    // };
 
 
 
@@ -178,6 +178,7 @@ var ContentList = (function() {
             return "=";
         };
 
+        console.log('In showRankingPositions. data.length = ' + _this.data.length);
         _this.data.forEach(function(d, i){
             if(d.ranking.overall.score ){
                 //var rankingDiv = $(liItem + '' + d[s.attr.id]).find('.'+liRankingContainerClass);
@@ -510,6 +511,7 @@ var ContentList = (function() {
         updateLiBackground();
         // sortList();
         updateFunc[this.status]();
+        console.log('In update data.length = ' + this.data.length);
         showRankingPositions();
         setTimeout(removeMovingStyle, 3000);
         //  When animations are triggered too fast and they can't finished in order, older timeouts are canceled and only the last one is executed

@@ -7,17 +7,18 @@ from conf_navigator_eval.models import *
 
 def run():
 	email_mapping = get_email_mapping()
-	UserEval.objects.all().delete()
+	# UserEval.objects.all().delete()
 	users = User.objects.all()
 	for u in users:
-		user = UserEval.objects.create(
+		user, created = UserEval.objects.get_or_create(
 			id = u.id,
 			name = u.name,
 			username = u.username,
 			email = email_mapping[u.id] if u.id in email_mapping else '',
 			type = u.type
 		)
-		print 'Copied user #' + str(user.pk) + ' ' + user.name + ' to Eval DB (' + user.email + ')'
+		if created:
+			print 'Copied user #' + str(user.pk) + ' ' + user.name + ' to Eval DB (' + user.email + ')'
 
 
 def get_email_mapping():
