@@ -183,7 +183,7 @@ var ContentList = (function() {
                 console.log(i);
                 console.log(d);
                 // if(d.ranking.overall.score ){
-                if(d.ranking.ranking.pos){
+                if(d.ranking.pos){
                     try {
                     //var rankingDiv = $(liItem + '' + d[s.attr.id]).find('.'+liRankingContainerClass);
                     var rankingDiv = $('.'+liClass+'['+urankIdAttr+'="'+d[s.attr.id]+'"]').find('.'+liRankingContainerClass);
