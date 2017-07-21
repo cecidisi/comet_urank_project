@@ -180,8 +180,8 @@ var ContentList = (function() {
 
         console.log('In showRankingPositions. data.length = ' + _this.data.length);
         _this.data.forEach(function(d, i){
-                console.log(i);
-                console.log(d);
+                // console.log(i);
+                // console.log(d);
                 // if(d.ranking.overall.score ){
                 if(d.ranking.pos){
                     try {
@@ -518,6 +518,7 @@ var ContentList = (function() {
         buildEntries(this.data);
         updateLiBackground();
         // sortList();
+        console.log(this.status)
         updateFunc[this.status]();
         console.log('In update data.length = ' + this.data.length);
         showRankingPositions();
