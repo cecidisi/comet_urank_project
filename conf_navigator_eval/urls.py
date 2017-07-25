@@ -6,7 +6,7 @@ router = DefaultRouter()
 router.register(r'tasks', views.TaskViewSet)
 router.register(r'actions', views.LoggedActionViewSet)
 router.register(r'post-task-questionnaire', views.PostTaskQuestionnaire)
-
+router.register(r'final-surveys', views.FinalSurveyQuestionnaire)
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
