@@ -336,7 +336,7 @@ def urank_service(request):
 @api_view(['GET'])
 def download_logged_actions(request):
     response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="logged-actions.csv"'
+    response['Content-Disposition'] = 'attachment; filename="cn-eval-logged-actions.csv"'
     
     actions, keys = tm.get_logged_actions()
     writer = csv.DictWriter(response, keys)
@@ -348,7 +348,7 @@ def download_logged_actions(request):
 @api_view(['GET'])
 def download_post_task_questionnaires(request):
     response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="post-task-questionnaires.csv"'
+    response['Content-Disposition'] = 'attachment; filename="cn-eval-post-task-questionnaires.csv"'
     
     questionnaires, keys = tm.get_post_task_questionnaire_answers()
     writer = csv.DictWriter(response, keys)
@@ -361,7 +361,7 @@ def download_post_task_questionnaires(request):
 @api_view(['GET'])
 def download_final_surveys(request):
     response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="final-survey.csv"'
+    response['Content-Disposition'] = 'attachment; filename="cn-eval-final-survey.csv"'
     
     surveys, keys = tm.get_final_survey_answers()
     writer = csv.DictWriter(response, keys)
