@@ -13,7 +13,8 @@ module.exports = {
     main_comet : './assets/main_comet',
     main_conf_nav: './assets/main_conf_nav',
     main_conf_nav_eval: './assets/main_conf_nav_eval',
-    conf_nav_eval_general: './assets/conf_nav_eval_general'
+    conf_nav_eval_general: './assets/conf_nav_eval_general',
+    main_upmc_urank: './assets/main_upmc_urank',
   },
 
   output: {

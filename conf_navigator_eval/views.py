@@ -16,6 +16,7 @@ from rest_framework.response import Response
 from rest_framework.exceptions import * # APIException
 
 import json
+import csv
 
 from conf_navigator.models import *
 from conf_navigator.serializers import *
@@ -328,6 +329,72 @@ def urank_service(request):
     }
     return Response(resp)
         
+'''
+     DOWNLOAD DATA
+'''
+
+@api_view(['GET'])
+def download_logged_actions(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="logged-actions.csv"'
+    
+    actions, keys = tm.get_logged_actions()
+    writer = csv.DictWriter(response, keys)
+    writer.writeheader()
+    writer.writerows(actions)
+    return response
+
+
+@api_view(['GET'])
+def download_post_task_questionnaires(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="post-task-questionnaires.csv"'
+    
+    questionnaires, keys = tm.get_post_task_questionnaire_answers()
+    writer = csv.DictWriter(response, keys)
+    writer.writeheader()
+    writer.writerows(questionnaires)
+    return response
+    
+
+
+@api_view(['GET'])
+def download_final_surveys(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="final-survey.csv"'
+    
+    surveys, keys = tm.get_final_survey_answers()
+    writer = csv.DictWriter(response, keys)
+    writer.writeheader()
+    writer.writerows(surveys)
+    return response
+
+
+
+
+'''
+    ViewSets
+'''
+
+class TaskViewSet(viewsets.ModelViewSet):
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
+
+
+class LoggedActionViewSet(viewsets.ModelViewSet):
+    queryset = LoggedAction.objects.all()
+    serializer_class = LoggedActionsSerializer
+
+
+class PostTaskQuestionnaire(viewsets.ModelViewSet):
+    queryset = AnswerItem.objects.all()
+    serializer_class = AnswerItemSerializer
+
+
+class FinalSurveyQuestionnaire(viewsets.ModelViewSet):
+    queryset = FinalSurveyItem.objects.all()
+    serializer_class = FinalSurveySerializer
+
 
 
 

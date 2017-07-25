@@ -5,9 +5,11 @@ import re
 import time
 import nltk
 from nltk import word_tokenize
-from nltk.corpus import words, stopwords, brown
+from nltk.corpus import words, brown
 from nltk.util import ngrams
 from .tfidf import *
+from .stopwords import *
+from conf_navigator.classes.bcolors import *
 
 wnl = nltk.WordNetLemmatizer()
 stemmer = nltk.PorterStemmer()
@@ -20,7 +22,7 @@ default_options = {
 	'min_word_length': 3,
 	'min_rep_global_keyword' : 3,
 	'max_length_keyphrase': 3,
-	'min_rep_keyphrase' : 1,
+	'min_rep_keyphrase' : 2,
 	'doc_keywords_only': False
 }
 
@@ -37,15 +39,33 @@ class keyword_extractor:
 		self.global_keywords = []	# { id, term, appears_in (arr), keyphrases }
 		options = options or {}
 		self.opt = dict(default_options, **options)
-		self.stopwords = set(nltk.corpus.stopwords.words('english') + self.opt['stopwords'])
-		print self.opt['doc_keywords_only']
+		self.stopwords = stopwords
 
 
 	@staticmethod
 	def _get_tokens(text, stopwords):
+		
+		if text == '':
+			return  { 'raw': [], 'filtered': [], 'stemmed': [] }
+
+		def _lower(word):
+			# Trim lower case 's' in siglas, e.g. ADs
+			trimmed_word = word[:-1] if word[:-1].isupper() and word[-1] == 's' else word
+			# Lowercase trimmed word only if it is not all uppercase
+			return trimmed_word.lower() if not trimmed_word.isupper() else trimmed_word
+		
+		def _add_word(word):
+			if word not in stopwords and word.lower() not in stopwords:
+				filtered.append(word)
+				stemmed.append(stemmer.stem(word))
+
+
 		# Tokenize
-		tokens = word_tokenize(text)
-		tokens = [t.lower() for t in tokens if t.isalpha() and t.lower() not in stopwords]
+		tokens = [_lower(t) for t in word_tokenize(text) if t.isalpha()]
+		# print '-------------------------------'
+		# print_blue('Length before = ' + str(len(tokens)))
+		# print ' '.join(tokens)
+
 		# POS Tagging
 		tagged = nltk.pos_tag(tokens)
 		# Filter and Stem
@@ -53,20 +73,25 @@ class keyword_extractor:
 		stemmed = []
 		for t in tagged:
 			if t[1] == 'NN':
-				filtered.append(t[0])
-				stemmed.append(stemmer.stem(t[0]))
+				_add_word(t[0])
 			elif t[1] == 'NNS':
-				# Add term in plural
-				filtered.append(t[0])
-				# Lemmatize then stem
-				stemmed.append(stemmer.stem(wnl.lemmatize(t[0]))) 
+				# Lemmatize 
+				singular_word = wnl.lemmatize(t[0])
+				try:
+					_add_word(singular_word)
+				except Exception, e:
+					print_red('Check t[0] = ' + t[0] + '\n' + str(e))
+					print_red(wnl.lemmatize(t[0]))
+					print_blue(text)
+					print tokens
+					stemmer.stem(wnl.lemmatize(t[0]))
+					# raise Exception(bcolors.FAIL + 'Check t[0] = ' + t[0] + '\n' + str(e) + bcolors.ENDC)
+
+		# print_blue('Length after = ' + str(len(filtered)))
+		# print ' '.join(filtered)
 
 		return { 'raw': tokens, 'filtered': filtered, 'stemmed': stemmed }
 
-
-	@staticmethod
-	def _is_good_token(tagged):
-		return tagged[1] == 'NN'
 
 
 	@staticmethod

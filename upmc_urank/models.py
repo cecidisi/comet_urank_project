@@ -53,6 +53,44 @@ class Article(models.Model):
 
 
 
+class PubmedKeywordStr(models.Model):
+    keyword_str = models.TextField(blank=True, null=True)
+    article = models.OneToOneField(Article, on_delete=models.CASCADE, default='', related_name='keywords_str')
+
+    class Meta:
+        db_table = 'pubmed_keyword_str'
+
+
+class PubmedTopic(models.Model):
+	name = models.TextField()
+
+	class Meta:
+		db_table = 'pubmed_topic'
+
+
+class PubmedKeyphrase(models.Model):
+    phrase = models.TextField()
+    sequence = models.TextField()   # Parse as json later
+    count = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        db_table = 'pubmed_keyphrase'
+
+
+
+class PubmedGlobalKeyword(models.Model):
+    stem = models.CharField(max_length=45, blank=True, null=True)
+    term = models.CharField(max_length=45, blank=True, null=True)
+    df = models.IntegerField(blank=True, null=True)
+    entropy = models.FloatField(blank=True, null=True)
+    score = models.IntegerField(blank=True, null=True)
+    variations = models.TextField()
+    num_keyphrases = models.IntegerField(blank=True, null=True)
+    keyphrases = models.ManyToManyField(PubmedKeyphrase, blank=True, related_name='pubmed_global_keywords')
+    # topic = models.ForeignKey(PubmedTopic, blank=True, on_delete=models.CASCADE, default='', related_name='pubmed_global_keywords')
+    class Meta:
+        db_table = 'pubmed_global_keyword'
+
 
 
 

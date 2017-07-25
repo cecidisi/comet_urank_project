@@ -229,6 +229,22 @@ class TaskManager:
 
 
 
+	def get_logged_actions(self):
+		actions = LoggedAction.objects.all()
+		actions = LoggedActionsSerializer(actions, many=True).data
+		return (actions, actions[0].keys())
+
+
+	def get_post_task_questionnaire_answers(self):
+		questionnaires = AnswerItem.objects.all()
+		questionnaires = AnswerItemSerializer(questionnaires, many=True).data
+		return (questionnaires, questionnaires[0].keys())
+
+
+	def get_final_survey_answers(self):
+		surveys = FinalSurveyItem.objects.all()
+		surveys = FinalSurveySerializer(surveys, many=True).data
+		return (surveys, surveys[0].keys())
 
 
 

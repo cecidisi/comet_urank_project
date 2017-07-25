@@ -137,7 +137,7 @@ class ConfGlobalKeyword(models.Model):
 
 
 '''
-    User for similarity computation
+    Used for similarity computation
 '''
 
 

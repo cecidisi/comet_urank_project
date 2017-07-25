@@ -1,5 +1,11 @@
 from django.conf.urls import url, include
 from . import views
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register(r'tasks', views.TaskViewSet)
+router.register(r'actions', views.LoggedActionViewSet)
+router.register(r'post-task-questionnaire', views.PostTaskQuestionnaire)
 
 
 urlpatterns = [
@@ -24,4 +30,8 @@ urlpatterns = [
     url(r'^urank_service/$', views.urank_service, name='urank_service'),
     url(r'^bookmark-cn/(?P<content_id>\d+)/$', views.bookmark_cn, name='bookmark-cn'),
     url(r'^unbookmark-cn/(?P<content_id>\d+)/$', views.unbookmark_cn, name='unbookmark-cn'),
+    url(r'^download-logged-actions/$', views.download_logged_actions, name='download-logged-actions'),
+    url(r'^download-post-task-questionnaires/$', views.download_post_task_questionnaires, name='download-post-task-questionnaires'),
+    url(r'^download-final-surveys/$', views.download_final_surveys, name='download-final-surveys'),
+    url(r'^', include(router.urls)),
 ]

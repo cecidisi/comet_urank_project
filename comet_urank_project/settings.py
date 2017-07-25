@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '_z7vrte-i6d(tcn3h5#bgx+@6o#6h!a#^r@v==nsed1p+3fpn9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+# DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'pawscomp2.sis.pitt.edu']
 
@@ -135,7 +135,7 @@ DATABASES = {
 DATABASE_ROUTERS = [
     'conf_navigator_eval.db_router.ConfNavigatorEvalRouter',
     'conf_navigator.db_router.ConfNavigatorRouter',
-    # 'upmc_urank.db_router.UpmcUrankRouter',
+    'upmc_urank.db_router.UpmcUrankRouter',
     'comet_urank.db_router.CometRouter', 
 ]
 

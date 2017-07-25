@@ -61,7 +61,7 @@ class LoggedAction(models.Model):
 	timestamp = models.IntegerField()
 	pos = models.IntegerField()
 	item_id = models.TextField(default='')
-	desciption = models.TextField()
+	description = models.TextField()
 
 	class Meta:
 		db_table = 'logged_action'
