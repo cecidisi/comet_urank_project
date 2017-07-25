@@ -232,6 +232,8 @@ class TaskManager:
 	def get_logged_actions(self):
 		actions = LoggedAction.objects.all()
 		actions = LoggedActionsSerializer(actions, many=True).data
+		for a in actions:
+			a['description'] = a['description'].encode('utf8')
 		return (actions, actions[0].keys())
 
 
