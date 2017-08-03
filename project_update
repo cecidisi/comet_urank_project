@@ -5,11 +5,11 @@ set -o pipefail
 cd "$(dirname "$0")"
 
 echo  -e "\033[32m \nUpdate from repository"
-git reset --hard
-git pull
+sudo -u cecidisi git reset --hard
+sudo -u cecidisi git pull
 
 echo  -e "\033[32m \nBuild static files"
-npm run build
+sudo -u cecidisi npm run build
 
 echo  -e "\033[32m \nDjango collectstatic"
 source ENV/bin/activate
