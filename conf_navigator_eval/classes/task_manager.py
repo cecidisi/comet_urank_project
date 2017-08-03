@@ -116,7 +116,7 @@ class TaskManager:
 					timestamp = log['timestamp'],
 					pos = log['pos'],
 					item_id = str(log['id']),
-					desciption = log['description']
+					description = log['description']
 				)
 				action_log.save()
 			except Exception, e:

@@ -181,10 +181,15 @@ var NeighborsCloud = (function(){
 	
 
 	NeighborsCloud.prototype = {
+		// init
 		build : build,
+		// when user selects a tag, node, ot person icon
 		selectNeighborTag: selectNeighborTag,
+		// mouse over
 		onNeighborTagMouseEnter: onNeighborTagMouseEntered,
+		// mouse leave
 		onNeighborTagMouseLeave: onNeighborTagMouseLeft,
+		// when tag deleted in tagbox (box above ranking)
 		restoreTag: restoreTag
 	};
 

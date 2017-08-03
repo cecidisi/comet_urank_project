@@ -4,7 +4,7 @@ from conf_navigator.classes.bcolors import *
 
 
 def run():
-	user_id = 100005183
+	user_id = 16
 	try:
 		user = UserEval.objects.get(pk=user_id)
 		EvalSetting.objects.filter(user=user).delete()

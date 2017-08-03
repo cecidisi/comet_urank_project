@@ -44,3 +44,8 @@ echo -e "\033[32m \nCreate EVAL USERS with Email ... \033[0m"
 
 
 echo -e "\033[32m \nFinished Conference Navigator preparation successfully \033[0m"
+echo -e "\033[32m \nRestarting server... \033[0m"
+
+systemctl restart httpd
+
+echo -e "\033[32m \nREADY!! \033[0m"

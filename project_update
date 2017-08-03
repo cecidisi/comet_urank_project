@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+set -e 
+set -o pipefail
+
+cd "$(dirname "$0")"
+
+echo  -e "\033[32m \nUpdate from repository"
+git reset --hard
+git pull
+
+echo  -e "\033[32m \nBuild static files"
+npm run build
+
+echo  -e "\033[32m \nDjango collectstatic"
+source ENV/bin/activate
+./manage.py collectstatic --no-input
+
+
+echo -e "\033[32m \nRestarting server..."
+systemctl restart httpd
+
+echo -e "\033[32m \nREADY!! \033[0m"
+echo -e "\033[32m \NOTE: Run sudo ./prepare_cn if you need to update DB \033[0m"

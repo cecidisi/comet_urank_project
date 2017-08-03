@@ -58,9 +58,9 @@ def login(request):
             request.session['eventID'] = eventID
             request.session['user'] = user
             tm.set_user(user['UserID'])
-            return redirect('/cn_urank_eval/introduction')
+            return redirect('/urank/cn_urank_eval/introduction')
         else:
-            return redirect('/cn_urank_eval/login')
+            return redirect('/urank/cn_urank_eval/login')
 
 
 
@@ -99,7 +99,7 @@ def index(request, task=None):
             ', use_neighborcloud = ' + str(context['use_neighborcloud']))
         template = loader.get_template('conf_navigator_eval/index.html')
         return HttpResponse(template.render(context, request))
-    return redirect('/cn_urank_eval/login')
+    return redirect('/urank/cn_urank_eval/login')
 
 
 
@@ -119,7 +119,7 @@ def test(request):
     #     'name': 'Veronika'
     # }
     request.session['user'] = user
-    return redirect('/cn_urank_eval/set-task')
+    return redirect('/urank/cn_urank_eval/set-task')
 
 
 '''
@@ -146,7 +146,7 @@ def set_task(request, task=None):
 
     # Finish task
     if cur_task > tot_tasks:
-        return redirect('/cn_urank_eval/final-survey/')
+        return redirect('/urank/cn_urank_eval/final-survey/')
 
 
     print_blue('Task List = ' + str(', '.join(task_list)))
@@ -162,7 +162,7 @@ def set_task(request, task=None):
         'use_neighborcloud': True if rs != 'CB' else False
     }
     request.session.modified = True
-    return redirect('/cn_urank_eval/'+str(cur_task)+'/')
+    return redirect('/urank/cn_urank_eval/'+str(cur_task)+'/')
 
 
 
@@ -186,7 +186,7 @@ def submit_task(request):
 @api_view(['GET'])
 def questions(request, task=1):
     if 'user' not in request.session:
-        return redirect('/cn_urank_eval/login')
+        return redirect('/urank/cn_urank_eval/login')
 
     template = loader.get_template('conf_navigator_eval/questions.html')
     questions = tm.get_post_task_questions()
@@ -215,7 +215,7 @@ def submit_questions(request):
 def final_survey(request):
     # Check login
     if 'user' not in request.session:
-        return redirect('/cn_urank_eval/login')
+        return redirect('/urank/cn_urank_eval/login')
 
     template = loader.get_template('conf_navigator_eval/final-survey.html')
     questions = tm.get_final_survey()
