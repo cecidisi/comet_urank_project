@@ -2,6 +2,7 @@ ENV/
 migrations/
 node_modules/
 assets/bundles/
+static/
 *.log
 *.pot
 *.pyc
