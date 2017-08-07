@@ -4,20 +4,20 @@ set -o pipefail
 
 cd "$(dirname "$0")"
 
-echo  -e "\033[32m \nUpdate from repository"
+echo  -e "\033[32m \nUpdate from git repository \033[0m"
 sudo -u cecidisi git reset --hard
 sudo -u cecidisi git pull
 
-echo  -e "\033[32m \nBuild static files"
+echo  -e "\033[32m \nBuild static files \033[0m"
 sudo -u cecidisi npm run build
 
-echo  -e "\033[32m \nDjango collectstatic"
+echo  -e "\033[32m \nDjango collectstatic \033[0m"
 source ENV/bin/activate
 ./manage.py collectstatic --no-input
 
 
-echo -e "\033[32m \nRestarting server..."
+echo -e "\033[32m \nRestarting server... \033[0m"
 systemctl restart httpd
 
 echo -e "\033[32m \nREADY!! \033[0m"
-echo -e "\033[32m \NOTE: Run sudo ./prepare_cn if you need to update DB \033[0m"
+echo -e "\033[32m \tNOTE: Run sudo ./prepare_cn if you need to update DB \033[0m"

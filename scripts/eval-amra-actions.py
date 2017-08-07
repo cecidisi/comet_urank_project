@@ -23,7 +23,7 @@ def run():
 			{ 'action': 'tag deleted', 'description': 'keyword-experiment', 'tmsp': 101000 }
 		],
 		4 : [
-			{ 'action': 'tag selected', 'description': 'keyword-prediction', 'tmsp': 65000 }
+			{ 'action': 'tag selected', 'description': 'keyword-prediction', 'tmsp': 65000 },
 			{ 'action': 'tag selected', 'description': 'keyword-network', 'tmsp': 69000 },
 			{ 'action': 'tag selected', 'description': 'keyword-analytics', 'tmsp': 103000 },
 			{ 'action': 'tag selected', 'description': 'keyword-behavior', 'tmsp': 144000 },
