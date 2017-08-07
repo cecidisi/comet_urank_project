@@ -234,20 +234,25 @@ class TaskManager:
 		actions = LoggedActionsSerializer(actions, many=True).data
 		for a in actions:
 			a['description'] = a['description'].encode('utf8')
-		return (actions, actions[0].keys())
+		return actions
 
 
 	def get_post_task_questionnaire_answers(self):
 		questionnaires = AnswerItem.objects.all()
-		questionnaires = AnswerItemSerializer(questionnaires, many=True).data
-		return (questionnaires, questionnaires[0].keys())
-
+		return AnswerItemSerializer(questionnaires, many=True).data
+		
 
 	def get_final_survey_answers(self):
 		surveys = FinalSurveyItem.objects.all()
-		surveys = FinalSurveySerializer(surveys, many=True).data
-		return (surveys, surveys[0].keys())
+		return FinalSurveySerializer(surveys, many=True).data
 
 
+	def get_tasks_info(self):
+		tasks = Task.objects.all()
+		return TaskSerializer(tasks, many = True).data
 
+
+	def get_bookmarks_eval(self):
+		bookmarks = BookmarkEval.objects.all()
+		return BookmarkEvalSerializer(bookmarks, many = True).data
 			

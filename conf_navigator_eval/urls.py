@@ -33,5 +33,7 @@ urlpatterns = [
     url(r'^download-logged-actions/$', views.download_logged_actions, name='download-logged-actions'),
     url(r'^download-post-task-questionnaires/$', views.download_post_task_questionnaires, name='download-post-task-questionnaires'),
     url(r'^download-final-surveys/$', views.download_final_surveys, name='download-final-surveys'),
+    url(r'^download-tasks-info/$', views.download_tasks_info, name='download-tasks-info'),
+    url(r'^download-bookmarks-eval/$', views.download_bookmarks_eval, name='download-bookmarks-eval'),
     url(r'^', include(router.urls)),
 ]

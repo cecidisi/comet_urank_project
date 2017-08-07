@@ -103,6 +103,7 @@ class AnswerItemSerializer(serializers.ModelSerializer):
 		fields = ('user_id', 'user_name', 'task_num', 'condition', 'q_num', 'question', 'value')
 
 
+
 class FinalSurveySerializer(serializers.ModelSerializer):
 	user_id = serializers.IntegerField(source='user.pk', read_only=True)
 	user_name = serializers.CharField(source='user.name', read_only=True)
@@ -122,5 +123,29 @@ class FinalSurveySerializer(serializers.ModelSerializer):
 	class Meta:
 		model = FinalSurveyItem
 		fields = ('user_id', 'user_name', 'q_num', 'question', 'choice')
+
+
+
+class BookmarkEvalSerializer(serializers.ModelSerializer):
+	user_id = serializers.IntegerField(source='task.user.pk', read_only=True)
+	user_name = serializers.CharField(source='task.user.name', read_only=True)
+	task_num = serializers.IntegerField(source='task.number', read_only=True)
+	condition = serializers.SerializerMethodField()
+
+	def get_condition(self, item):
+		condition =  item.task.settings.ltsq.sequence.split(',')[item.task.number-1]
+		return condition
+
+	def setup_eager_loading(cls, queryset):
+		queryset = queryset.prefetch_related('task')
+		return queryset
+
+	class Meta:
+		model = BookmarkEval
+		fields = ('user_id', 'user_name', 'task_num', 'condition', 'pos', 'rating', 'talk_id', 'talk_title')
+
+
+
+
 
 

@@ -330,47 +330,49 @@ def urank_service(request):
     return Response(resp)
         
 '''
-     DOWNLOAD DATA
+     DOWNLOAD CSV DATA
 '''
+
+
+def write_csv(csv_data, filename):
+    keys = csv_data[0].keys()
+
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="' + filename + '.csv"'
+    writer = csv.DictWriter(response, keys)
+    writer.writeheader()
+    writer.writerows(csv_data)
+    return response
+
 
 @api_view(['GET'])
 def download_logged_actions(request):
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="cn-eval-logged-actions.csv"'
+    actions = tm.get_logged_actions()
+    return write_csv(actions, 'cn-eval-logged-actions')
     
-    actions, keys = tm.get_logged_actions()
-    writer = csv.DictWriter(response, keys)
-    writer.writeheader()
-    writer.writerows(actions)
-    return response
-
 
 @api_view(['GET'])
 def download_post_task_questionnaires(request):
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="cn-eval-post-task-questionnaires.csv"'
+    questionnaires = tm.get_post_task_questionnaire_answers()
+    return write_csv(questionnaires, 'cn-eval-post-task-questionnaires')
     
-    questionnaires, keys = tm.get_post_task_questionnaire_answers()
-    writer = csv.DictWriter(response, keys)
-    writer.writeheader()
-    writer.writerows(questionnaires)
-    return response
-    
-
 
 @api_view(['GET'])
 def download_final_surveys(request):
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="cn-eval-final-survey.csv"'
-    
-    surveys, keys = tm.get_final_survey_answers()
-    writer = csv.DictWriter(response, keys)
-    writer.writeheader()
-    writer.writerows(surveys)
-    return response
+    surveys = tm.get_final_survey_answers()
+    return write_csv(surveys, 'cn-eval-final-survey')
 
 
+@api_view(['GET'])
+def download_tasks_info(request):
+    tasks = tm.get_tasks_info()
+    return write_csv(tasks, 'cn-eval-tasks-info')
 
+
+@api_view(['GET'])
+def download_bookmarks_eval(request):
+    bookmarks = tm.get_bookmarks_eval()
+    return write_csv(bookmarks, 'cn-eval-bookmarks')
 
 '''
     ViewSets
