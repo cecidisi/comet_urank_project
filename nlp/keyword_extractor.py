@@ -23,7 +23,8 @@ default_options = {
 	'min_rep_global_keyword' : 3,
 	'max_length_keyphrase': 3,
 	'min_rep_keyphrase' : 2,
-	'doc_keywords_only': False
+	'doc_keywords_only': False,
+	'save_logs_to': None  # pass url
 }
 
 class keyword_extractor:

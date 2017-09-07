@@ -98,7 +98,7 @@ var DocViewer = (function(){
         $root.on('mousedown', function(event){ event.stopPropagation(); });
 
         //if(s.options.aes.customScrollBars)
-            $contentSectionOuter/*.css('overflowY', 'hidden')*/.mCustomScrollbar(customScrollOptions);
+            // $contentSectionOuter/*.css('overflowY', 'hidden')*/.mCustomScrollbar(customScrollOptions);
     };
 
 

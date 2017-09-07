@@ -23,11 +23,12 @@ Document Panel (right) - for visualizing highlighted text
     // CONTAINER
     .urank-docviewer-container {
         position: relative;
-        display: block;
+        display: flex;
+        flex-direction: column;
         top: 30px;
         left: 20%;
         width: 60%;
-        // max-height: 70%;
+        max-height: calc(100% - 60px);
         background: #ddd;
         border: 1px solid #888;
         box-shadow: 5px 5px 8px #333, -5px 5px 8px #333;
@@ -36,7 +37,7 @@ Document Panel (right) - for visualizing highlighted text
 
         // DETAILS SECTION
         .urank-docviewer-details-section {
-            width: calc(100% - 10px);
+            // width: calc(100% - 10px);
             padding: 5px 10px;
             text-align: left;
             color: #555;
@@ -89,9 +90,6 @@ Document Panel (right) - for visualizing highlighted text
         // CONTENT SECTION
         .urank-docviewer-content-section-outer {
             display: inline-block;
-            width: calc(100% - 8px);
-            // height: calc(100% - 6em);
-            height: 200px;
             margin: 4px;
             background: white;
             box-shadow: inset .2em .2em .5em #ccc, inset -.2em -.2em .5em #ccc;
@@ -100,8 +98,8 @@ Document Panel (right) - for visualizing highlighted text
             overflow-x: hidden;
 
             .urank-docviewer-content-section {
-                margin: 10px 0px;
-                padding: 5px;
+                margin: 5px 0px;
+                padding: 10px;
                 font-size: 1.1em;
 
                 p {

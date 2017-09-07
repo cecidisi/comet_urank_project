@@ -22,8 +22,8 @@ class TfIdf():
 		for term in doc:	
 			# update term freq. for current doc
 			if term not in doc_tf:
-				doc_tf[term] = 0
-			doc_tf[term] += 1
+				doc_tf[term] = 0.0
+			doc_tf[term] += 1.0 / len(doc)
 			# df, prob and entropy for term in collection
 			if term not in self.term_info:
 				self.term_info[term] = { 'df': 0, 'prob': 0, 'entropy': 0, 'documents_idx': []}

@@ -55,10 +55,15 @@ module.exports = (function(){
             numCategories : 1
         },
         tagBox: {
-            useHybridHeader: true
+            // useHybridHeader: true
+            header: {
+                enabled: true,
+                useHybrid: true,
+                useSplit: true
+            }
         },
         rankingRepresentation: {
-            split_by: 'rs'                  // rs || feature
+            split_by: 'feature'                  // rs || feature
         }
     };
 

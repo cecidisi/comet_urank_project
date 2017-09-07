@@ -23,8 +23,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '_z7vrte-i6d(tcn3h5#bgx+@6o#6h!a#^r@v==nsed1p+3fpn9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
-DEBUG = False
+DEBUG = True
+# DEBUG = False
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'pawscomp2.sis.pitt.edu']
 
@@ -39,15 +39,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'webpack_loader',
     'django_extensions',
-    'debug_toolbar',
     'comet_urank',
     'conf_navigator',
     'conf_navigator_eval',
     'upmc_urank',  
     'plugins',
     'nlp',
+    'webpack_loader',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
@@ -122,15 +122,15 @@ DATABASES = {
         'PORT': '3306',
         'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
     },
-    # 'upmcdb': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'upmc',
-    #     'USER': 'cecidisi',
-    #     'PASSWORD': 'asdf',
-    #     'HOST':  'localhost',
-    #     'PORT': '3306',
-    #     'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-    # }
+    'upmcdb': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'upmc',
+        'USER': 'cecidisi',
+        'PASSWORD': 'asdf',
+        'HOST':  'localhost',
+        'PORT': '3306',
+        'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+    }
 }
 
 DATABASE_ROUTERS = [

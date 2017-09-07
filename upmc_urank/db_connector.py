@@ -23,7 +23,7 @@ class DBconnector:
 
 	@classmethod
 	def get_keywords(cls):
-		keywords = PubmedGlobalKeyword.objects.all()
+		keywords = PubmedGlobalKeyword.objects.all().order_by('df')
 		return PubmedGlobalKeywordSerializer(keywords, many=True).data
 		# Return after renaming colvideos as appears_in
 		# keywords = [ dict(k, **{'appears_in' : k.pop('colvideos')}) for k in keywords]
