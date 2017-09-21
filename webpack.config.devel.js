@@ -102,7 +102,7 @@ module.exports = {
       'jquery-ui': 'jquery-ui-bundle',
       bootstrap: 'bootstrap-sass',
       // urank: path.resolve(__dirname, "plugins/urank/js/controller/urank")
-      urank: path.resolve(__dirname, "plugins/urank")
+      urank: path.resolve(__dirname, "plugins/urank_ui")
     }
   },
 
