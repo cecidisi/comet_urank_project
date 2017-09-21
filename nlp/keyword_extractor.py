@@ -263,7 +263,7 @@ class keyword_extractor:
 					'term': keyword_extractor._get_best_term(stem, stem_variations[stem] ),
 					'df': item['df'],
 					'entropy': item['entropy'],
-					'score':item['df'],
+					'score': item['df'],
 					'variations': sorted([{ 'term': key, 'count': val } for key, val in stem_variations[stem].iteritems() ], key=lambda k: k['count'], reverse=True ), 
 					'appears_in' : [d['id'] for i, d in enumerate(documents) if i in item['documents_idx']]
 				}

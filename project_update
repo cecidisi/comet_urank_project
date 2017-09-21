@@ -4,7 +4,7 @@ set -o pipefail
 
 cd "$(dirname "$0")"
 
-echo  -e "\033[32m \n(1/4) UPDATE FORM GIT REPOSITORY \033[0m"
+echo  -e "\033[32m \n(1/4) UPDATE FROM GIT REPOSITORY \033[0m"
 sudo -u cecidisi git reset --hard
 sudo -u cecidisi git pull
 

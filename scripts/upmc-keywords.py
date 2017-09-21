@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup as bs
 import json
 from nlp.keyword_extractor import *
 from upmc_urank.models import *
-
+import time
 
 def delete_from_db():
 	PubmedKeyphrase.objects.all().delete()
@@ -15,7 +15,9 @@ def delete_from_db():
 def run():
 	delete_from_db()
 	articles = Article.objects.all()
+	tmsp = time.time()
 	extract_keywords(articles)
+	print_blue('Time elapsed = ' + str(time.time() - tmsp))
 
 
 

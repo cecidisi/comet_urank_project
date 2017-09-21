@@ -6,6 +6,7 @@ import urllib2
 import requests
 import unicodedata
 import datetime
+import time
 
 from bs4 import BeautifulSoup as bs
 from conf_navigator.classes.bcolors import *
@@ -27,7 +28,7 @@ def run():
 	term = 'migraine'
 	retstart = 0
 	retmax = 100
-	count = 1000
+	count = 10000
 	search(term, retstart, retmax, count)
 
 
@@ -45,6 +46,7 @@ def search(term, retstart, retmax, count=0):
 	start1 = time.time()
 
 	# Search Request
+	print 'eSearching ...'
 	resp = requests.get(url_search)
 	soup = bs(resp.text, 'xml')
 	_count = int(soup.find('Count').get_text())
@@ -70,6 +72,7 @@ def fetch(base_url, query_key, web_env, retstart, retmax, count):
 		run = (retstart / retmax) + 1
 		url_fetch = base_url + 'efetch.fcgi?db=pubmed&rettype=abstract&query_key=' + query_key + '&WebEnv=' + web_env + '&retstart=' + str(retstart) + '&retmax=' + str(retmax)
 
+		print 'eFetching ...'
 		start2 = time.time()
 		resp = requests.get(url_fetch)
 		end_req = time.time()
