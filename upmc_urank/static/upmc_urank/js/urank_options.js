@@ -22,6 +22,7 @@ var default_options = {
         neighbors: false
     },
     rankingModel: {
+        useLocal : false,
         rankBy: 'CB',
         rs : [
             {
@@ -55,9 +56,6 @@ var default_options = {
         minRepetitionsInDocument: 1,
         maxKeywordDistance: 3,
         minRepetitionsProxKeywords: 2
-    },
-    rankingModel: {
-        useLocal : false
     },
     tagCloud : {        
         numCategories : 1,

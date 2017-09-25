@@ -12,7 +12,7 @@ class Urank:
 		
 		self.opt = {
 			'num_documents': 50,
-			'num_keywords': 50,
+			'num_keywords': 100,
 			'num_neighbors': 50
 		}
 		self.opt.update(options)

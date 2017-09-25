@@ -77,7 +77,7 @@ def get_article_details(request, doc_id, decoration):
     if article:
         resp = { 
             'count': 1, 
-            'results': urank.get_article_details(article, decoration) 
+            'results': urank.get_document_details(article, decoration) 
         }
 
     return Response(resp0)
