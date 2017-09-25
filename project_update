@@ -4,21 +4,10 @@ set -o pipefail
 
 cd "$(dirname "$0")"
 
-echo  -e "\033[32m \n(1/4) UPDATE FROM GIT REPOSITORY \033[0m"
+echo  -e "\033[32m \nUPDATE FROM GIT REPOSITORY \033[0m"
 sudo -u cecidisi git reset --hard
 sudo -u cecidisi git pull
 sudo -u cecidisi git submodule update --init --recursive
 
-echo  -e "\033[32m \n(2/4) BUILD STATIC FILES \033[0m"
-sudo -u cecidisi npm run build
-
-echo  -e "\033[32m \n(3/4) DJANGO COLLECT STATIC FILES \033[0m"
-source ENV/bin/activate
-./manage.py collectstatic --no-input
-
-
-echo -e "\033[32m \n(4/4) RESTARTING SERVER ... \033[0m"
-systemctl restart httpd
-
-echo -e "\033[32m \nREADY!! \033[0m"
-echo -e "\033[32m \tNOTE: Run \033[0m sudo ./prepare_cn \033[32m if you need to update DB \033[0m"
+echo  -e "\033[32m \nRunning updates ... \033[0m"
+./run_updates

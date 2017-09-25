@@ -29,8 +29,8 @@ class PublicationDetails(models.Model):
 	journal = models.TextField()
 	abbr = models.TextField(null=True, default='')
 	issn = models.CharField(max_length=200, null=True)
-	volume = models.CharField(max_length=20, null=True)
-	issue = models.CharField(max_length=20, null=True)
+	volume = models.CharField(max_length=200, null=True)
+	issue = models.CharField(max_length=200, null=True)
 	date_str = models.CharField(max_length=200, null=True, default='')
 	year = models.IntegerField(null=True, default=-1)
 
@@ -81,7 +81,7 @@ class PubmedGlobalKeyword(models.Model):
     class Meta:
         db_table = 'pubmed_global_keyword'
 
-        
+
 class PubmedKeyphrase(models.Model):
     phrase = models.TextField()
     pos = models.IntegerField(blank=True, null=True)

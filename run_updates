@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+echo  -e "\033[32m \n(1/4) SET DEBUG = False IN settings.py \033[0m"
+python scripts/settings-no-debug.py
+
+echo  -e "\033[32m \n(2/4) BUILD STATIC FILES WITH WEBPACK \033[0m"
+sudo -u cecidisi npm run build
+
+echo  -e "\033[32m \n(3/4) DJANGO COLLECT STATIC FILES \033[0m"
+source ENV/bin/activate
+./manage.py collectstatic --no-input
+
+echo -e "\033[32m \n(4/4) RESTARTING SERVER ... \033[0m"
+systemctl restart httpd
+
+echo -e "\033[32m \nREADY!! \033[0m"
+echo -e "\033[32m \tTo update Conference Navigator: Run \033[0m sudo ./prepare_cn \033[0m"
+echo -e "\033[32m \tTo setup UPMC: Run \033[0m sudo ./setup_upmc \033[0m"

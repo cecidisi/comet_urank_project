@@ -15,8 +15,7 @@ from itertools import izip, groupby, chain
 from nlp.tfidf import *
 from nlp.stopwords import *
 from conf_navigator.classes.bcolors import *
-from sklearn.feature_extraction.text import TfidfVectorizer
-# from sklearn
+
 from upmc_urank.models import *
 
 
