@@ -1,3 +1,6 @@
 [submodule "plugins/urank-new"]
 	path = plugins/urank-new
 	url = ssh://cdisciascio@git.know-center.tugraz.at:29418/~cdisciascio/urank.git
+[submodule "plugins/urank_ui"]
+	path = plugins/urank_ui
+	url = git@github.com:cecidisi/urank_ui.git
