@@ -62,7 +62,7 @@ class TfIdf():
 
 	def get_term_info(self):
 		log_max_ctf = log(self.max_ctf, 10)
-		print 'max ctf = ' + str(self.max_ctf) #+ ' -- max log ctf = ' + str(log_max_ctf)
+		# print 'max ctf = ' + str(self.max_ctf) #+ ' -- max log ctf = ' + str(log_max_ctf)
 		for term, value in self.term_info.iteritems():
 			value['term'] = term
 			# entropy

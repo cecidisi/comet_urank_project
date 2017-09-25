@@ -12,3 +12,4 @@ upmc_urank/static/upmc_urank/datasets/
 upmc_urank/pubmed_result.csv
 upmc_urank/static/upmc_urank/datasets/pubmed_result.csv
 webpack-stats.json
+output.txt

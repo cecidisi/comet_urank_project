@@ -42,9 +42,11 @@ var default_options = {
     },
     dataConnector : {
         urls: {
-            get_data: '/urank/upmc_urank/get-articles/',
-            get_keywords: '/urank/upmc_urank/get-keywords/',
-            urank: '/urank/upmc_urank/urank_service/'
+            get_data: 'get-articles/',
+            get_keywords: 'get-keywords/',
+            get_keyphrases: 'get-keyphrases/[kw_id]',
+            get_document_details: 'get-article-details/[doc_id]/[decoration]',
+            urank: 'urank_service/'
         }
     },
     keywordExtractor: {

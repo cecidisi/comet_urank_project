@@ -31,7 +31,8 @@ custom_stopwords = ['research', 'professor', 'university', 'work', 'institute', 
 		'style', 'emphasis', 'today', 'pass', 'current', 'agreement', 'referral', 'rationale', 'average',
 		'default', 'opinion', 'success', 'copyright', 'version', 'percent', 'researcher', 'introduction',
 		'furthermore', 'respect', 'depends', 'regardless', 'exist', 'likelihood', 'background', 'form',
-		'contribution', 'account'
+		'contribution', 'account','questionnaire', 'presence', 'insights', 'characteristics', 'aspect', 'position', 
+		'interpretation', 'differences', 'mean'
 		]
 
 

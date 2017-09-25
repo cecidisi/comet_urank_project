@@ -9,6 +9,8 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^get-articles/$', views.get_articles, name='get-articles'),
     url(r'^get-keywords/$', views.get_keywords, name='get-keywords'),
+    url(r'^get-keyphrases/(?P<kw_id>\d+)/$', views.get_keyphrases, name='get-keyphrases'),
+    url(r'^get-article-details/(?P<doc_id>\d+)/(?P<decoration>\w+)/$', views.get_article_details, name='get-article-details'),
     url(r'^urank_service/$', views.urank_service, name='urank_service'),
     url(r'^', include(router.urls)),
 ]

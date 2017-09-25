@@ -3,4 +3,4 @@ require('../comet_urank/static/comet_urank/js/main');
 
 // SCSS
 require('../conf_navigator/static/conf_navigator/css/style.scss');
-require('../plugins/urank/src/css/urank.scss');
+require('../plugins/urank_ui/src/css/urank.scss');

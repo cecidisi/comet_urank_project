@@ -68,16 +68,6 @@ class PubmedTopic(models.Model):
 		db_table = 'pubmed_topic'
 
 
-class PubmedKeyphrase(models.Model):
-    phrase = models.TextField()
-    sequence = models.TextField()   # Parse as json later
-    count = models.IntegerField(blank=True, null=True)
-
-    class Meta:
-        db_table = 'pubmed_keyphrase'
-
-
-
 class PubmedGlobalKeyword(models.Model):
     stem = models.CharField(max_length=45, blank=True, null=True)
     term = models.CharField(max_length=45, blank=True, null=True)
@@ -86,10 +76,25 @@ class PubmedGlobalKeyword(models.Model):
     score = models.IntegerField(blank=True, null=True)
     variations = models.TextField()
     num_keyphrases = models.IntegerField(blank=True, null=True)
-    keyphrases = models.ManyToManyField(PubmedKeyphrase, blank=True, related_name='pubmed_global_keywords')
+    # keyphrases = models.ManyToManyField(PubmedKeyphrase, blank=True, related_name='pubmed_global_keywords')
     # topic = models.ForeignKey(PubmedTopic, blank=True, on_delete=models.CASCADE, default='', related_name='pubmed_global_keywords')
     class Meta:
         db_table = 'pubmed_global_keyword'
+
+        
+class PubmedKeyphrase(models.Model):
+    phrase = models.TextField()
+    pos = models.IntegerField(blank=True, null=True)
+    count = models.IntegerField(blank=True, null=True)
+    stems = models.TextField()
+    global_keyword = models.ForeignKey(PubmedGlobalKeyword, blank=True, on_delete=models.CASCADE, default='', related_name='keyphrases')
+
+    class Meta:
+        db_table = 'pubmed_keyphrase'
+
+
+
+
 
 
 

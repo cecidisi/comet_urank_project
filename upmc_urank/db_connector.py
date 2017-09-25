@@ -7,25 +7,26 @@ import json
 class DBconnector:
 
 	@classmethod
-	def get_documents(cls):
-		articles = Article.objects.all()[:500]
+	def get_articles(cls):
+		articles = Article.objects.all()
 		articles = ArticleSerializer.setup_eager_loading(articles)
-		articles =  ArticleSerializer(articles, many=True).data
-		for a in articles:
-			a['id'] = a['pmid']
-		return articles
+		return ArticleSerializer(articles, many=True).data
 
-		# talks = TalkSerializer(talks, many=True).data
-		# for idx, d in enumerate(talks):
-		# 	d['keywords'] = json.loads(d['keywords_str']['keyword_str'])
-		# return talks
-	
 
 	@classmethod
 	def get_keywords(cls):
-		keywords = PubmedGlobalKeyword.objects.all().order_by('df')
+		keywords = PubmedGlobalKeyword.objects.all().order_by('-score')
 		return PubmedGlobalKeywordSerializer(keywords, many=True).data
-		# Return after renaming colvideos as appears_in
-		# keywords = [ dict(k, **{'appears_in' : k.pop('colvideos')}) for k in keywords]
-		# return keywords
+
+
+	@classmethod
+	def get_article_details(cls, doc_id):
+		article = Article.objects.get(pk = doc_id)
+		return ArticleFullSerializer(article).data
+
+
+	@classmethod
+	def get_keyphrases(cls, kw_id):
+		keyphrases = PubmedKeyphrase.objects.filter(global_keyword_id = kw_id)
+		return KeyphraseSerilizer(keyphrases, many=True).data
 

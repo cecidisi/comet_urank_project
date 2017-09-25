@@ -38,7 +38,7 @@ def index(request):
 
 @api_view(['GET'])
 def get_articles(request):
-    articles = urank.load_documents(DBconnector.get_documents())
+    articles = urank.load_documents(DBconnector.get_articles())
     resp = {
         'count': len(articles),
         'results': articles
@@ -56,6 +56,31 @@ def get_keywords(request):
         'results': keywords
     }
     return Response(resp)
+
+
+@api_view(['GET'])
+def get_keyphrases(request, kw_id):
+    keyphrases = DBconnector.get_keyphrases(kw_id)
+    resp = {
+        'count': len(keyphrases),
+        'results': keyphrases
+    }
+    return Response(resp)
+
+
+
+@api_view(['GET'])
+def get_article_details(request, doc_id, decoration):
+    article = DBconnector.get_article_details(doc_id)
+    
+    resp = { 'count': 0, 'results': None}
+    if article:
+        resp = { 
+            'count': 1, 
+            'results': urank.get_article_details(article, decoration) 
+        }
+
+    return Response(resp0)
 
 
 
@@ -78,4 +103,8 @@ def urank_service(request):
 class ArticleViewSet(viewsets.ModelViewSet):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
+
+class KeywordViewSet(viewsets.ModelViewSet):
+    queryset = PubmedGlobalKeyword.objects.all()
+    serializer_class = PubmedGlobalKeywordSerializer
 

@@ -8,12 +8,24 @@ ranker = Ranker()
 
 class Urank:
 
-	def __init__(self):
+	def __init__(self, options = {}):
+		
+		self.opt = {
+			'num_documents': 50,
+			'num_keywords': 50,
+			'num_neighbors': 50
+		}
+		self.opt.update(options)
+		self.clear()
+
+
+
+	def clear(self):
 		# documents
 		self.documents = []
 		# self.docs_to_send = []
 		self.doc_offset = 0
-		self.doc_limit = 50
+		self.doc_limit = self.opt['num_documents']
 		# document features
 		self.doc_id_to_index = {}
 		self.doc_keywords = []
@@ -21,43 +33,13 @@ class Urank:
 		# keywords
 		self.keywords = []
 		self.kw_offset = 0
-		self.kw_limit = 100
+		self.kw_limit = self.opt['num_keywords']
 		# usertags
 		self.usertags = []
 		# neighbors
 		self.neighbors = []
 		self.nb_offset = 0
-		self.nb_limit = 100
-		# self.ranking =  []
-		self.attr_remove = ['keywords_str', 'tags_str']
-		# set on update
-		self.rs_conf = {}
-		self.query = []
-		self.utags = []
-		self.kw_colors = {}
-
-	def clear(self):
-				# documents
-		self.documents = []
-		# self.docs_to_send = []
-		self.doc_offset = 0
-		self.doc_limit = 50
-		# document features
-		self.doc_id_to_index = {}
-		self.doc_keywords = []
-		self.doc_tags = []
-		# keywords
-		self.keywords = []
-		self.kw_offset = 0
-		self.kw_limit = 100
-		# usertags
-		self.usertags = []
-		# neighbors
-		self.neighbors = []
-		self.nb_offset = 0
-		self.nb_limit = 100
-		# self.ranking =  []
-		self.attr_remove = ['keywords_str', 'tags_str']
+		self.nb_limit = self.opt['num_neighbors']
 		# set on update
 		self.rs_conf = {}
 		self.query = []
@@ -75,16 +57,6 @@ class Urank:
 		# return [{i:obj[i] for i in obj if i not in targets}]
 
 
-	@staticmethod
-	def get_documents_to_send(documents, offset, limit, doc_tags, attr_remove):
-		docs_to_send = documents[offset:limit]
-		# self.docs_to_send = [dict(item, **{'tags' : item['tags_str'].split()}) if d['tags_str'] is not None else item for item in self.docs_to_send]
-		# self.docs_to_send = [urank_handler.get_obj_remove_field(d, attr_remove) for d in self.docs_to_send]
-		# for i, d in enumerate(docs_to_send):
-			# d['tags'] = doc_tags[i+offset]
-			# d['keywords'] = self.doc_keywords[i+self.doc_offset]
-			# map(d.pop, attr_remove)
-		return docs_to_send
 
 	@staticmethod
 	def get_formatted_word(word, color, decoration):
@@ -125,27 +97,28 @@ class Urank:
 	# INSTANCE METHODS
 	def load_documents(self, documents):		
 		self.documents = documents
-		print 'urank: Loaded ' + str(len(self.documents)) + ' documents'
-		# self.doc_keywords = [json.loads(d['keywords_str']['keyword_str']) for d in self.documents ]		
-		self.doc_tags = [] # [d['tags_str']['tag_str'].split() if d['tags_str'] else [] for d in self.documents ]
+		print 'urank: Loaded ' + str(len(self.documents)) + ' documents'		
+		self.doc_tags = []
 		self.keywords = []
 		for idx, d in enumerate(self.documents):
-			self.doc_keywords.append(json.loads(d['keywords_str']['keyword_str']))
+			self.doc_keywords.append(d['keywords'])
+			d.pop('keywords', None)
 			self.doc_id_to_index[d['id']] = idx
 
 		ranker.set_data(self.documents)
 		ranker.load_doc_keywords(self.doc_keywords)
-		docs_to_send = ranker.get_ranking(self.doc_offset, self.doc_limit)
-		# self.docs_to_send = Urank.get_documents_to_send(self.documents, self.doc_offset, self.doc_limit, self.doc_tags, self.attr_remove)
+		docs_to_send = ranker.get_ranking()[self.doc_offset:self.doc_limit]
 		print 'urank: Sending ' + str(len(docs_to_send)) + ' documents'
+		print docs_to_send[0]
 		return docs_to_send
 
 
 	def load_keywords(self, keywords):
 		self.keywords = keywords
 		print 'urank: Loaded ' + str(len(self.keywords)) + ' keywords'
-		keywords_to_send = self.keywords[:] #[self.kw_offset:self.kw_limit]
+		keywords_to_send = self.keywords[self.kw_offset:self.kw_limit]
 		print 'urank: Sending ' + str(len(keywords_to_send)) + ' keywords'
+		print keywords_to_send[0]
 		return keywords_to_send
 
 
@@ -154,6 +127,7 @@ class Urank:
 		self.usertags = usertags
 		return self.usertags	
 
+
 	def load_neighbors(self, neighbors, sim_user_talk):
 		print 'urank: Received ' + str(len(neighbors)) + ' neighbors'
 		self.neighbors = ranker.load_neighbors(neighbors, sim_user_talk)
@@ -161,6 +135,16 @@ class Urank:
 		neighbors_to_send = self.neighbors[self.nb_offset : self.nb_limit]
 		print 'urank: Sending ' + str(len(neighbors_to_send)) + ' neighbors'
 		return neighbors_to_send
+
+
+	def get_document_details(self, doc, decoration):
+		doc_kw = self.doc_keywords[ self.doc_id_to_index[doc['id']] ]
+		doc['title'] = Urank.get_formatted_text(doc['title'], doc_kw, 'pos_title', self.kw_colors, decoration)
+		print doc['title']				
+		doc['abstract'] = Urank.get_formatted_text(doc['abstract'], doc_kw, 'pos_detail', self.kw_colors, decoration)
+		print doc['abstract']
+		return doc
+		
 
 
 	def process_operation(self, params):
@@ -175,7 +159,7 @@ class Urank:
 			# self.utags = params['utags'] or []
 
 			ranker.update(self.rs_conf, self.features)
-			docs_to_send = ranker.get_ranking(self.doc_offset, self.doc_limit)
+			docs_to_send = ranker.get_ranking()[self.doc_offset:self.doc_limit]
 			# Prepare docs to send with pretty titles
 			self.kw_colors = {}
 			for k in self.features['keywords']:
