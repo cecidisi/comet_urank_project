@@ -276,6 +276,7 @@ def save_paper(paper):
 	pub_details.save()
 
 	# Article
+	article = None
 	try:
 		article = Article.objects.create(
 			pmid = paper['pmid'],
@@ -286,14 +287,21 @@ def save_paper(paper):
 			pub_details = pub_details,
 			author_keywords = paper['author_keywords']
 		)
-		# Link article to authors
-		for a in authors:
-			article.authors.add(a)
-		# print 'Saved article pmid = ' + str(article.pmid)
-		return article
 	except Exception, e:
+		print 'Error saving paper...'
 		print_red(str(e))
 		return None
+
+	# Link article to authors
+	for a in authors:
+		try:
+			article.authors.add(a)
+		except Exception, e:
+			print 'Error '
+			print_red(str(e))
+	return article
+
+
 
 	
 	# print 'Saved ' + str(len(papers)) + ' articles'
