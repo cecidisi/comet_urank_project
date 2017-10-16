@@ -12,7 +12,7 @@ xml==0.2.13
 httplib2==0.10.3
 numpy==1.13.0
 beautifulsoup4==4.6.0
-requests-2.18.1
-tornado-4.5.1
-sklearn-0.0
-scikit-learn-0.19.0
+requests==2.18.1
+tornado==4.5.1
+multiprocessing==2.6.2.1
+progressbar==2.3

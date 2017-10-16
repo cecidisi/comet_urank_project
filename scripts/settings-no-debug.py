@@ -4,7 +4,6 @@ import sys
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-# os.path.join(BASE_DIR, ...)
 
 # Read in file
 with open('comet_urank_project/settings.py', 'r') as file:
