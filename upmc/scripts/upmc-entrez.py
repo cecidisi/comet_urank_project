@@ -98,8 +98,6 @@ def fetch_parallel(base_url, query_key, web_env, retmax, count, cores):
 
 	# Set progressbar
 	tracker = mpProgressTracker(title='Fetching & Saving', total = batches)
-	# widgets = ['Fetching & Saving: ', Percentage(), ' ', Bar(marker='*',left='[',right=']'), ' ', ETA()]
-	# pbar = ProgressBar(widgets=widgets, maxval=batches)
 
 	tmsp1 = time.time()
 

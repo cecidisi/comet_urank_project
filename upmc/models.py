@@ -16,9 +16,9 @@ class Affiliation(models.Model):
 
 
 class Author(models.Model):
-	last_name = models.TextField(default='')
-	fore_name = models.TextField(default='')
-	initials = models.TextField(default='')
+	last_name = models.TextField()
+	fore_name = models.TextField()
+	initials = models.TextField()
 	affiliations = models.ManyToManyField(Affiliation, default='', related_name='author')
 
 	class Meta:
