@@ -23,8 +23,10 @@ mysql -uroot -p${rootpasswd} -e "GRANT ALL ON ${DBNAME}.* to '${USER}'@'localhos
 source ENV/bin/activate
 
 echo  -e "\033[32m \n(2/4) MAKE MIGRATIONS TO DB \033[0m"
-./manage.py makemigrations upmc_urank
-./manage.py migrate --database upmcdb upmc_urank
+./manage.py makemigrations upmc --empty
+./manage.py makemigrations upmc
+./manage.py migrate --database upmcdb upmc --fake
+./manage.py migrate --database upmcdb upmc
 
 
 echo  -e "\033[32m \n(3/4) FETCH PUBMED DOCUMENTS FROM ENTREZ API \033[0m"

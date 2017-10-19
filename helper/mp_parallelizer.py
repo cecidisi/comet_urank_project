@@ -8,7 +8,7 @@ class Parallelizer:
 		if db_close:
 			db.connections.close_all()
 		if not processes:
-			processes = max(10, mp.cpu_count() * .75)
+			processes = max(10, int(mp.cpu_count() * .75))
 
 		pool = mp.Pool(processes=processes)
 		jobs = None

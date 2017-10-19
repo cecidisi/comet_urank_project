@@ -73,14 +73,6 @@ def run():
 	print('Saved keywords from ' + str(len(jobs)) + ' articles')
 	jobs = Parallelizer.run(save_global_keywords, global_keywords)
 	print('Saved ' + str(len(jobs)) + ' global keywords')
-	
-	# cores= max(10, mp.cpu_count()*.75)
-	# pool = mp.Pool(cores)
-	# jobs = pool.map(save_document_keywords, doc_keywords.iteritems())
-	# print('Saved keywords from ' + str(len(jobs)) + ' articles')
-	# jobs = pool.map(save_global_keywords, global_keywords)
-	# print('Saved ' + str(len(jobs)) + ' global keywords')
-	# pool.close()
 
 	# for dpk, kws in doc_keywords.iteritems():
 	# 	save_document_keywords((dpk, kws))
