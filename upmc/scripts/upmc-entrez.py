@@ -248,11 +248,21 @@ def save_paper(paper):
 		# 	print a
 		# 	print_red(str(e))
 		
-		author, created = Author.objects.get_or_create(
-			last_name = a[0],
-			fore_name = a[1],
-			initials = a[2]
-		)
+		author = Author.objects.filter(last_name=a[0]).filter(fore_name=a[1]).filter(initials=a[2])
+		if len(author):
+			author = author[0]
+		else:
+			author = Author.objects.create(
+				last_name = a[0],
+				fore_name = a[1],
+				initials = a[2]
+			)
+
+		# author, created = Author.objects.get_or_create(
+		# 	last_name = a[0],
+		# 	fore_name = a[1],
+		# 	initials = a[2]
+		# )
 		# Link author to affiliation
 		if affiliation and not author.affiliations.filter(pk=affiliation.pk).exists():
 			author.affiliations.add(affiliation)
