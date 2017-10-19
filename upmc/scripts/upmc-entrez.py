@@ -17,13 +17,17 @@ from upmc.models import *
 from helper.mp_progress_tracker import *
 
 
-def run():
+def run(*args):
 	print 'RUN'
 	start = time.time()
 	clean_db()
 	term = 'migraine'
 	count = 1000 # Total number of items
 	retmax = 100	# Number items per batch
+	if 'get-all' in args:
+		count = 0
+		retmax = 100
+	
 	cores = max(10, int(mp.cpu_count() *.75))
 	base_url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/'
 	query_key, web_env, max_count = search(base_url, term)
@@ -90,7 +94,7 @@ def fetch_parallel(base_url, query_key, web_env, retmax, count, cores):
 	batches = count/retmax
 	jobs = []
 	db.connections.close_all()
-	print 'eFetching --> processes =  ' +str(cores)+ ', batches = ' + str(batches)
+	print 'eFetching ' + str(count) +' items --> processes =  ' +str(cores)+ ', batches = ' + str(batches)
 
 	# Set progressbar
 	tracker = mpProgressTracker(title='Fetching & Saving', total = batches)

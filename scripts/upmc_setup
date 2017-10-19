@@ -30,7 +30,7 @@ echo  -e "\033[32m \n(2/4) MAKE MIGRATIONS TO DB \033[0m"
 
 
 echo  -e "\033[32m \n(3/4) FETCH PUBMED DOCUMENTS FROM ENTREZ API \033[0m"
-./manage.py runscript --traceback upmc-entrez || exit
+./manage.py runscript --traceback upmc-entrez --script-args get-all || exit
 
 echo  -e "\033[32m \n(4/4) EXTRACT KEYWORDS AND PHRASES \033[0m"
 ./manage.py runscript --traceback kwext || exit
