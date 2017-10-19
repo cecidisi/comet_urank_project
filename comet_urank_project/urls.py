@@ -22,17 +22,16 @@ from django.conf import settings
 from django.contrib.staticfiles.views import serve 
 
 urlpatterns = [
-    # Production URLs
+    # DEvelopment URLs
     url(r'^comet_urank/', include('comet_urank.urls')),
     url(r'^cn_urank/', include('conf_navigator.urls')),
     url(r'^cn_urank_eval/', include('conf_navigator_eval.urls')),
-    url(r'^cn_urank_eval/', include('conf_navigator_eval.urls')),
-    url(r'^upmc/', include('upmc_urank.urls')),
-    # Development URLs
+    url(r'^upmc/', include('upmc.urls')),
+    # Production URLs
     url(r'^urank/comet_urank/', include('comet_urank.urls')),
     url(r'^urank/cn_urank/', include('conf_navigator.urls')),
     url(r'^urank/cn_urank_eval/', include('conf_navigator_eval.urls')),
-    url(r'^urank/upmc/', include('upmc_urank.urls')),
+    url(r'^urank/upmc/', include('upmc.urls')),
     # url(r'^admin/', admin.site.urls),    
     # url(r'^$', default_urlconf),
 ]

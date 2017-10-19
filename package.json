@@ -4,7 +4,6 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "babel": "babel --presets es2015 comet_urank/static/comet_urank/js/main.js -o static/build/main.bundle.js",
     "webpack": "webpack --config webpack.config.devel.js --progress",
     "build": "webpack --config webpack.config.prod.js --progress",
     "watch": "node webpack-server.js"

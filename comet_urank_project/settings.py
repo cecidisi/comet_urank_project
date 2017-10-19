@@ -40,12 +40,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'django_extensions',
+    'urank_service',
     'comet_urank',
     'conf_navigator',
     'conf_navigator_eval',
-    'upmc_urank',  
+    'upmc',  
     'plugins',
     'nlp',
+    'helper',
     'webpack_loader',
     'debug_toolbar',
 ]
@@ -136,7 +138,7 @@ DATABASES = {
 DATABASE_ROUTERS = [
     'conf_navigator_eval.db_router.ConfNavigatorEvalRouter',
     'conf_navigator.db_router.ConfNavigatorRouter',
-    'upmc_urank.db_router.UpmcUrankRouter',
+    'upmc.db_router.UpmcUrankRouter',
     'comet_urank.db_router.CometRouter', 
 ]
 

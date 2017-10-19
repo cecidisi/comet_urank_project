@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+echo "$(dirname "$0")/.."
+cd "$(dirname "$0")/.."
+
+
+source ENV/bin/activate

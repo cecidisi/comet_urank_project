@@ -14,18 +14,17 @@ from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.exceptions import * # APIException
-
 import json
 import csv
 
 from conf_navigator.models import *
 from conf_navigator.serializers import *
-from conf_navigator.classes.urank_handler import *
-from conf_navigator.classes.db_connector import *
-from conf_navigator.classes.cn_connector import *
-from conf_navigator.classes.bcolors import *
+from conf_navigator.db_connector import *
+from conf_navigator.cn_connector import *
+from urank_service.urank_handler import *
+from helper.bcolors import *
+from .task_manager import *
 
-from .classes.task_manager import *
 
 urank = Urank()
 tm = TaskManager()

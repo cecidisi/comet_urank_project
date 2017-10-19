@@ -2,7 +2,7 @@
 # from django.contrib.auth.models import User
 from rest_framework import serializers
 from conf_navigator.models import *
-
+import json
 
 class EventSerializer(serializers.ModelSerializer):
     class Meta:
@@ -52,7 +52,10 @@ class SessionSerializer(serializers.ModelSerializer):
 
 class TalkSerializer(serializers.ModelSerializer):
     session = SessionSerializer(read_only=True)
-    keywords_str = TalkKeywordStrSerializer(read_only=True)
+    keywords = serializers.SerializerMethodField()
+
+    def get_keywords(self, talk):
+        return json.loads(talk.keywords_str.keyword_str)
 
     @classmethod
     def setup_eager_loading(cls, queryset):
@@ -64,7 +67,7 @@ class TalkSerializer(serializers.ModelSerializer):
     class Meta:
         model = Talk
         fields = ('id', 'title', 'abstract', 'content_type', 'author_list', 'date', 'begin_time', 'end_time', 
-            'keywords_str', 'session')
+            'keywords', 'session')
     
 
 

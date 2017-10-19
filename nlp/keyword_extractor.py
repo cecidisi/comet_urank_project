@@ -9,7 +9,7 @@ from nltk.corpus import words, brown
 from nltk.util import ngrams
 from .tfidf import *
 from .stopwords import *
-from conf_navigator.classes.bcolors import *
+from helper.bcolors import *
 
 wnl = nltk.WordNetLemmatizer()
 stemmer = nltk.PorterStemmer()

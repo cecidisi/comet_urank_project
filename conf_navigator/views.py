@@ -14,15 +14,15 @@ from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.exceptions import * # APIException
+import json
 
+from helper.bcolors import *
+from urank_service.urank_handler import *
 from .models import *
 from .serializers import *
-from .classes.urank_handler import *
-from .classes.db_connector import *
-from .classes.authentication import *
-from .classes.bcolors import *
+from .db_connector import *
+from .cn_connector import *
 
-import json
 
 urank = Urank()
 session_key = 'confnav'
@@ -40,7 +40,7 @@ def login(request):
         email = request.POST['email']
         password = request.POST['password']
         # Login with conference navigator, if OK  set session and go to urank
-        user = Auth.login(email, password)
+        user = CN_connector.login(email, password)
         if user:
             request.session['user'] = user
             request.session['eventID'] = eventID

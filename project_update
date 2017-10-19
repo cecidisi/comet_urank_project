@@ -10,4 +10,4 @@ sudo -u cecidisi git pull
 sudo -u cecidisi git submodule update --init --recursive
 
 echo  -e "\033[32m \nRunning updates ... \033[0m"
-./run_updates
+./scripts/run_updates
