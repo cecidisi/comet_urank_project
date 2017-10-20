@@ -29,7 +29,7 @@ class DBconnector:
 
 	@classmethod
 	def get_keyphrases(cls, kw_id):
-		keyphrases = PubmedKeyphrase.objects.filter(global_keyword_id = kw_id)
+		keyphrases = PubmedKeyphrase.objects.filter(global_keyword_id=kw_id, count__gt=1)[:30]
 		return KeyphraseSerilizer(keyphrases, many=True).data
 
 

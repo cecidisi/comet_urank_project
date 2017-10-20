@@ -2,7 +2,7 @@ import copy
 from helper.bcolors import *
 from .rs_content_based import *
 from .rs_collaborative_filtering import *
-import multiprocessing as mp
+from helper.mp_parallelizer import *
 from functools import partial
 import time
 
@@ -24,14 +24,32 @@ def update_worker(recommender, conf_rs, features, d):
 	return d
 
 
+def normalization_worker(recommender, rs_conf, d):
+	for conf in rs_conf:
+		if conf['active']:
+			rs_name = conf['name']
+			max_score = recommender[rs_name].get_max_score()
+			val_before = d['ranking'][rs_name]['score']
+			d['ranking'][rs_name]['score'] = 0.0
+			if max_score:
+				d['ranking'][rs_name]['score'] = \
+					(float(d['ranking'][rs_name]['score']) / max_score) * float(conf['weight'])
+			for detail in d['ranking'][rs_name]['details']:
+				detail['score'] = 0.0
+				if max_score:
+					detail['score'] = (float(detail['score']) / max_score) * float(conf['weight'])
+			d['ranking']['overall']['score'] += d['ranking'][rs_name]['score']
+	return d
+
+
 class Ranker:
 
 	rs = {
 		'CB': RSContentBased(),
 		'CF': RSCollaborativeFiltering()
 	}
-	cores = max(10, mp.cpu_count()*.75)
-	pool = mp.Pool(processes=3)
+	# cores = max(10, mp.cpu_count()*.75)
+	# pool = mp.Pool(processes=3)
 
 	def __init__(self):
 		self.clear()
@@ -177,23 +195,26 @@ class Ranker:
 			# return self.reset()
 
 		#  Compute recommendation scores		
-		
-		
+			
 		tmsp = time.time()
 
-		# worker = partial(update_worker, Ranker.rs, conf['rs'], features)
-		# job = Ranker.pool.map_async(worker, self.ranking)
-		# # pool.close()
-		# # pool.join()
-		# self.ranking = job.get()
-		# print_green('Update time = ' + str(time.time() - tmsp))
-
-		# Update scores
-		self.ranking = [Ranker.compute_score(d, features, conf['rs']) for d in self.ranking] 
-		print_green('Update = ' + str(time.time() - tmsp))
-		# Normalize
-		self.ranking = [Ranker.normalize_score(d, conf['rs']) for d in self.ranking]
-		print_green('Update + Normalization = ' + str(time.time() - tmsp))
+		## Update scores
+		# Parallel update
+		if len(self.ranking) >= 100:
+			print_blue('Updating with multiprocessing ...')
+			worker_upd = partial(update_worker, Ranker.rs, conf['rs'], features)
+			# job = Ranker.pool.map_async(worker, self.ranking)
+			self.ranking = Parallelizer.run(worker_upd, self.ranking)
+			worker_norm = partial(normalization_worker, Ranker.rs, conf['rs'])
+			self.ranking= Parallelizer.run(worker_norm, self.ranking)
+			print_green('Update time = ' + str(time.time() - tmsp))
+		else:
+			print_blue('Serial Update')
+			self.ranking = [Ranker.compute_score(d, features, conf['rs']) for d in self.ranking] 
+			print_green('Update = ' + str(time.time() - tmsp))
+			# Normalize
+			self.ranking = [Ranker.normalize_score(d, conf['rs']) for d in self.ranking]
+			print_green('Update + Normalization = ' + str(time.time() - tmsp))
 
 		# Sort and assign positions
 		rank_by = conf['rankBy']
