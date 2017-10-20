@@ -71,14 +71,23 @@ def get_keyphrases(request, kw_id):
 @api_view(['GET'])
 def get_article_details(request, doc_id, decoration):
     article = DBconnector.get_article_details(doc_id)
-    
     resp = { 'count': 0, 'results': None}
     if article:
         resp = { 
             'count': 1, 
             'results': urank.get_document_details(article, decoration) 
         }
+    return Response(resp)
 
+
+@api_view(['GET'])
+def search_features(request, feature_type, text):
+    print_blue('feature_type = ' + feature_type + '; text = '+ text)
+    features = DBconnector.search_features(feature_type, text)
+    resp = {
+        'count': len(features),
+        'results': features
+    }
     return Response(resp)
 
 

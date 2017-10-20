@@ -3,7 +3,8 @@ var default_options = {
         tagBoxRoot: '#tagbox',
         contentListRoot: '#contentlist',
         visCanvasRoot: '#viscanvas',
-        tagCloudRoot: '#tagcloud'
+        tagCloudRoot: '#tagcloud',
+        searchInputRoot: '#search-features'
     },
     dataAttr : {
         id : 'id',
@@ -47,7 +48,8 @@ var default_options = {
             get_keywords: 'get-keywords/',
             get_keyphrases: 'get-keyphrases/[kw_id]',
             get_document_details: 'get-article-details/[doc_id]/[decoration]',
-            urank: 'urank_service/'
+            urank: 'urank_service/',
+            search_features: 'search-features/[feature_type]/[text]'
         }
     },
     keywordExtractor: {
@@ -64,6 +66,9 @@ var default_options = {
     },
     tagBox: {
 
+    },
+    searchInput: {
+        type: 'keyword'
     },
     docViewer: {
         attrToShow: [{

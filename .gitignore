@@ -11,7 +11,7 @@ local_settings.py
 upmc/static/upmc/datasets/
 upmc/pubmed_result.csv
 upmc/static/upmc/datasets/pubmed_result.csv
-./webpack-stats.json
+/webpack-stats.json
 output.txt
 plugins/urank-original
 plugins/urank_ui_remove

@@ -3,6 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 # from conf_navigator.models import *
 from .models import *
 from .serializers import *
+from helper.bcolors import *
 import json
 
 class DBconnector:
@@ -30,4 +31,17 @@ class DBconnector:
 	def get_keyphrases(cls, kw_id):
 		keyphrases = PubmedKeyphrase.objects.filter(global_keyword_id = kw_id)
 		return KeyphraseSerilizer(keyphrases, many=True).data
+
+
+	@classmethod
+	def search_features(cls, feature_type, text):
+		if feature_type == 'keyword':
+			keywords = PubmedGlobalKeyword.objects.filter(term__contains=text)
+			print_blue(str(len(keywords)))
+			if len(keywords):
+				return PubmedGlobalKeywordSerializer(keywords, many=True).data
+		return []
+
+
+
 

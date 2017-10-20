@@ -79,10 +79,8 @@ class KeyphraseSerilizer(serializers.ModelSerializer):
 
 
 class PubmedGlobalKeywordSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = PubmedGlobalKeyword
         fields = ('id', 'stem', 'term', 'df', 'score', 'variations', 'num_keyphrases')
-
 
 

@@ -70,16 +70,17 @@ class Urank:
 		pretty_text = ''
 		highlights = []
 		# Add all formatted words to highlights list and then sort from last to first
-		for stem, color in kw_colors.iteritems():
-			# Positions for current keyword
-			positions = doc_keywords[stem][pos_attr] if stem in doc_keywords else []
-			for pos in positions:
-				word = text[pos['from']:pos['to']]
-				highlights.append({
-					'styled_word': Urank.get_formatted_word(word, color, decoration),
-					'from': pos['from'],
-					'to': pos['to']
-				})
+		for stems, color in kw_colors.iteritems():
+			for stem in stems.split(' '):
+				# Positions for current keyword
+				positions = doc_keywords[stem][pos_attr] if stem in doc_keywords else []
+				for pos in positions:
+					word = text[pos['from']:pos['to']]
+					highlights.append({
+						'styled_word': Urank.get_formatted_word(word, color, decoration),
+						'from': pos['from'],
+						'to': pos['to']
+					})
 		# Sort all highlights from last to first
 		highlights = sorted(highlights, key=lambda h: h['to'])
 		last_pos = len(text)

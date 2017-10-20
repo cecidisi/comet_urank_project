@@ -28,11 +28,17 @@ class RSContentBased:
 		doc_norm = RSContentBased.get_eucliden_norm(doc_kw)
 		unit_query_vec_dot = 1.00 / float(math.sqrt(len(query))) if len(query) else 0.0
 		for q in query:
-			stem = q['stem']
+			stems = q['stem'].split(' ')
 			weight = q['weight']
 			# term_score = (doc_kw[stem]['tfidf'] / doc_norm) * unit_query_vec_dot * float(weight) * float(cb_weight) if stem in doc_kw else 0.0
-			term_score = (doc_kw[stem]['tfidf'] / doc_norm) * unit_query_vec_dot * float(weight) if stem in doc_kw else 0.0
-			total_score += term_score
+			term_score = 0
+			# Check that a document contains all stems
+			if all(s in doc_kw.keys() for s in stems):
+				for stem in stems:
+					term_score += (doc_kw[stem]['tfidf'] / doc_norm) * unit_query_vec_dot * float(weight) \
+						if stem in doc_kw \
+						else 0.0
+				total_score += term_score
 			# term_scores.append({ 'term': q['term'], 'stem': stem, 'score': term_score })
 			term_scores.append({ 'id': q['id'], 'name': q['name'], 'score': term_score })
 		self.max_score = max(total_score, self.max_score)

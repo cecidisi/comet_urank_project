@@ -47,7 +47,12 @@
         </div>
 
         <div class="right-panel">
-            <div id='search-area'></div>    
+            <div id='.search-area'>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="search-features" placeholder="Search Keyword...">
+                    <!-- <select class="form-control select2-hidden-accessible js-states" id="search-features"></select> -->
+                </div>
+            </div>    
             <div id="tagcloud" class="large"></div>
         </div>
         
@@ -58,7 +63,7 @@
     </div>
 
     {% render_bundle 'vendor' %}
-    {% render_bundle 'conf_nav_eval_general' %}
+    
     {% render_bundle 'main_upmc' %}
  
 
