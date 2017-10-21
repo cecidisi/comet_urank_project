@@ -5,6 +5,7 @@ from .rs_collaborative_filtering import *
 from helper.mp_parallelizer import *
 from functools import partial
 import time
+import multiprocessing as mp
 
 def update_worker(recommender, conf_rs, features, d):
 	idx = d['idx']
@@ -202,10 +203,16 @@ class Ranker:
 		# Parallel update
 		if len(self.ranking) >= 100:
 			print_blue('Updating with multiprocessing ...')
+
 			worker_upd = partial(update_worker, Ranker.rs, conf['rs'], features)
 			# job = Ranker.pool.map_async(worker, self.ranking)
 			try:
-				self.ranking = Parallelizer.run(worker_upd, self.ranking)
+				# self.ranking = Parallelizer.run(worker_upd, self.ranking)
+				print 'Start mp update'
+				pool = mp.Pool()
+				self.ranking = pool.map(worker_upd, self.ranking[:1000])
+				pool.close()
+				pool.join()
 			except Exception, e:
 				print 'ERROR updating scores'
 				print e
@@ -215,7 +222,12 @@ class Ranker:
 
 			worker_norm = partial(normalization_worker, Ranker.rs, conf['rs'])
 			try:
-				self.ranking= Parallelizer.run(worker_norm, self.ranking)	
+				# self.ranking = Parallelizer.run(worker_norm, self.ranking)
+				print 'Start mp normalize'
+				pool = mp.Pool()
+				self.ranking = pool.map(worker_upd, self.ranking)
+				pool.close()
+				pool.join()
 			except Exception, e:
 				print 'ERROR normalizing scores'
 				print e
