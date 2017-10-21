@@ -204,10 +204,24 @@ class Ranker:
 			print_blue('Updating with multiprocessing ...')
 			worker_upd = partial(update_worker, Ranker.rs, conf['rs'], features)
 			# job = Ranker.pool.map_async(worker, self.ranking)
-			self.ranking = Parallelizer.run(worker_upd, self.ranking)
-			worker_norm = partial(normalization_worker, Ranker.rs, conf['rs'])
-			self.ranking= Parallelizer.run(worker_norm, self.ranking)
+			try:
+				self.ranking = Parallelizer.run(worker_upd, self.ranking)
+			except Exception, e:
+				print 'ERROR updating scores'
+				print e
+				print 'Running serial update instead'
+				self.ranking = [Ranker.compute_score(d, features, conf['rs']) for d in self.ranking] 
 			print_green('Update time = ' + str(time.time() - tmsp))
+
+			worker_norm = partial(normalization_worker, Ranker.rs, conf['rs'])
+			try:
+				self.ranking= Parallelizer.run(worker_norm, self.ranking)	
+			except Exception, e:
+				print 'ERROR normalizing scores'
+				print e
+				print 'Running serial normalization instead'
+				self.ranking = [Ranker.normalize_score(d, conf['rs']) for d in self.ranking]
+				print_green('Update + Normalization = ' + str(time.time() - tmsp))
 		else:
 			print_blue('Serial Update')
 			self.ranking = [Ranker.compute_score(d, features, conf['rs']) for d in self.ranking] 
