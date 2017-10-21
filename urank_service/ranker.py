@@ -6,6 +6,7 @@ from helper.mp_parallelizer import *
 from functools import partial
 import time
 import multiprocessing as mp
+from helper.pretty_time import *
 
 def update_worker(recommender, conf_rs, features, d):
 	idx = d['idx']
@@ -201,51 +202,51 @@ class Ranker:
 
 		## Update scores
 		# Parallel update
-		if len(self.ranking) >= 100:
-			print_blue('Updating with multiprocessing ...')
+		# if len(self.ranking) >= 100:
+		# 	print_blue('Updating with multiprocessing ...')
 
-			worker_upd = partial(update_worker, Ranker.rs, conf['rs'], features)
-			# job = Ranker.pool.map_async(worker, self.ranking)
-			try:
-				# self.ranking = Parallelizer.run(worker_upd, self.ranking)
-				print 'Start mp update'
-				pool = mp.Pool()
-				self.ranking = pool.map(worker_upd, self.ranking[:1000])
-				pool.close()
-				pool.join()
-			except Exception, e:
-				print 'ERROR updating scores'
-				print e
-				print 'Running serial update instead'
-				self.ranking = [Ranker.compute_score(d, features, conf['rs']) for d in self.ranking] 
-			print_green('Update time = ' + str(time.time() - tmsp))
+		# 	worker_upd = partial(update_worker, Ranker.rs, conf['rs'], features)
+		# 	# job = Ranker.pool.map_async(worker, self.ranking)
+		# 	try:
+		# 		# self.ranking = Parallelizer.run(worker_upd, self.ranking)
+		# 		print 'Start mp update'
+		# 		pool = mp.Pool()
+		# 		self.ranking = pool.map(worker_upd, self.ranking[:1000])
+		# 		pool.close()
+		# 		pool.join()
+		# 	except Exception, e:
+		# 		print 'ERROR updating scores'
+		# 		print e
+		# 		print 'Running serial update instead'
+		# 		self.ranking = [Ranker.compute_score(d, features, conf['rs']) for d in self.ranking] 
+		# 	print_green('Update time = ' + str(time.time() - tmsp))
 
-			worker_norm = partial(normalization_worker, Ranker.rs, conf['rs'])
-			try:
-				# self.ranking = Parallelizer.run(worker_norm, self.ranking)
-				print 'Start mp normalize'
-				pool = mp.Pool()
-				self.ranking = pool.map(worker_upd, self.ranking)
-				pool.close()
-				pool.join()
-			except Exception, e:
-				print 'ERROR normalizing scores'
-				print e
-				print 'Running serial normalization instead'
-				self.ranking = [Ranker.normalize_score(d, conf['rs']) for d in self.ranking]
-				print_green('Update + Normalization = ' + str(time.time() - tmsp))
-		else:
-			print_blue('Serial Update')
-			self.ranking = [Ranker.compute_score(d, features, conf['rs']) for d in self.ranking] 
-			print_green('Update = ' + str(time.time() - tmsp))
-			# Normalize
-			self.ranking = [Ranker.normalize_score(d, conf['rs']) for d in self.ranking]
-			print_green('Update + Normalization = ' + str(time.time() - tmsp))
-
+		# 	worker_norm = partial(normalization_worker, Ranker.rs, conf['rs'])
+		# 	try:
+		# 		# self.ranking = Parallelizer.run(worker_norm, self.ranking)
+		# 		print 'Start mp normalize'
+		# 		pool = mp.Pool()
+		# 		self.ranking = pool.map(worker_upd, self.ranking)
+		# 		pool.close()
+		# 		pool.join()
+		# 	except Exception, e:
+		# 		print 'ERROR normalizing scores'
+		# 		print e
+		# 		print 'Running serial normalization instead'
+		# 		self.ranking = [Ranker.normalize_score(d, conf['rs']) for d in self.ranking]
+		# 		print_green('Update + Normalization = ' + str(time.time() - tmsp))
+		# else:
+		print_blue('Serial Update')
+		self.ranking = [Ranker.compute_score(d, features, conf['rs']) for d in self.ranking] 
+		print_green('Update time = ' + str(time.time() - tmsp))
+		# Normalize
+		self.ranking = [Ranker.normalize_score(d, conf['rs']) for d in self.ranking]
+		print_green('Update + Normalization time = ' + str(time.time() - tmsp))
 		# Sort and assign positions
 		rank_by = conf['rankBy']
 		self.ranking = sorted(self.ranking, key=lambda d: d['ranking'][rank_by]['score'], reverse=True)
 		self.ranking = Ranker.assign_positions(self.ranking, rank_by)
+		print_green('Update + normalization + sorting time = ' + str(time.time() - tmsp))
 
 		return self.get_ranking()
 
