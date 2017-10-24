@@ -48,6 +48,7 @@ var default_options = {
             get_keywords: 'get-keywords/',
             get_keyphrases: 'get-keyphrases/[kw_id]',
             get_document_details: 'get-article-details/[doc_id]/[decoration]',
+            update_ranking: 'update-ranking/',
             urank: 'urank_service/',
             search_features: 'search-features/[feature_type]/[text]'
         }

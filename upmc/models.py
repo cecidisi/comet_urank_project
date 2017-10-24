@@ -2,7 +2,10 @@
 from __future__ import unicode_literals
 
 from django.db import models
+# from django_mysql.models import JSONField
+import jsonfield
 import datetime
+import json
 
 # Create your models here.
 
@@ -38,27 +41,37 @@ class PublicationDetails(models.Model):
 		db_table = 'publication_details'
 
 
+# class PubmedKeywordStr(models.Model):
+#     keyword_str = models.TextField(blank=True, null=True)
+
+#     class Meta:
+#         db_table = 'pubmed_keyword_str'
+
+class PubmedDocKeywords(models.Model):
+	keywords = jsonfield.JSONField()
+	pos_title = jsonfield.JSONField()
+	pos_detail = jsonfield.JSONField()
+
+	class Meta:
+		db_table = 'pubmed_dockeywords'
+
+
 class Article(models.Model):
 	pmid = models.IntegerField(primary_key=True)
 	doi = models.CharField(null=True, max_length=200)	
 	title = models.TextField(default='')
 	abstract  = models.TextField(default='')
 	pub_type = models.CharField(max_length=100, default='', null=True)
+	# year = models.IntegerField(null=True, default=-1)
 	pub_details = models.OneToOneField(PublicationDetails, on_delete=models.CASCADE, null=True, default='', related_name='paper')
+	authors_list = models.TextField(default='')
 	authors = models.ManyToManyField(Author, default='', related_name='papers')
 	author_keywords = models.TextField(default='', null=True)
+	doc_keywords = models.OneToOneField(PubmedDocKeywords, on_delete=models.CASCADE, null=True, related_name='paper')
 
 	class Meta:
 		db_table = 'paper'
 
-
-
-class PubmedKeywordStr(models.Model):
-    keyword_str = models.TextField(blank=True, null=True)
-    article = models.OneToOneField(Article, on_delete=models.CASCADE, default='', related_name='keywords_str')
-
-    class Meta:
-        db_table = 'pubmed_keyword_str'
 
 
 class PubmedTopic(models.Model):

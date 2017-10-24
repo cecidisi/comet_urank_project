@@ -14,15 +14,15 @@ from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.exceptions import * # APIException
-import json
+import ujson
 
 from helper.bcolors import *
 from urank_service.urank_handler import *
-from .models import *
-from .serializers import *
 from .db_connector import *
+from .search import *
 
-urank = Urank()
+num_documents = 30
+urank = Urank(options={ 'num_documents': num_documents })
 
 
 @api_view(['GET'])
@@ -37,7 +37,9 @@ def index(request):
 
 @api_view(['GET'])
 def get_articles(request):
-    articles = urank.load_documents(DBconnector.get_articles())
+    # articles = urank.load_documents(DBconnector.get_articles())
+    # articles = urank.load_documents(eSearch.get_all_articles())
+    articles = eSearch.search_by_keywords(['migrain'])[:num_documents]
     resp = {
         'count': len(articles),
         'results': articles
@@ -72,6 +74,7 @@ def get_keyphrases(request, kw_id):
 def get_article_details(request, doc_id, decoration):
     article = DBconnector.get_article_details(doc_id)
     resp = { 'count': 0, 'results': None}
+    print decoration
     if article:
         resp = { 
             'count': 1, 
@@ -98,12 +101,32 @@ def search_features(request, feature_type, text):
 @csrf_exempt 
 def urank_service(request): 
     params = json.loads(request.body.decode("utf-8"))
+
     data_to_send = urank.process_operation(params)
     resp = {
         'count': len(data_to_send),
         'results': data_to_send,
     }
     return Response(resp)
+
+
+
+@api_view(['POST'])
+@csrf_exempt 
+def update_ranking(request): 
+    params = ujson.loads(request.body.decode("utf-8"))
+    query = [q['stem'] for q in params['features']['keywords']]
+    print query
+    articles = eSearch.search_by_keywords(stems=query, keywords=True)
+    data_to_send = urank.update_ranking(params, articles)
+    ids_list = [d['id'] for d in data_to_send]
+
+    resp = {
+        'count': len(data_to_send),
+        'results': data_to_send,
+    }
+    return Response(resp)
+
 
 
 

@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+
+from __future__ import unicode_literals
 from functools import reduce
 import collections
 from collections import Counter
@@ -26,9 +29,17 @@ from django import db
 
 def save_document_keywords(dpk_kws):
 	dpk, kws = dpk_kws
-	keyword_obj = PubmedKeywordStr(article_id = dpk, keyword_str = json.dumps(kws))
-	keyword_obj.save()
-	return keyword_obj.pk
+	doc_kws = PubmedDocKeywords(
+		keywords = kws['keywords'],
+		pos_title = kws['pos_title'] if kws['pos_title'] else {},
+		pos_detail = kws['pos_detail'] if kws['pos_detail'] else {}
+	)
+	doc_kws.save()
+	article = Article.objects.get(pk=dpk)
+	article.doc_keywords = doc_kws
+	article.save()
+	return doc_kws.pk
+
 
 
 def save_global_keywords(gk):
@@ -67,10 +78,12 @@ def run():
 	db.connections.close_all()
 	global_keywords, doc_keywords = extract_tfidf(articles)
 
-	# save_document_keywords(doc_keywords)
+	print('Extracted ' + str(len(global_keywords))+ ' global keywords')
+	print('Extracted ' + str(len(doc_keywords))+ ' document keywords')
+
 	# Save document keywords in parallel
 	jobs = Parallelizer.run(save_document_keywords, doc_keywords.iteritems(), db_close=True)
-	print('Saved keywords from ' + str(len(jobs)) + ' articles')
+	print('Saved keywords for ' + str(len(jobs)) + ' articles')
 	jobs = Parallelizer.run(save_global_keywords, global_keywords)
 	print('Saved ' + str(len(jobs)) + ' global keywords')
 
@@ -81,23 +94,27 @@ def run():
 
 	print_green('Total time taken = ' + secToMMSS(time.time() - time0))
 
+	# Save top 100 global keywords w/ top 10 phrases to txt file
 	import sys
 	import os
-
-
-	# Save top 100 global keywords w/ top 10 phrases to txt file
 	with open('upmc/outputs/top_global_keywords.txt', 'w') as f:
 		for i, k in enumerate(global_keywords[:100]):
-			f.write(str(i+1) + '. ' + k['term'] + ' -- score = ' + str(k['score']) + '\n')
+			try:
+				f.write(str(i+1) + '. ' + k['term'] + ' -- score = ' + str(k['score']) + '\n')
+			except Exception, e:
+				print k['term']
 			for phrase, pos, count, stems in sorted(k['phrases'], key=lambda k:k[2], reverse=True)[:10]:
-				f.write('\t' + phrase + ' -- ' +str(count) + '\n')
+				try:
+					f.write('\t' + str(phrase) + ' -- ' +str(count) + '\n')
+				except Exception, e:
+					print phrase
 
 	print 'Saved top 100 global keywords w/ phrases --> "upmc/outputs/top_global_keywords.txt"'
 	# extract_textrank()
 
 def clear():
 	print_blue('Clearing DB ...')
-	PubmedKeywordStr.objects.all().delete()
+	PubmedDocKeywords.objects.all().delete()
 	PubmedKeyphrase.objects.all().delete()
 	PubmedGlobalKeyword.objects.all().delete()
 	print_blue('Finished clearing DB ...')
@@ -137,8 +154,8 @@ def _get_kw_pos_in_text(text, filtered, stemmed):
 				if stem not in positions:
 					positions[stem] = []
 				positions[stem].append({
-					'from': i - len(word),
-					'to': i
+					'from_pos': i - len(word),
+					'to_pos': i
 				})
 			word = ''
 	return positions
@@ -212,20 +229,19 @@ def extract_tfidf(articles):
 
 	print_blue('Extracting chunks, stemming and filtering (1st loop) ... ')
 	for i, d in enumerate(articles):
-
 		# print 'Article #' + str(i+1) + '/' + str(len(articles)) + '\n'
-		# text = p 
 		text = d.title + '\n' + d.abstract or ''
 		filtered_chunks = extract_candidate_chunks(text)
 
 		filtered_words = [word for phrase in filtered_chunks for word in phrase.split()]
 		stemmed_words = [_stem(word) for word in filtered_words]
-		tfidf.add_document(stemmed_words)
-
 		all_stems.extend(stemmed_words)
 		all_terms.extend(filtered_words) 
 
-		term_positions[d.pk] = {
+		tfidf.add_document(stemmed_words)
+
+		doc_keywords[d.pk] = {
+			'keywords': {},  # overwritten in next loop
 			'pos_title' : _get_kw_pos_in_text(d.title, filtered_words, stemmed_words),
 			'pos_detail': _get_kw_pos_in_text(d.abstract, filtered_words, stemmed_words)
 		}
@@ -244,14 +260,12 @@ def extract_tfidf(articles):
 			log_tfidf = log(item['tfidf'])
 			kws[stem] = {
 				'stem': stem,
-				'tfidf': item['tfidf'],
-				'log_tfidf': item['log_tfidf'],
-				'score': item['tfidf'],
-				'pos_title': term_positions[d.pk]['pos_title'][stem] if stem in term_positions[d.pk]['pos_title'] else [],
-				'pos_detail': term_positions[d.pk]['pos_detail'][stem] if stem in term_positions[d.pk]['pos_detail'] else [],
+				# 'tfidf': item['tfidf'],
+				# 'log_tfidf': item['log_tfidf'],
+				'score': item['tfidf']
 			}
 
-		doc_keywords[d.pk] = kws
+		doc_keywords[d.pk]['keywords'] = kws
 
 
 	print_blue('Preparing global keywords and key phrases ... ')

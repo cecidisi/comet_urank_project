@@ -16,6 +16,11 @@ class DBconnector:
 
 
 	@classmethod
+	def get_positions_in_text(cls, id_list):
+		positions = PubmedDocKeywords.objects.filter(pk__in=id_list)
+		
+
+	@classmethod
 	def get_keywords(cls):
 		keywords = PubmedGlobalKeyword.objects.all().order_by('-score')
 		return PubmedGlobalKeywordSerializer(keywords, many=True).data

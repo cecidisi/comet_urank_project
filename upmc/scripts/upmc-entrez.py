@@ -40,7 +40,7 @@ def run(*args):
 def clean_db():
 	Affiliation.objects.all().delete()
 	Author.objects.all().delete()
-	PublicationDetails.objects.all().delete()
+	# PublicationDetails.objects.all().delete()
 	Article.objects.all().delete()
 	print_blue('Finished cleaning DB')
 
@@ -158,6 +158,8 @@ def parse_paper(p):
 				except:
 					if a.CollectiveName:
 						paper['authors'].append((a.CollectiveName.get_text(), '', '', ''))
+
+		paper['authors_list'] = '; '.join(a[0]+', '+a[1] for a in paper['authors'])
 	# Publication Details
 	paper['publication_details'] = {
 		'journal': '', 'abbr': '', 'issn': '', 'volume': '', 'issue': '', 'date_str': '', 'year': None
@@ -186,6 +188,7 @@ def parse_paper(p):
 			# date_str format = Jun 12, 2000
 			paper['publication_details']['date_str'] = date_str
 			paper['publication_details']['year'] = int(year)
+
 
 	# Author Keywords
 	author_kw = []

@@ -8,40 +8,6 @@ import time
 import multiprocessing as mp
 from helper.pretty_time import *
 
-def update_worker(recommender, conf_rs, features, d):
-	idx = d['idx']
-	doc_id = d['id']
-	d['ranking']['prev_pos'] = d['ranking']['pos']
-	d['ranking']['overall'] = { 'score': 0.0 }
-
-	for rs in conf_rs:
-		rs_name = rs['name']
-		if rs['active']:
-			# CHECK HERE!!!!!!
-			rs_resp = recommender[rs_name].get_score(idx, doc_id, features, rs)
-			d['ranking'][rs_name] = {
-				'score' : rs_resp['score'],
-				'details' : rs_resp['details']
-			}
-	return d
-
-
-def normalization_worker(recommender, rs_conf, d):
-	for conf in rs_conf:
-		if conf['active']:
-			rs_name = conf['name']
-			max_score = recommender[rs_name].get_max_score()
-			val_before = d['ranking'][rs_name]['score']
-			d['ranking'][rs_name]['score'] = 0.0
-			if max_score:
-				d['ranking'][rs_name]['score'] = \
-					(float(d['ranking'][rs_name]['score']) / max_score) * float(conf['weight'])
-			for detail in d['ranking'][rs_name]['details']:
-				detail['score'] = 0.0
-				if max_score:
-					detail['score'] = (float(detail['score']) / max_score) * float(conf['weight'])
-			d['ranking']['overall']['score'] += d['ranking'][rs_name]['score']
-	return d
 
 
 class Ranker:
@@ -54,12 +20,15 @@ class Ranker:
 	# pool = mp.Pool(processes=3)
 
 	def __init__(self):
-		self.clear()
+		self.ranking = []
+		self.prev_pos_mapping = {}
+		self.query = []
+		self.neighbors = {}
 		
 
 
 	@staticmethod
-	def assign_positions(ranking, rank_by):
+	def assign_positions(ranking, rank_by, prev_pos_mapping):
 		cur_score = float('inf')
 		cur_pos = 1
 		items_in_cur_pos = 0
@@ -76,21 +45,24 @@ class Ranker:
 			else:
 				d['ranking']['pos'] = 0
 			# compute shift
-			d['ranking']['pos_changed'] = d['ranking']['prev_pos'] - d['ranking']['pos'] if d['ranking']['prev_pos'] else 1000
+			prev_pos = prev_pos_mapping[d['id']] if d['id'] in prev_pos_mapping else 0
+			d['ranking']['prev_pos'] = prev_pos
+			d['ranking']['pos_changed'] = prev_pos - d['ranking']['pos'] if prev_pos > 0 else 1000
 		return ranking
 
 
 
 	def set_data(self, data):
-		self.data = data[:]
-		for idx, d in enumerate(self.data): 
+		if len(self.ranking):
+			self.prev_pos_mapping = { d['id']: d['ranking']['pos'] for d in self.ranking }
+		self.ranking = data[:]
+		for idx, d in enumerate(self.ranking): 
 			d['idx'] = idx
 			d['ranking'] = {
 				'pos': 0,
 				'pos_changed': 0,
 				'prev_pos': 0
 			}
-		self.ranking = self.data[:]
 
 
 	#  For CB
@@ -188,55 +160,19 @@ class Ranker:
 		print features
 		print_blue('================== RS CONF ======================')
 		print conf['rs']
-		
+					
 		self.ranking = self.ranking[:]
+
+		for rs_name in Ranker.rs.keys():
+			Ranker.rs[rs_name].clear()
 		
-		print 'Empty features = ' + str(Ranker.are_features_empty(features))
-		if Ranker.are_features_empty(features):
-			print_blue('Returning here')
-			# return self.reset()
+		# print 'Empty features = ' + str(Ranker.are_features_empty(features))
+		# if Ranker.are_features_empty(features):
+		# 	print_blue('Returning here')
+		# 	# return self.reset()
 
-		#  Compute recommendation scores		
-			
+		#  Compute scores		
 		tmsp = time.time()
-
-		## Update scores
-		# Parallel update
-		# if len(self.ranking) >= 100:
-		# 	print_blue('Updating with multiprocessing ...')
-
-		# 	worker_upd = partial(update_worker, Ranker.rs, conf['rs'], features)
-		# 	# job = Ranker.pool.map_async(worker, self.ranking)
-		# 	try:
-		# 		# self.ranking = Parallelizer.run(worker_upd, self.ranking)
-		# 		print 'Start mp update'
-		# 		pool = mp.Pool()
-		# 		self.ranking = pool.map(worker_upd, self.ranking[:1000])
-		# 		pool.close()
-		# 		pool.join()
-		# 	except Exception, e:
-		# 		print 'ERROR updating scores'
-		# 		print e
-		# 		print 'Running serial update instead'
-		# 		self.ranking = [Ranker.compute_score(d, features, conf['rs']) for d in self.ranking] 
-		# 	print_green('Update time = ' + str(time.time() - tmsp))
-
-		# 	worker_norm = partial(normalization_worker, Ranker.rs, conf['rs'])
-		# 	try:
-		# 		# self.ranking = Parallelizer.run(worker_norm, self.ranking)
-		# 		print 'Start mp normalize'
-		# 		pool = mp.Pool()
-		# 		self.ranking = pool.map(worker_upd, self.ranking)
-		# 		pool.close()
-		# 		pool.join()
-		# 	except Exception, e:
-		# 		print 'ERROR normalizing scores'
-		# 		print e
-		# 		print 'Running serial normalization instead'
-		# 		self.ranking = [Ranker.normalize_score(d, conf['rs']) for d in self.ranking]
-		# 		print_green('Update + Normalization = ' + str(time.time() - tmsp))
-		# else:
-		print_blue('Serial Update')
 		self.ranking = [Ranker.compute_score(d, features, conf['rs']) for d in self.ranking] 
 		print_green('Update time = ' + str(time.time() - tmsp))
 		# Normalize
@@ -245,9 +181,9 @@ class Ranker:
 		# Sort and assign positions
 		rank_by = conf['rankBy']
 		self.ranking = sorted(self.ranking, key=lambda d: d['ranking'][rank_by]['score'], reverse=True)
-		self.ranking = Ranker.assign_positions(self.ranking, rank_by)
+		self.ranking = Ranker.assign_positions(self.ranking, rank_by, self.prev_pos_mapping)
 		print_green('Update + normalization + sorting time = ' + str(time.time() - tmsp))
-
+		print self.ranking[0]
 		return self.get_ranking()
 
 
@@ -267,6 +203,7 @@ class Ranker:
 		# return copy.deepcopy(self.ranking[offset:100]) 
 		print "Ranker: returned " + str(len(self.ranking))
 		return copy.deepcopy(self.ranking[:]) 
+		# return self.ranking[:]
 
 
 	def get_item(self, idx):
@@ -279,9 +216,8 @@ class Ranker:
 		
 
 	def clear(self):
-		self.data = []
-		# self.doc_keywords = []
 		self.ranking = []
+		self.prev_pos_mapping = {}
 		self.query = []
 		self.neighbors = {}
 		return self.ranking

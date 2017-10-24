@@ -14,7 +14,7 @@ PSWD=asdf
 echo "Please enter root user MySQL password:"
 read -s rootpasswd
 
-mysql -uroot -p${rootpasswd} -e "CREATE DATABASE IF NOT EXISTS ${DBNAME} /*\!40100 DEFAULT CHARACTER SET utf8 */;" || exit
+mysql -uroot -p${rootpasswd} -e "CREATE DATABASE IF NOT EXISTS ${DBNAME} /*\!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */;" || exit
 mysql -uroot -p${rootpasswd} -e "CREATE USER IF NOT EXISTS ${USER}@localhost IDENTIFIED BY '${PSWD}';" || exit
 mysql -uroot -p${rootpasswd} -e "GRANT ALL ON ${DBNAME}.* to '${USER}'@'localhost' IDENTIFIED BY '${PSWD}';" || exit
 # mysql -u${USER} -p${PSWD} -e "FLUSH PRIVILEGES;" || exit

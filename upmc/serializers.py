@@ -1,16 +1,14 @@
-# from django.forms import widgets
-# from django.contrib.auth.models import User
 from rest_framework import serializers
 from .models import *
-import json
+import ujson
 
 
 
-class PubmedKeywordStrSerializer(serializers.ModelSerializer):
+# class PubmedKeywordStrSerializer(serializers.ModelSerializer):
 
-    class Meta:
-        model = PubmedKeywordStr
-        fields = ('keyword_str',)
+#     class Meta:
+#         model = PubmedKeywordStr
+#         fields = ('keyword_str',)
 
 
 class PublicationDetailsSerializer(serializers.ModelSerializer):
@@ -19,22 +17,21 @@ class PublicationDetailsSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+
 class ArticleSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(source='pmid', read_only=True)
     year = serializers.IntegerField(source='pub_details.year', read_only=True)
-    keywords = serializers.SerializerMethodField()
+    keywords = serializers.JSONField(source='doc_keywords.keywords')
+    # keywords = serializers.SerializerMethodField()
 
-    def get_year(self, article):
-        return article.pub_details.year
-
-    def get_keywords(self, article):
-        return json.loads(article.keywords_str.keyword_str)
+    # def get_keywords(self, article):
+    #     return article.doc_keywords.keywords
 
     @classmethod
     def setup_eager_loading(cls, queryset):
         """ Perform necessary eager loading of data. """
         queryset = queryset.prefetch_related('pub_details')
-        queryset = queryset.prefetch_related('keywords_str')
+        queryset = queryset.prefetch_related('doc_keywords')
         return queryset
 
     class Meta:
@@ -48,11 +45,18 @@ class AuthorSerializer(serializers.ModelSerializer):
         model = Author
         fields = '__all__'
 
+class DocKeywordsPosSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = PubmedDocKeywords
+        fields = ('pos_title', 'pos_detail')
+
 
 class ArticleFullSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(source='pmid', read_only=True)
     pub_details = PublicationDetailsSerializer(read_only=True)
     authors = AuthorSerializer(read_only=True, many=True)
+    doc_keywords = DocKeywordsPosSerializer(read_only=True)
     # authors_list = AuthorSerializer(source='get_authors_list', read_only=True)
     authors_list = serializers.SerializerMethodField()
 
@@ -63,12 +67,13 @@ class ArticleFullSerializer(serializers.ModelSerializer):
     @classmethod
     def setup_eager_loading(cls, queryset):
         queryset = queryset.prefetch_related('pub_details')
+        queryset = queryset.prefetch_related('doc_keywords')
         queryset = queryset.prefetch_related('authors')
         return queryset
 
     class Meta:
         model = Article
-        fields = ('id', 'pmid', 'doi', 'title', 'abstract', 'pub_type', 'pub_details', 'authors', 'authors_list', 'author_keywords')
+        fields = ('id', 'pmid', 'doi', 'title', 'abstract', 'pub_type', 'pub_details', 'authors', 'authors_list', 'author_keywords', 'doc_keywords')
 
 
 class KeyphraseSerilizer(serializers.ModelSerializer):
