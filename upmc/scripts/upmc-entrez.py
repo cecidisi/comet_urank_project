@@ -23,7 +23,7 @@ def run(*args):
 	start = time.time()
 	clean_db()
 	term = 'migraine'
-	count = 1000 # Total number of items
+	count = 10000 # Total number of items
 	retmax = 100	# Number items per batch
 	if 'get-all' in args:
 		count = 0

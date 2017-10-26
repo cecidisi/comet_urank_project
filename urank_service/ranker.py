@@ -189,7 +189,7 @@ class Ranker:
 
 
 
-	def filter_by_year(from_year, to_year):
+	def filter_by_year(self, from_year, to_year):
 		filtered_ranking = [d for d in self.ranking \
 			if d['year'] >= from_year 
 			and d['year'] <= to_year ]
