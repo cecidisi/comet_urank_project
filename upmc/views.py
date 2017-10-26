@@ -40,7 +40,7 @@ def index(request):
 @api_view(['GET'])
 def get_articles(request):
     # articles = urank.load_documents(DBconnector.get_articles())
-    articles = eSearch.search_by_keywords(['migrain'])[:num_documents]
+    articles = eSearch.search_by_keywords(['migrain'], num_documents)
     resp = {
         'count': len(articles),
         'results': articles

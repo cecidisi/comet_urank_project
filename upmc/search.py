@@ -184,7 +184,7 @@ class eSearch():
 
 
 	@classmethod
-	def search_by_keywords(cls, stems, keywords=False, text_positions = False):
+	def search_by_keywords(cls, stems, count=1000, keywords=False, text_positions = False):
 		exclude_list = ['stems', 'abstract']
 		if keywords == False:
 			exclude_list.append('keywords')
@@ -196,8 +196,8 @@ class eSearch():
 		)
 		s = Search(index='pubmed-article-index') \
 			.query(q) \
-			.source({ 'exclude': exclude_list })
-		res = s[0:s.count()].execute()
+			.source({ 'excludes': exclude_list })
+		res = s[0:count].execute()
 		print 'eSearch returned ' + str(len(res)) + ' items'
 		return [d.to_dict() for d in res]
 		
@@ -226,7 +226,7 @@ class eSearch():
 		s = Search(index='pubmed-article-index')\
 			.query(q) \
 			.source({ 
-				'include': include_list
+				'includes': include_list
 			})
 		res =  s[0:len(ids_list)].execute()
 		return [pos_to_dict(d) for d in res]
