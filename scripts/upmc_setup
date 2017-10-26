@@ -6,7 +6,7 @@ set -o pipefail
 cd "$(dirname "$0")/.."
 
 
-echo -e "\033[32m \n(1/4) CREATE DATABASE IF NOT EXIST \033[0m"
+echo -e "\033[32m \n(1/6) CREATE DATABASE IF NOT EXIST \033[0m"
 DBNAME=upmc
 USER=cecidisi
 PSWD=asdf
@@ -22,18 +22,24 @@ mysql -uroot -p${rootpasswd} -e "GRANT ALL ON ${DBNAME}.* to '${USER}'@'localhos
 # activate virtualenv
 source ENV/bin/activate
 
-echo  -e "\033[32m \n(2/4) MAKE MIGRATIONS TO DB \033[0m"
+echo  -e "\033[32m \n(2/6) MAKE MIGRATIONS TO DB \033[0m"
 ./manage.py makemigrations upmc --empty
 ./manage.py makemigrations upmc
 ./manage.py migrate --database upmcdb upmc --fake
 ./manage.py migrate --database upmcdb upmc
 
 
-echo  -e "\033[32m \n(3/4) FETCH PUBMED DOCUMENTS FROM ENTREZ API \033[0m"
+echo  -e "\033[32m \n(3/6) FETCH PUBMED DOCUMENTS FROM ENTREZ API \033[0m"
 ./manage.py runscript --traceback upmc-entrez --script-args get-all || exit
 
-echo  -e "\033[32m \n(4/4) EXTRACT KEYWORDS AND PHRASES \033[0m"
+echo  -e "\033[32m \n(4/6) EXTRACT KEYWORDS AND PHRASES \033[0m"
 ./manage.py runscript --traceback kwext || exit
+
+echo  -e "\033[32m \n(5/6) CREATE YEAR FACET \033[0m"
+./manage.py runscript --traceback create-year-facets || exit
+
+echo  -e "\033[32m \n(6/6) INDEX TO ELASTICSEARCH \033[0m"
+./manage.py runscript --traceback upmc-bulk-indexing || exit
 
 echo  -e "\033[32m \nREADY!! \033[0m"
 

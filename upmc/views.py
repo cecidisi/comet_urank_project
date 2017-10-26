@@ -61,6 +61,7 @@ def get_keywords(request):
     return Response(resp)
 
 
+
 @api_view(['GET'])
 def get_keyphrases(request, kw_id):
     keyphrases = DBconnector.get_keyphrases(kw_id)
