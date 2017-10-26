@@ -4,8 +4,24 @@ var default_options = {
         contentListRoot: '#contentlist',
         visCanvasRoot: '#viscanvas',
         tagCloudRoot: '#tagcloud',
-        searchInputRoot: '#search-features'
+        searchInputRoot: '#search-features',
+        rangeFilterRoot: '#timeslider'
     },
+
+    dataConnector : {
+        urls: {
+            get_data: 'get-articles/',
+            get_keywords: 'get-keywords/',
+            get_document_details: 'get-article-details/[doc_id]/[decoration]/',
+            get_facets: 'get-facets/[facet_type]/',
+            get_keyphrases: 'get-keyphrases/[kw_id]/',
+            search_features: 'search-features/[feature_type]/[text]/',            
+            update_ranking: 'update-ranking/',
+            urank: 'urank-service/',
+            filter_articles_by_year: 'filter-articles-by-year/[from_year]/[to_year]/'
+        }
+    },
+
     dataAttr : {
         id : 'id',
         title : 'title',
@@ -22,6 +38,12 @@ var default_options = {
         keywords: true,
         neighbors: false
     },
+    facets: [ 
+        {
+            name: 'Year',
+            type: 'year'
+        }
+    ],
     rankingModel: {
         useLocal : false,
         rankBy: 'CB',
@@ -41,17 +63,6 @@ var default_options = {
                 pretty: 'Social Ranking'
             }
         ]
-    },
-    dataConnector : {
-        urls: {
-            get_data: 'get-articles/',
-            get_keywords: 'get-keywords/',
-            get_keyphrases: 'get-keyphrases/[kw_id]',
-            get_document_details: 'get-article-details/[doc_id]/[decoration]',
-            update_ranking: 'update-ranking/',
-            urank: 'urank_service/',
-            search_features: 'search-features/[feature_type]/[text]'
-        }
     },
     keywordExtractor: {
         useLocal: false,

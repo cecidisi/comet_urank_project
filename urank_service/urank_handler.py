@@ -2,6 +2,7 @@
 import json
 from .ranker import *
 from .text_formatter import *
+from helper.bcolors import *
 
 
 ranker = Ranker()
@@ -107,12 +108,25 @@ class Urank:
 		# doc_kw = self.doc_keywords[ self.doc_id_to_index[doc['id']] ]
 		# doc['title'] = TextFormatter.get_formatted_text(doc['title'], doc_kw, 'pos_title', self.kw_colors, decoration)
 		# doc['abstract'] = TextFormatter.get_formatted_text(doc['abstract'], doc_kw, 'pos_detail', self.kw_colors, decoration)
-		print 'TITLE'
 		doc['title'] = TextFormatter.get_formatted_text(doc['title'], doc['doc_keywords']['pos_title'], self.kw_colors, decoration)
-		print 'ABSTRACT'
 		doc['abstract'] = TextFormatter.get_formatted_text(doc['abstract'], doc['doc_keywords']['pos_detail'], self.kw_colors, decoration)
 		return doc
 		
+
+	def get_styled_documents(self, documents, positions, decoration):
+		positions = { p['id']: p for p in positions }
+
+		for i, d in enumerate(documents):
+			try:
+				pos = positions[d['id']]['pos_title']
+				d['title'] = TextFormatter.get_formatted_text(d['title'], pos, self.kw_colors, decoration)
+			except Exception, e:
+				print_red(str(e))
+				print pos
+		print 'urank: Returning styled documents'
+		# print documents[0]
+		return documents
+
 
 
 	def update_ranking(self, params, documents=None):
@@ -128,6 +142,7 @@ class Urank:
 	
 		if documents:
 			print 'urank: Received ' + str(len(documents)) + ' documents'
+			self.doc_keywords = []
 			for idx, d in enumerate(documents):
 				doc_keywords = d['keywords'] if isinstance(d['keywords'], dict) \
 					else { k['stem']: k for k in d['keywords'] }
@@ -138,11 +153,18 @@ class Urank:
 			ranker.set_data(documents)
 			ranker.load_doc_keywords(self.doc_keywords)
 
-		ranker.update(self.rs_conf, self.features)
-		docs_to_send = ranker.get_ranking()[self.doc_offset:self.doc_limit]
+		docs_to_send = ranker.update(self.rs_conf, self.features)[self.doc_offset:self.doc_limit]
 		print 'UrankHandler: Sending ranking with ' + str(len(docs_to_send)) + ' documents'
+		# print docs_to_send[0]
 		return docs_to_send
 
+
+
+	def filter_by_year(self, from_year, to_year):
+		self.doc_offset = 0
+		docs_to_send = ranker.filter_by_year(from_year, to_year)[self.doc_offset:self.doc_limit]
+		print 'urank: Filtered ' + str(len(docs_to_send)) + ' documents'
+		return docs_to_send
 
 
 

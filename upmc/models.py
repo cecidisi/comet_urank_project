@@ -107,6 +107,13 @@ class PubmedKeyphrase(models.Model):
 
 
 
+class PubmedYearFacet(models.Model):
+	year = models.IntegerField()
+	count = models.IntegerField()
+
+	class Meta:
+		db_table = 'pubmed_year_facet'
+
 
 
 

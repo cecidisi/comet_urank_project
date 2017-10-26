@@ -39,8 +39,8 @@ class RSContentBased:
 						if stem in doc_kw \
 						else 0.0
 				total_score += term_score
-			# term_scores.append({ 'term': q['term'], 'stem': stem, 'score': term_score })
-			term_scores.append({ 'id': q['id'], 'name': q['name'], 'score': term_score })
+			# term_scores.append({ 'id': q['id'], 'name': q['name'], 'score': term_score })
+			term_scores.append({ 'name': q['name'], 'score': term_score })
 		self.max_score = max(total_score, self.max_score)
 		return { 'score' : total_score, 'details': term_scores }
 

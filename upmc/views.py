@@ -14,6 +14,7 @@ from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.exceptions import * # APIException
+from itertools import chain
 import ujson
 
 from helper.bcolors import *
@@ -22,6 +23,7 @@ from .db_connector import *
 from .search import *
 
 num_documents = 30
+num_keywords = 100
 urank = Urank(options={ 'num_documents': num_documents })
 
 
@@ -38,7 +40,6 @@ def index(request):
 @api_view(['GET'])
 def get_articles(request):
     # articles = urank.load_documents(DBconnector.get_articles())
-    # articles = urank.load_documents(eSearch.get_all_articles())
     articles = eSearch.search_by_keywords(['migrain'])[:num_documents]
     resp = {
         'count': len(articles),
@@ -51,7 +52,8 @@ def get_articles(request):
 # Get global keywords
 @api_view(['GET'])
 def get_keywords(request):    
-    keywords = urank.load_keywords(DBconnector.get_keywords())
+    # keywords = urank.load_keywords(DBconnector.get_keywords())
+    keywords = eSearch.get_global_keywords(num_keywords)
     resp = {
         'count': len(keywords),
         'results': keywords
@@ -83,6 +85,7 @@ def get_article_details(request, doc_id, decoration):
     return Response(resp)
 
 
+
 @api_view(['GET'])
 def search_features(request, feature_type, text):
     print_blue('feature_type = ' + feature_type + '; text = '+ text)
@@ -93,6 +96,28 @@ def search_features(request, feature_type, text):
     }
     return Response(resp)
 
+
+
+
+@api_view(['GET'])
+def  get_facets(request, facet_type):
+    resp = { 'count': 0, 'results': [] }
+    if facet_type == 'year':
+        year_facets = DBconnector.get_year_facets()
+        resp['count'] = len(year_facets)
+        resp['results'] = year_facets 
+    
+    return Response(resp)
+
+
+
+@api_view(['GET'])
+def filter_articles_by_year(request, from_year, to_year):
+    filtered_articles = urank.filter_by_year(from_year, to_year)
+    resp = {
+        'count': len(filtered_articles),
+        'results': filtered_articles
+    }
 
 
 
@@ -115,15 +140,19 @@ def urank_service(request):
 @csrf_exempt 
 def update_ranking(request): 
     params = ujson.loads(request.body.decode("utf-8"))
-    query = [q['stem'] for q in params['features']['keywords']]
+    query = [q['stem'].split(' ') for q in params['features']['keywords']]
+    query = list(chain.from_iterable(query))
     print query
     articles = eSearch.search_by_keywords(stems=query, keywords=True)
-    data_to_send = urank.update_ranking(params, articles)
-    ids_list = [d['id'] for d in data_to_send]
+    articles = urank.update_ranking(params, articles)
+    ids_list = [d['id'] for d in articles]
+    positions = eSearch.get_text_positions(ids_list)
+    decoration = params['decoration'] or None
+    ranked_articles = urank.get_styled_documents(articles, positions, decoration)
 
     resp = {
-        'count': len(data_to_send),
-        'results': data_to_send,
+        'count': len(ranked_articles),
+        'results': ranked_articles,
     }
     return Response(resp)
 
@@ -134,6 +163,7 @@ def update_ranking(request):
 class ArticleViewSet(viewsets.ModelViewSet):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
+
 
 class KeywordViewSet(viewsets.ModelViewSet):
     queryset = PubmedGlobalKeyword.objects.all()

@@ -30,8 +30,9 @@ def run():
 	# res = eSearch.search_by_keywords(['migrain'], keywords = True, text_positions = True)
 	# print_green('Query 3: Matched ' + str(len(res)) + ' results (' + str(time.time() - tmsp) + ')')
 
-	res = eSearch.filter_by_ids([28220377])
-	print res
+	eSearch.create_year_aggregation()
+	# eSearch.get_year_facets()
+	
 	
 
 	

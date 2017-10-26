@@ -48,5 +48,12 @@ class DBconnector:
 		return []
 
 
+	@classmethod
+	def get_year_facets(cls):
+		year_facets = PubmedYearFacet.objects.all().order_by('year') 
+		return PubmedYearFacetSerialzer(year_facets, many=True).data
+
+
+
 
 

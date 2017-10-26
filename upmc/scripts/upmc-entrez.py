@@ -11,6 +11,7 @@ import multiprocessing as mp
 from django import db
 from bs4 import BeautifulSoup as bs
 from functools import partial
+from itertools import groupby, chain
 from helper.bcolors import *
 from helper.pretty_time import *
 from upmc.models import *
@@ -33,8 +34,9 @@ def run(*args):
 	query_key, web_env, max_count = search(base_url, term)
 	count = min(count, max_count) if count else max_count
 	# fetch_test(base_url, query_key, web_env, retmax, count, cores)
-	fetch_parallel(base_url, query_key, web_env, retmax, count, cores)
+	papers = fetch_parallel(base_url, query_key, web_env, retmax, count, cores)
 	print_blue('Total Time Elapsed = ' + secToMMSS(time.time() - start))
+
 
 
 def clean_db():
@@ -80,12 +82,15 @@ def fetch_worker(url_fetch, retmax, batches, i):
 		cur_attempt += 1
 	# print 'Batch (' + str(i+1) + '/' + str(batches) + ') --> Fetched ' + str(len(items)) + ' items ('+str(cur_attempt-1)+' attempt/s) [retstart = ' + str(retstart) + ', retmax = ' + str(retmax) +']'
 	paper_count = 0
+	papers = []
 	for p in items:
 		paper = save_paper(parse_paper(p))
 		if paper:
 			paper_count += 1
+			papers.append(paper)
 	# print 'Batch (' + str(i+1) + '/' + str(batches) + ') --> Saved ' +str(paper_count)+ ' items'
-	return paper_count
+	# return paper_count
+	return papers
 
 
 
@@ -113,8 +118,11 @@ def fetch_parallel(base_url, query_key, web_env, retmax, count, cores):
 
 	tmsp2 = time.time() - tmsp1
 	from functools import reduce
-	paper_count = str(reduce((lambda x, y: x+y), jobs.get()))
-	print_green('Total papers =  ' + paper_count + '; eFetch Time = ' + secToMMSS(tmsp2))
+	all_papers = list(chain.from_iterable(jobs.get()))
+	# paper_count = reduce((lambda x, y: x+y), jobs.get())
+	paper_count = len(all_papers)
+	print_green('Total papers =  ' + str(paper_count) + '; eFetch Time = ' + secToMMSS(tmsp2))
+	return all_papers
 	
 
 '''

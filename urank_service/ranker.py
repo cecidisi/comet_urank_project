@@ -24,6 +24,7 @@ class Ranker:
 		self.prev_pos_mapping = {}
 		self.query = []
 		self.neighbors = {}
+		self.rank_by = ''
 		
 
 
@@ -179,11 +180,21 @@ class Ranker:
 		self.ranking = [Ranker.normalize_score(d, conf['rs']) for d in self.ranking]
 		print_green('Update + Normalization time = ' + str(time.time() - tmsp))
 		# Sort and assign positions
-		rank_by = conf['rankBy']
-		self.ranking = sorted(self.ranking, key=lambda d: d['ranking'][rank_by]['score'], reverse=True)
-		self.ranking = Ranker.assign_positions(self.ranking, rank_by, self.prev_pos_mapping)
+		self.rank_by = conf['rankBy']
+		self.ranking = sorted(self.ranking, key=lambda d: d['ranking'][self.rank_by]['score'], reverse=True)
+		self.ranking = Ranker.assign_positions(self.ranking, self.rank_by, self.prev_pos_mapping)
 		print_green('Update + normalization + sorting time = ' + str(time.time() - tmsp))
 		print self.ranking[0]
+		return self.get_ranking()
+
+
+
+	def filter_by_year(from_year, to_year):
+		filtered_ranking = [d for d in self.ranking \
+			if d['year'] >= from_year 
+			and d['year'] <= to_year ]
+		self.set_data(filtered_ranking)
+		self.ranking = Ranker.assign_positions(self.ranking, self.rank_by, self.prev_pos_mapping)
 		return self.get_ranking()
 
 
@@ -200,7 +211,6 @@ class Ranker:
 	def get_ranking(self, offset=0, limit=50):
 		limit = offset + limit
 		# Return a copy by value
-		# return copy.deepcopy(self.ranking[offset:100]) 
 		print "Ranker: returned " + str(len(self.ranking))
 		return copy.deepcopy(self.ranking[:]) 
 		# return self.ranking[:]

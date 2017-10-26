@@ -89,3 +89,13 @@ class PubmedGlobalKeywordSerializer(serializers.ModelSerializer):
         fields = ('id', 'stem', 'term', 'df', 'score', 'variations', 'num_keyphrases')
 
 
+
+class PubmedYearFacetSerialzer(serializers.ModelSerializer):
+    class Meta:
+        model = PubmedYearFacet
+        fields = ('year', 'count')
+
+
+
+
+

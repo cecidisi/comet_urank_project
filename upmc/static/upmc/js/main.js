@@ -11,15 +11,10 @@ module.exports = (function(){
         $bookmarkTitle = $('.control-panel h4'),
         $btnDone = $('#btn-done');
 
-    $(function(){
-    	var options = require('./urank_options');
-	    var urank = new Urank(options);
-	    urank.load();	
-    })
-    // $(document).ready(function(){
-    // 	var options = require('./urank_options');
-	   //  var urank = new Urank(options);
-	   //  urank.load();	
-    // })
+    window.onload = function(){
+        var options = require('./urank_options');
+        var urank = new Urank(options);
+        urank.load();   
+    }
     
 })();
