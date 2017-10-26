@@ -119,6 +119,8 @@ def filter_articles_by_year(request, from_year, to_year):
         'results': filtered_articles
     }
 
+    return Response(resp)
+
 
 
 # @require_http_methods(["POST"])
