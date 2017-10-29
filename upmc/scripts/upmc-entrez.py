@@ -24,7 +24,7 @@ def run(*args):
 	start = time.time()
 	clean_db()
 	term = 'migraine'
-	count = 2000 	# Total number of items
+	count = 1000 	# Total number of items
 	retmax = 100	# Number items per batch
 	if 'get-all' in args:
 		count = 0
@@ -36,6 +36,7 @@ def run(*args):
 	count = min(count, max_count) if count else max_count
 	# fetch_test(base_url, query_key, web_env, retmax, count, cores)
 	papers = fetch_parallel(base_url, query_key, web_env, retmax, count, cores)
+	# papers = fetch_serial(base_url, query_key, web_env, retmax, count, cores)
 	print_blue('Total Time Elapsed = ' + secToMMSS(time.time() - start))
 
 
@@ -85,18 +86,37 @@ def fetch_worker(url_fetch, retmax, batches, i):
 	paper_count = 0
 	papers = []
 	for p in items:
-		paper = save_paper(parse_paper(p))
+		paper = parse_paper(p)
 		if paper:
-			paper_count += 1
-			papers.append(paper)
+			paper = save_paper(paper)
+			if paper:
+				paper_count += 1
+				papers.append(paper)
 	# print 'Batch (' + str(i+1) + '/' + str(batches) + ') --> Saved ' +str(paper_count)+ ' items'
 	# return paper_count
 	return papers
 
 
 
+def fetch_serial(base_url, query_key, web_env, retmax, count, cores):
+	print 'eFetching serial ...'
+	batches = count/retmax
+	url_fetch = base_url + 'efetch.fcgi?db=pubmed&rettype=abstract&query_key=' + query_key + '&WebEnv=' + web_env  + '&retmax=' + str(retmax) + '&retstart=[retstart]'
+	
+	tmsp1 = time.time()
+	all_papers = []
+	for i in range(batches):
+		jobs = fetch_worker(url_fetch, retmax, batches, i)
+		all_papers = list(chain(all_papers, jobs))
+
+	tmsp2 = time.time() - tmsp1
+	paper_count = len(all_papers)
+	print_green('Total papers =  ' + str(paper_count) + '; eFetch Time = ' + secToMMSS(tmsp2))
+	return all_papers
+
+
+
 def fetch_parallel(base_url, query_key, web_env, retmax, count, cores):
-		
 	batches = count/retmax
 	jobs = []
 	db.connections.close_all()
@@ -104,9 +124,7 @@ def fetch_parallel(base_url, query_key, web_env, retmax, count, cores):
 
 	# Set progressbar
 	tracker = mpProgressTracker(title='Fetching & Saving', total = batches)
-
 	tmsp1 = time.time()
-
 	url_fetch = base_url + 'efetch.fcgi?db=pubmed&rettype=abstract&query_key=' + query_key + '&WebEnv=' + web_env  + '&retmax=' + str(retmax) + '&retstart=[retstart]'
 	worker = partial(fetch_worker, url_fetch, retmax, batches)
 	pool = mp.Pool(processes=cores)
