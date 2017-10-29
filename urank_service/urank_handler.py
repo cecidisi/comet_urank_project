@@ -9,14 +9,16 @@ ranker = Ranker()
 
 class Urank:
 
-	def __init__(self, options = {}):
-		
-		self.opt = {
+	def __init__(self, **kwargs):
+		options = {
 			'num_documents': 50,
 			'num_keywords': 100,
 			'num_neighbors': 50
 		}
-		self.opt.update(options)
+		options.update(kwargs)
+		self.doc_limit = options['num_documents']
+		self.kw_limit = options['num_keywords']
+		self.nb_limit = options['num_neighbors']
 		self.clear()
 
 
@@ -26,7 +28,7 @@ class Urank:
 		self.documents = []
 		# self.docs_to_send = []
 		self.doc_offset = 0
-		self.doc_limit = self.opt['num_documents']
+		# self.doc_limit = self.opt['num_documents']
 		# document features
 		self.doc_id_to_index = {}
 		self.doc_keywords = []
@@ -34,13 +36,13 @@ class Urank:
 		# keywords
 		self.keywords = []
 		self.kw_offset = 0
-		self.kw_limit = self.opt['num_keywords']
+		# self.kw_limit = self.opt['num_keywords']
 		# usertags
 		self.usertags = []
 		# neighbors
 		self.neighbors = []
 		self.nb_offset = 0
-		self.nb_limit = self.opt['num_neighbors']
+		# self.nb_limit = self.opt['num_neighbors']
 		# set on update
 		self.rs_conf = {}
 		self.query = []
@@ -167,6 +169,11 @@ class Urank:
 		return docs_to_send
 
 
+	def get_more_results(self):
+		docs_to_send = ranker.get_ranking()
+		self.doc_offset += self.doc_limit
+		return docs_to_send[self.doc_offset:self.doc_offset+self.doc_limit]
+
 
 	def process_operation(self, params):
 		operation = params['operation']
@@ -230,7 +237,8 @@ class Urank:
 			return {}
 
 
-
+	def get_ranking(self):
+		return ranker.get_ranking()
 
 
 

@@ -10,15 +10,20 @@ var default_options = {
 
     dataConnector : {
         urls: {
-            get_data: 'get-articles/',
-            get_keywords: 'get-keywords/',
-            get_document_details: 'get-article-details/[doc_id]/[decoration]/',
-            get_facets: 'get-facets/[facet_type]/',
-            get_keyphrases: 'get-keyphrases/[kw_id]/',
-            search_features: 'search-features/[feature_type]/[text]/',            
-            update_ranking: 'update-ranking/',
-            urank: 'urank-service/',
-            filter_articles_by_year: 'filter-articles-by-year/[from_year]/[to_year]/'
+            get_data: '/urank/upmc/get-articles/',
+            get_keywords: '/urank/upmc/get-keywords/',
+            get_document_details: '/urank/upmc/get-article-details/[doc_id]/[decoration]/',
+            get_facets: '/urank/upmc/get-facets/[facet_type]/',
+            get_keyphrases: '/urank/upmc/get-keyphrases/[kw_id]/',
+            search_features: '/urank/upmc/search-features/[feature_type]/[text]/',            
+            update_ranking: '/urank/upmc/update-ranking/',
+            urank: '/urank/upmc/urank-service/',
+            filter_articles_by_year: '/urank/upmc/filter-articles-by-year/[from_year]/[to_year]/',
+            show_more_data: '/urank/upmc/get-more-articles/[current_count]/'
+        },
+        path_to: {
+            results: 'results',
+            count: 'count'
         }
     },
 

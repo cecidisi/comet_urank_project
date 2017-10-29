@@ -15,6 +15,8 @@ module.exports = {
     main_conf_nav_eval: './assets/main_conf_nav_eval',
     conf_nav_eval_general: './assets/conf_nav_eval_general',
     main_upmc: './assets/main_upmc',
+    main_upmc_study: './assets/main_upmc_study',
+    upmc_study_review: './assets/upmc_study_review'
   },
 
   output: {

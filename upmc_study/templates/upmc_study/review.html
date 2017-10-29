@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>uRank</title>
+    {% load static %}
+    {% load render_bundle from webpack_loader %}
+</head>
+
+
+<body>     
+    <header>
+        <div class="logo">uRank PubMed</div>
+        <div class="right-aligned">
+            <input type="button" class="btn btn-primary" id="btn-done-review" value="Done", title="Click here when you're ready to answer a post-task survey"/>
+        </div>        
+    </header>
+
+    <div class="container">
+        <div class="row">
+            <div class="question-container col-lg-6 col-lg-offset-3" 
+            style="border-radius: 5px;"> 
+                {% for b in bookmarks %}
+                    <div class="item-wrapper">
+                        <div class="field-wrapper">
+                            <h5 class="title" title="{{b.title}}\n{{b.abstract}}">{{b.title}}</h5>    
+                        </div>
+                        <div class="field-wrapper">
+                            <label>Authors: </label><span>{{b.authors_list}}</span>
+                        </div>
+                        <div class="field-wrapper">
+                            <label>Year:</label><span>{{b.year}}</span>
+                            <label>Publication Type: </label><span>{{b.pub_type}}</span>
+                        </div>                        
+                        <div class="field-wrapper">
+                            <label>Journal: </label><span>{{b.journal}}</span>    
+                            <label>ISSN: </label><span>{{b.issn}}</span>    
+                            <label>Volume: </label><span>{{b.volume}}</span>    
+                            <label>Issue: </label><span>{{b.issue}}</span>    
+                        </div>
+                    </div>
+                {% endfor %}   
+            </div>
+            <div class="btn btn-primary" id="btn-download" title="Download bookmarks to .csv file" style="margin-left: 15px;">
+                <a href="#" target="_blank" title="Download bookmarks to .csv file" style="color: white;">Download</a>
+            </div>
+
+<!--             <input type="button" class="btn btn-primary" id="btn-download" value="Download", title="Download bookmarks to .csv file" style="margin-left: 15px;" /> -->
+        </div>
+    </div>
+
+    {% render_bundle 'vendor' %}
+    {% render_bundle 'conf_nav_eval_general' %}
+    {% render_bundle 'upmc_study_review' %}
+
+</body>
+</html>
+
+

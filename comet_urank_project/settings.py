@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'comet_urank',
     'conf_navigator',
     'conf_navigator_eval',
-    'upmc',  
+    'upmc',
+    'upmc_study',  
     'plugins',
     'nlp',
     'helper',
@@ -132,13 +133,23 @@ DATABASES = {
         'HOST':  'localhost',
         'PORT': '3306',
         'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+    },
+    'upmcevaldb': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'upmc_eval',
+        'USER': 'cecidisi',
+        'PASSWORD': 'asdf',
+        'HOST':  'localhost',
+        'PORT': '3306',
+        'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
     }
 }
 
 DATABASE_ROUTERS = [
+    'upmc.db_router.UpmcUrankRouter',
+    'upmc_study.db_router.UpmcStudyRouter',
     'conf_navigator_eval.db_router.ConfNavigatorEvalRouter',
     'conf_navigator.db_router.ConfNavigatorRouter',
-    'upmc.db_router.UpmcUrankRouter',
     'comet_urank.db_router.CometRouter', 
 ]
 

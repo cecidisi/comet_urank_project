@@ -3,6 +3,7 @@ from elasticsearch_dsl import DocType, Text, Integer, Index, Search, Nested, Flo
 from elasticsearch.helpers import bulk
 from elasticsearch import Elasticsearch
 from upmc.models import *
+from upmc.serializers import *
 from helper.bcolors import *
 
 
@@ -39,6 +40,14 @@ class ArticleIndex(DocType):
 	pub_type = Text()
 	year = Text()
 	authors_list = Text()
+	pub_details = Nested(
+		properties = {
+			'journal': Text(),
+			'issn': Text(),
+			'volume': Text(),
+			'issue': Text()
+		}
+	)
 	# keywords = Text()
 	keywords = Nested(
 		properties = {
@@ -75,15 +84,6 @@ class ArticleIndex(DocType):
 		index = 'pubmed-article-index'
 
 
-
-class YearFacetIndex(DocType):
-	year = Integer()
-	count = Integer()
-
-	class Meta:
-		index = 'pubmed-year-facet-index'
-
-
 class eSearch():
 
 	@classmethod
@@ -106,6 +106,7 @@ class eSearch():
 			pub_type = a.pub_type,
 			year = a.pub_details.year,
 			authors_list = a.authors_list,
+			pub_details = PublicationDetailsSerializer(a.pub_details).data,
 			keywords = [k for k in a.doc_keywords.keywords.values()] or [],
 			# pos_title = [{ 'stem': stem, 'from': p.from_pos, 'to': p.to_pos } for stem, p in a.doc_keywords.pos_title] or [],
 			# pos_detail = [{ 'stem': stem, 'from': p.from_pos, 'to': p.to_pos } for stem, p in a.doc_keywords.pos_detail] or [],
@@ -181,43 +182,63 @@ class eSearch():
 		# print res[0]
 		return res
 
+	@staticmethod
+	def get_exclude_list(options):
+		exclude_list = ['stems', 'abstract', 'pub_details', 'keywords', 'pos_title', 'pos_detail']
+		for key, value in options.iteritems():
+			if(value):
+				try:
+					exclude_list.remove(key)
+				except ValueError:
+					pass
+
+		return exclude_list
+
+
+	@staticmethod
+	def filter_by_year_range(s, year_range):
+		from_year = year_range[0]
+		to_year = year_range[1]
+		return s.filter('range', year={ 'from': from_year, 'to': to_year })
+
+
+	@staticmethod
+	def format_elem(d):
+		d = d.to_dict()
+		if 'keywords' in d:
+			d['keywords'] = { k['stem']: k for k in d['keywords'] }
+		if 'pos_title' in d:
+			d['pos_title'] = { p['stem']: p['pos'] for p in d['pos_title'] }
+		if 'pos_detail' in d:
+			d['pos_detail'] = { p['stem']: p['pos'] for p in d['pos_detail'] }
+		return d
 
 
 	@classmethod
-	def search_by_keywords(cls, stems, count=1000, keywords=False, text_positions = False):
-		exclude_list = ['stems', 'abstract']
-		if keywords == False:
-			exclude_list.append('keywords')
-		if text_positions == False:
-			exclude_list = exclude_list + ['pos_title', 'pos_detail']
+	def search_by_keywords(cls, stems, **options):
+
 		q = Q('bool',
 			should = [Q('match', stems=stem) for stem in stems],
 			minimum_should_match = 1
 		)
 		s = Search(index='pubmed-article-index') \
 			.query(q) \
-			.source({ 'excludes': exclude_list })
-		res = s[0:count].execute()
+			.source({ 'excludes': eSearch.get_exclude_list(options) })
+
+		# Filter by year range
+		if 'year_range' in options and len(options['year_range']):
+			s = eSearch.filter_by_year_range(s, options['year_range'])
+
+		offset = options['offset'] if 'offset' in options else 0
+		count = options['count'] if 'count' in options else 1000
+		res = s[offset:count].execute()
 		print 'eSearch returned ' + str(len(res)) + ' items'
-		return [d.to_dict() for d in res]
+		return [eSearch.format_elem(d) for d in res]
 		
 
 
 	@classmethod
-	def get_text_positions(cls, ids_list, title=True, abstract=False):
-		include_list = ['id']
-		if title:
-			include_list.append('pos_title')
-		if abstract:
-			include_list.append('pos_detail')
-
-		def pos_to_dict(d):
-			d = d.to_dict()
-			if title and 'pos_title' in d:
-				d['pos_title'] = { p['stem']: p['pos'] for p in d['pos_title'] }
-			if abstract and 'pos_detail' in d:
-				d['pos_detail'] = { p['stem']: p['pos'] for p in d['pos_detail'] }
-			return d
+	def search_by_ids(cls, ids_list, **options):
 
 		q = Q('bool',
 			should = [Q('match', id=_id) for _id in ids_list],
@@ -226,11 +247,44 @@ class eSearch():
 		s = Search(index='pubmed-article-index')\
 			.query(q) \
 			.source({ 
-				'includes': include_list
+				'excludes': eSearch.get_exclude_list(options)
 			})
-		res =  s[0:len(ids_list)].execute()
-		return [pos_to_dict(d) for d in res]
-		# return ArticleIndex.get(id=ids_list[0])
+		if 'year_range' in options and len(optons['year_range']):
+			s = eSearch.filter_by_year_range(s, options['year_range'])
+		offset = options['offset'] if 'offset' in options else 0
+		res =  s[offset:len(ids_list)].execute()
+		return [eSearch.format_elem(d) for d in res]
+
+
+
+	# @classmethod
+	# def get_text_positions(cls, ids_list, title=True, abstract=False):
+	# 	include_list = ['id']
+	# 	if title:
+	# 		include_list.append('pos_title')
+	# 	if abstract:
+	# 		include_list.append('pos_detail')
+
+	# 	def pos_to_dict(d):
+	# 		d = d.to_dict()
+	# 		if title and 'pos_title' in d:
+	# 			d['pos_title'] = { p['stem']: p['pos'] for p in d['pos_title'] }
+	# 		if abstract and 'pos_detail' in d:
+	# 			d['pos_detail'] = { p['stem']: p['pos'] for p in d['pos_detail'] }
+	# 		return d
+
+	# 	q = Q('bool',
+	# 		should = [Q('match', id=_id) for _id in ids_list],
+	# 		minimum_should_match = 1
+	# 	)
+	# 	s = Search(index='pubmed-article-index')\
+	# 		.query(q) \
+	# 		.source({ 
+	# 			'includes': include_list
+	# 		})
+	# 	res =  s[0:len(ids_list)].execute()
+	# 	return [pos_to_dict(d) for d in res]
+	# 	# return ArticleIndex.get(id=ids_list[0])
 
 
 	'''
@@ -269,7 +323,7 @@ class eSearch():
 		GlobalKeywordIndex.init()
 		es = Elasticsearch()
 		bulk(client=es, actions=(eSearch.index_keyword(k) for k in keywords.iterator()))
-		print_blue('Created keywords index with ' + str(Search(index='pubmed-global-keyword-index').count()) + ' keywords (out of ' + str(len(keywords)) + ')')
+		print_blue('eSearch: Created keywords index with ' + str(Search(index='pubmed-global-keyword-index').count()) + ' keywords (out of ' + str(len(keywords)) + ')')
 
 
 

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
+from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 import time
 import urllib2
 import requests
@@ -23,7 +24,7 @@ def run(*args):
 	start = time.time()
 	clean_db()
 	term = 'migraine'
-	count = 10000 # Total number of items
+	count = 2000 	# Total number of items
 	retmax = 100	# Number items per batch
 	if 'get-all' in args:
 		count = 0
@@ -142,11 +143,16 @@ def parse_paper(p):
 	if art.Abstract:
 		abstract_chunks = art.Abstract.find_all('AbstractText')
 		for j, chunk in enumerate(abstract_chunks):
-			label = chunk.get('Label') or ''
+			label = chunk.get('Label') or None
 			if label:
 				paper['abstract'] += label + ': '
 			paper['abstract'] += chunk.get_text() + '\n'
 		paper['abstract'] = paper['abstract'][:-1]
+
+	# If paper doesn't have extract, exclude
+	if paper['abstract'] == '':
+		return None
+
 	# Authors
 	paper['authors'] = []
 	if art.AuthorList:
@@ -167,7 +173,12 @@ def parse_paper(p):
 					if a.CollectiveName:
 						paper['authors'].append((a.CollectiveName.get_text(), '', '', ''))
 
-		paper['authors_list'] = '; '.join(a[0]+', '+a[1] for a in paper['authors'])
+	if len(paper['authors']):
+		paper['authors_list'] = '; '.join((a[0]+', '+a[1]) for a in paper['authors'])
+	else: 
+		paper['authors_list'] = ''		
+
+		
 	# Publication Details
 	paper['publication_details'] = {
 		'journal': '', 'abbr': '', 'issn': '', 'volume': '', 'issue': '', 'date_str': '', 'year': None
@@ -239,31 +250,36 @@ def save_paper(paper):
 		# Affiliation
 		affiliation = None
 		if a[3] != '':
+			affiliation = None
 			try:
-				affiliation, created = Affiliation.objects.get_or_create(name=a[3])
-			except Exception, e:
-				print a[3]
-				print_red(str(e))
+				affiliation = Affiliation.objects.get(name=a[3])
+			except ObjectDoesNotExist:
+				affiliation = Affiliation(name=a[3])
+				affiliation.save()
+			
 		# Author		
-		author = Author.objects.filter(last_name=a[0]).filter(fore_name=a[1]).filter(initials=a[2])
-		if len(author):
-			author = author[0]
-		else:
-			author = Author.objects.create(
+		author = None
+		try:
+			author = Author.objects.get(last_name=a[0], fore_name=a[1])
+		except MultipleObjectsReturned, e:
+			print_red(str(e))
+			author = Author.objects.filter(last_name=a[0]).filter(fore_name=a[1])
+			print author
+			author = author[0] 
+		except ObjectDoesNotExist:
+			pass
+		if author is not None:
+			author = Author(
 				last_name = a[0],
 				fore_name = a[1],
 				initials = a[2]
 			)
+			author.save()
 
-		# author, created = Author.objects.get_or_create(
-		# 	last_name = a[0],
-		# 	fore_name = a[1],
-		# 	initials = a[2]
-		# )
-		# Link author to affiliation
-		if affiliation and not author.affiliations.filter(pk=affiliation.pk).exists():
-			author.affiliations.add(affiliation)
-		authors.append(author)
+			# Link author to affiliation
+			if affiliation and not author.affiliations.filter(pk=affiliation.pk).exists():
+				author.affiliations.add(affiliation)
+			authors.append(author)
 		
 
 	# Publication Details
@@ -282,26 +298,32 @@ def save_paper(paper):
 	# Article
 	article = None
 	try:
-		article = Article.objects.create(
-			pmid = paper['pmid'],
-			doi = paper['doi'],
-			title = paper['title'],
-			abstract = paper['abstract'],
-			pub_type = paper['pub_type'],
-			pub_details = pub_details,
-			author_keywords = paper['author_keywords']
-		)
-	except Exception, e:
-		print 'Error saving paper...'
-		print_red(str(e))
-		return None
+		article = Article.objects.get(pk=paper['pmid'])
+	except ObjectDoesNotExist:
+		try:
+			article = Article(
+				pmid = paper['pmid'],
+				doi = paper['doi'],
+				title = paper['title'],
+				abstract = paper['abstract'],
+				pub_type = paper['pub_type'],
+				authors_list = paper['authors_list'],
+				author_keywords = paper['author_keywords'],
+				pub_details = pub_details
+			)
+			article.save()
+		except Exception, e:
+			print 'Error saving paper...'
+			print_red(str(e))
+			print paper
+			return None
 
 	# Link article to authors
 	for a in authors:
 		try:
 			article.authors.add(a)
 		except Exception, e:
-			print 'Error '
+			print 'Error adding author ' + a.fore_name + ' ' + a.last_name + ' to paper ' + str(article.pmid)
 			print_red(str(e))
 	return article
 

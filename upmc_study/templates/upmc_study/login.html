@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>uRank CN</title>
+    {% load static %}
+    {% load render_bundle from webpack_loader %}
+
+</head>
+<body>
+    <div class="content">
+        <br><br>
+        <div class="row">
+            <div class="col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
+                <form method="POST">
+                    <legend>uRank Login</legend>
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input class="form-control" type="text" name="username", autofocus="autofocus">
+                    </div>
+                    <div>
+                        <button class="btn" type="submit">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div> 
+s
+
+    {% render_bundle 'vendor' %}
+    
+    {% block js %}
+    {% endblock js %}
+    
+</body>
+</html>
+
+

@@ -1,0 +1,30 @@
+
+.item-wrapper {
+	display: block;
+	border-bottom: 1px solid #ddd;
+
+	.field-wrapper {
+		display: block;
+
+		&.inline {
+			display: inline-block !important;
+			margin-right: 8px;
+		}
+
+		h5.title {
+			font-size: 13px;
+			font-weight: bold;
+		}
+
+		label {
+			display: inline-block;
+			margin-right: 3px;
+		}
+
+		span {
+
+		}
+
+	}
+}
+

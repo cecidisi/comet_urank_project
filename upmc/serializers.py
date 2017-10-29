@@ -14,7 +14,7 @@ import ujson
 class PublicationDetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = PublicationDetails
-        fields = '__all__'
+        fields = ('journal', 'issn', 'volume', 'issue')
 
 
 

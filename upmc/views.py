@@ -24,7 +24,7 @@ from .search import *
 
 num_documents = 30
 num_keywords = 100
-urank = Urank(options={ 'num_documents': num_documents })
+urank = Urank(num_documents=num_documents)
 
 
 @api_view(['GET'])
@@ -40,7 +40,7 @@ def index(request):
 @api_view(['GET'])
 def get_articles(request):
     # articles = urank.load_documents(DBconnector.get_articles())
-    articles = eSearch.search_by_keywords(['migrain'], num_documents)
+    articles = eSearch.search_by_keywords(['migrain'], count=num_documents)
     resp = {
         'count': len(articles),
         'results': articles
@@ -115,6 +115,8 @@ def  get_facets(request, facet_type):
 @api_view(['GET'])
 def filter_articles_by_year(request, from_year, to_year):
     filtered_articles = urank.filter_by_year(from_year, to_year)
+    if len(filtered_articles) == 0:
+        eSearch.search_by_keywords('migrain', year_range=[from_year, to_year])
     resp = {
         'count': len(filtered_articles),
         'results': filtered_articles
@@ -149,7 +151,7 @@ def update_ranking(request):
     articles = eSearch.search_by_keywords(stems=query, keywords=True)
     articles = urank.update_ranking(params, articles)
     ids_list = [d['id'] for d in articles]
-    positions = eSearch.get_text_positions(ids_list)
+    positions = eSearch.search_by_ids(ids_list, pos_title=True, pos_abstract=True)
     decoration = params['decoration'] or None
     ranked_articles = urank.get_styled_documents(articles, positions, decoration)
 

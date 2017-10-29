@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CN uRank</title>
+    {% load static %}
+    {% load render_bundle from webpack_loader %}
+
+    {% block css %}
+    {% endblock %}
+</head>
+
+
+<body>        
+    <header>
+        <div class="logo">uRank PubMed</div>
+
+        <div class="right-aligned">
+            <!-- <div class="message">Click here when you finish the task </div>
+            <i class="fa fa-arrow-right" aria-hidden="true"></i> -->
+            <input type="button" class="btn btn-primary" id="btn-logs" value="Logs"/>
+            <input type="button" class="btn btn-primary" id="btn-bookmarks" value="My Bookmarks"/>
+            <input type="button" class="btn btn-primary" id="btn-done" value="Done" title="Click here when you finish the task"/>
+        </div>
+    </header>
+
+    <div id="user_id" style="display: none;">{{user_id}}</div>
+
+    <div class="main-panel">
+
+        <div class="control-panel">
+            <div class="container">
+                <span class="favicon"></span>
+                <h4>Bookmarked Documents (0)</h4>
+                <div class="bookmark-area"></div>
+            
+            </div>
+        </div>
+
+        <div class="left-panel">
+            <div class="list-header" style="height: 79px;">
+                <div class="list-header-pos-and-shift">
+                    <div class="label-vertical">Position</div>
+                </div>
+                <div class="list-header-pos-and-shift">
+                    <div class="label-vertical">Shift</div>
+                </div>
+                <div class="list-header-title">
+                    <div class="label">Document Titles</div>
+                </div>
+            </div>
+            <div id="contentlist" ></div>
+        </div>
+
+        <div class="central-panel">
+            <div id="tagbox"></div>
+            <div id="viscanvas"></div>
+            <!-- <div id="btn-show-more" class="btn btn-primary"> -->
+        </div>
+
+        <div class="right-panel">
+            <div class="timeslider-area">
+                <div id="timeslider" class="timeslider-wrapper"></div>
+            </div>
+            <div class="search-area">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="search-features" placeholder="Search Keyword...">
+                    <!-- <select class="form-control select2-hidden-accessible js-states" id="search-features"></select> -->
+                </div>
+            </div>    
+            <div id="tagcloud" class="large"></div>
+        </div>
+        
+    </div>
+
+    <div class="processing-message" style="display:none;">
+       <div class="content">Processing Data...</div>
+    </div>
+
+    {% render_bundle 'vendor' %}
+    
+    {% render_bundle 'main_upmc_study' %}
+ 
+
+    {% block js %}
+    {% endblock js %}
+
+</body>
+</html>
+
+

@@ -24,7 +24,7 @@ def run():
 
 def get_email_mapping():
 	email_mapping = {}
-	file_path = '/conf_navigator_eval/files/UMAP-participants.csv'
+	file_path = '/files/UMAP-participants.csv'
 	root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 	file = os.path.join(root_dir + file_path)
 	with open(file, 'r') as cvsfile:
