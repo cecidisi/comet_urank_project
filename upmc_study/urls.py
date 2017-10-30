@@ -17,11 +17,12 @@ urlpatterns = [
     # url(r'^get-keywords/$', views.get_keywords, name='get-keywords'),
     # url(r'^get-keyphrases/(?P<kw_id>\d+)/$', views.get_keyphrases, name='get-keyphrases'),
     # url(r'^get-facets/(?P<facet_type>\w+)/$', views.get_facets, name='get-facets'),
-    # url(r'^get-article-details/(?P<doc_id>\d+)/(?P<decoration>\w+)/$', views.get_article_details, name='get-article-details'),
     # url(r'^search-features/(?P<feature_type>\w+)/(?P<text>\w+)/$', views.search_features, name='search-features'),
     url(r'^update-ranking/$', views.update_ranking, name='update_ranking'),
     # url(r'^urank-service/$', views.urank_service, name='urank_service'),
     url(r'^filter-articles-by-year/(?P<from_year>\d+)/(?P<to_year>\d+)/$', views.filter_articles_by_year, name='filter-articles-by-year'),
     url(r'^get-more-articles/(?P<current_count>\d+)/$', views.get_more_articles, name='get-more-articles'),
     url(r'^get-more-articles/(?P<user_id>\d+)/(?P<current_count>\d+)/$', views.get_more_articles, name='get-more-articles'),
+    url(r'^get-article-details/(?P<doc_id>\d+)/(?P<decoration>\w+)/$', views.get_article_details, name='get-article-details'),
+    
 ]

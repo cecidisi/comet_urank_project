@@ -2,19 +2,29 @@ from django.core.exceptions import ObjectDoesNotExist
 from helper.bcolors import *
 from upmc.search import *
 from .models import *
+from .serializers import UpmcUserSerializer
 from .db_connector import *
 
 
 
 class TaskManager:
 
-	@staticmethod
-	def get_user(user_id):
+	@classmethod
+	def get_user(cls, username):
 		try:
-			return UpmcUser.objects.get(pk=user_id)
+			user = UpmcUser.objects.get(username=username)
+			return UpmcUserSerializer(user).data
 		except ObjectDoesNotExist:
-			print_red('User with id = ' + str(user_id) + ' doesn\'t exist')
 			return False
+
+
+	# @staticmethod
+	# def get_user(user_id):
+	# 	try:
+	# 		return UpmcUser.objects.get(pk=user_id)
+	# 	except ObjectDoesNotExist:
+	# 		print_red('User with id = ' + str(user_id) + ' doesn\'t exist')
+	# 		return False
 
 
 
@@ -112,6 +122,7 @@ class TaskManager:
 		for d in articles:
 			d['bookmarked'] = True if d['id'] in item_ids else False
 		return articles
+
 
 
 	@classmethod

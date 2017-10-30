@@ -23,6 +23,7 @@ from urank_service.urank_handler import *
 from upmc.search import eSearch
 from .db_connector import *
 from .task_manager import *
+from upmc import db_connector as upmcDB
 
 
 num_documents = 30
@@ -220,6 +221,22 @@ def get_more_articles(request, user_id=None, current_count=None):
         'count': len(more_articles)
     }
     return Response(resp)        
+
+
+
+
+@api_view(['GET'])
+def get_article_details(request, doc_id, decoration):
+    article = upmcDB.get_article_details(doc_id)
+    # article = eSearch.search_by_ids([doc_id], abstract=True, pos_title=True, pos_detail=True)
+    resp = { 'count': 0, 'results': None}
+    print decoration
+    if article:
+        resp = { 
+            'count': 1, 
+            'results': urank.get_document_details(article, decoration) 
+        }
+    return Response(resp)
 
 
 

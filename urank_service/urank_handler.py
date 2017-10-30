@@ -106,12 +106,12 @@ class Urank:
 		return neighbors_to_send
 
 
-	def get_document_details(self, doc, decoration):
-		# doc_kw = self.doc_keywords[ self.doc_id_to_index[doc['id']] ]
-		# doc['title'] = TextFormatter.get_formatted_text(doc['title'], doc_kw, 'pos_title', self.kw_colors, decoration)
-		# doc['abstract'] = TextFormatter.get_formatted_text(doc['abstract'], doc_kw, 'pos_detail', self.kw_colors, decoration)
+	def get_document_details(self, doc, decoration):		
+		# print doc
 		doc['title'] = TextFormatter.get_formatted_text(doc['title'], doc['doc_keywords']['pos_title'], self.kw_colors, decoration)
 		doc['abstract'] = TextFormatter.get_formatted_text(doc['abstract'], doc['doc_keywords']['pos_detail'], self.kw_colors, decoration)
+		# doc['title'] = TextFormatter.get_formatted_text(doc['title'], doc['pos_title'], self.kw_colors, decoration)
+		# doc['abstract'] = TextFormatter.get_formatted_text(doc['abstract'], doc['pos_detail'], self.kw_colors, decoration)
 		return doc
 		
 

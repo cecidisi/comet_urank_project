@@ -1,1059 +1,1040 @@
-1. topiramate -- score = 3.59406090127
-	topiramate treatment -- 8
-	topiramate group -- 7
-	topiramate users -- 3
-	topiramate therapy -- 3
+1. topiramate -- score = 3.32899085545
+	topiramate treatment -- 6
 	topiramate withdrawal -- 2
+	topiramate group -- 2
 	low-dose topiramate -- 2
+	topiramate therapy -- 2
+	comprehensive topiramate database review -- 1
 	prophylactic topiramate treatment -- 1
+	topiramate groups -- 1
+	topiramate double-blind -- 1
 	daily topiramate dose -- 1
-	long-term topiramate administration -- 1
-	topiramate induced secondary acute angle closure glaucoma -- 1
-2. prophylaxis -- score = 3.59406090127
-	migraine prophylaxis -- 45
-	medical prophylaxis -- 7
-	pharmacological prophylaxis -- 3
-	chronic migraine prophylaxis -- 3
-	short-term prophylaxis -- 2
-	prophylaxis -- 2
-	headache prophylaxis -- 2
+2. prophylaxis -- score = 3.32899085545
+	migraine prophylaxis -- 29
+	medical prophylaxis -- 5
 	research evaluating migraine prophylaxis therapy -- 2
-	phase III research evaluating migraine prophylaxis therapy program PREEMPT -- 1
-	rapid onset effective prophylaxis -- 1
-3. migraine -- score = 3.59406090127
-	chronic migraine -- 394
-	migraine patients -- 351
-	migraine attacks -- 191
-	migraine headache -- 174
-	episodic migraine -- 150
-	vestibular migraine -- 110
-	migraine headaches -- 96
-	migraine pathophysiology -- 51
-	hemiplegic migraine -- 51
-	migraine attack -- 50
-4. headache -- score = 3.45893986189
-	migraine headache -- 174
-	tension-type headache -- 157
-	headache disorders -- 118
-	migraine headaches -- 96
-	headache frequency -- 95
-	primary headaches -- 86
-	cluster headache -- 83
-	headache days -- 62
-	primary headache -- 50
-	chronic headache -- 47
-5. STUDY -- score = 3.19423674872
-	further studies -- 46
-	future studies -- 35
-	few studies -- 24
-	previous studies -- 23
-	clinical studies -- 23
-	STUDY DESIGN -- 20
-	several studies -- 20
-	recent studies -- 17
-	prospective studies -- 9
-	observational studies -- 9
-6. patients -- score = 3.19200959265
-	migraine patients -- 351
-	patients -- 141
-	pediatric patients -- 30
-	chronic migraine patients -- 28
-	many patients -- 22
-	consecutive patients -- 20
-	adult patients -- 18
-	aura patients -- 17
-	MOH patients -- 11
-	mwoa patients -- 11
-7. pain -- score = 3.07918124605
-	chronic pain -- 58
-	pain intensity -- 47
-	migraine pain -- 44
-	abdominal pain -- 33
-	pain relief -- 27
-	neuropathic pain -- 26
-	neck pain -- 23
-	pain modulation -- 18
-	facial pain -- 17
-	severe pain -- 15
-8. treatment -- score = 3.07845681805
-	prophylactic treatment -- 53
-	acute treatment -- 53
-	preventive treatment -- 36
-	migraine treatment -- 34
-	effective treatment -- 20
-	treatment options -- 19
-	acute migraine treatment -- 16
-	prophylactic treatments -- 13
-	medical treatment -- 12
-	surgical treatment -- 11
-9. clinical -- score = 3.01029995664
-	clinical features -- 73
-	clinical trials -- 65
-	clinical characteristics -- 47
-	clinical trial -- 33
-	clinical practice -- 32
-	clinical studies -- 23
-	clinical data -- 21
-	clinical presentation -- 21
-	clinical efficacy -- 16
-	clinical outcomes -- 12
-10. disorders -- score = 2.98587535731
-	headache disorders -- 118
-	neurological disorders -- 57
-	primary headache disorders -- 36
-	neurological disorder -- 28
-	mood disorders -- 26
-	gastrointestinal disorders -- 26
-	bipolar disorder -- 23
-	vestibular disorders -- 20
-	temporomandibular disorders -- 18
-	headache disorder -- 14
-11. chronic -- score = 2.976349979
-	chronic migraine -- 394
-	chronic pain -- 58
-	chronic headache -- 47
-	chronic migraine patients -- 28
-	chronic conditions -- 28
-	chronic headaches -- 18
-	chronic migraineurs -- 18
-	chronic cluster headache -- 16
-	refractory chronic migraine -- 12
-	chronic pain conditions -- 11
-12. groups -- score = 2.97543180851
-	control groups -- 19
-	age groups -- 12
-	migraine groups -- 11
-	groups -- 11
-	patient groups -- 10
-	other groups -- 6
-	treatment groups -- 6
-	different groups -- 3
-	placebo groups -- 3
-	standard groups -- 3
-13. attacks -- score = 2.85247999364
-	migraine attacks -- 191
-	migraine attack -- 50
-	attack frequency -- 33
-	headache attacks -- 24
-	ischemic attacks -- 17
-	headache attack -- 13
-	spontaneous migraine attacks -- 13
-	attack duration -- 11
-	ischemic attack -- 11
-	stroke-like migraine attacks -- 11
-14. medical -- score = 2.82477646248
-	medication overuse -- 40
-	medication overuse headache -- 26
-	medical history -- 23
-	medical conditions -- 22
-	rescue medication -- 16
-	prophylactic medications -- 14
-	medical students -- 14
-	medical treatment -- 12
-	medication use -- 11
-	preventive medications -- 11
-15. effect -- score = 2.79448804666
-	adverse effects -- 35
-	side effects -- 25
-	effective treatment -- 20
-	long-term effects -- 9
-	significant effect -- 9
-	anti-inflammatory effects -- 8
-	analgesic effect -- 7
-	effective treatments -- 6
-	inhibitory effect -- 6
-	adverse effect -- 6
-16. disease -- score = 2.79169064902
-	cardiovascular disease -- 27
-	neurological diseases -- 27
-	disease duration -- 17
-	coronary artery disease -- 15
-	dry eye disease -- 13
-	cardiovascular diseases -- 12
-	disease severity -- 11
-	chronic diseases -- 10
-	neurological disease -- 9
-	cerebrovascular disease -- 9
-17. control -- score = 2.76715586608
-	control group -- 127
-	healthy controls -- 120
-	controlled trials -- 27
-	control subjects -- 20
-	control groups -- 19
-	normal controls -- 13
-	healthy control subjects -- 11
-	healthy control group -- 9
-	controlled trial -- 9
-	sex-matched controls -- 8
-18. symptom -- score = 2.74741180789
-	migraine symptoms -- 27
-	neurological symptoms -- 23
-	vestibular symptoms -- 18
-	headache symptoms -- 14
-	premonitory symptoms -- 13
-	depressive symptoms -- 13
-	somatic symptoms -- 10
-	psychological symptoms -- 9
-	anxiety symptoms -- 9
-	clinical symptoms -- 8
-19. different -- score = 2.70586371228
-	significant difference -- 63
-	mean difference -- 16
-	different types -- 15
-	different phases -- 5
-	different doses -- 5
-	different regions -- 5
-	different stages -- 4
-	different organs -- 4
-	statistical difference -- 4
-	different time points -- 3
-20. significant -- score = 2.69897000434
-	significant differences -- 66
-	significant difference -- 63
-	significant improvement -- 29
-	significant association -- 22
-	significant reduction -- 21
-	significant increase -- 21
-	significant decrease -- 20
-	significant correlation -- 10
-	significant effect -- 9
-	significant impact -- 9
-21. brain -- score = 2.69460519893
-	traumatic brain injury -- 39
-	brain regions -- 17
-	brain structure -- 11
-	brain magnetic resonance imaging -- 8
-	brain function -- 7
-	migraine brain -- 7
-	rat brain -- 7
-	human brain -- 7
-	brain stem -- 7
-	brain tumors -- 6
-22. functional -- score = 2.68484536164
-	functional connectivity -- 45
-	functional dizziness -- 10
-	functional changes -- 10
-	functional dyspepsia -- 10
-	functional gastrointestinal disorders -- 9
-	functional activity -- 7
-	functional disorders -- 6
-	physiological functions -- 5
-	cognitive functions -- 5
-	physical functioning -- 5
-23. factors -- score = 2.67760695272
-	risk factors -- 63
-	risk factor -- 39
-	psychological factors -- 19
-	vascular risk factors -- 10
-	environmental factors -- 9
-	neurotrophic factor -- 9
-	other factors -- 8
-	familial factors -- 7
-	psychosocial factors -- 7
-	independent risk factor -- 7
-24. activation -- score = 2.66838591669
-	physical activity -- 16
-	trigeminovascular activation -- 14
-	daily activities -- 13
-	trigeminal activation -- 9
-	neuronal activity -- 8
-	endothelial activation -- 8
-	active trps -- 7
-	functional activity -- 7
-	analgesic activity -- 6
-	active compounds -- 6
-25. system -- score = 2.65030752313
-	nervous system -- 59
-	trigeminovascular system -- 33
-	trigeminal system -- 21
-	systemic administration -- 13
-	visual system -- 7
-	endocannabinoid system -- 5
-	systemic exposure -- 5
-	cardiovascular system -- 5
-	vestibular system -- 5
-	glymphatic system -- 5
-26. risk -- score = 2.6232492904
-	risk factors -- 63
-	risk factor -- 39
-	stroke risk -- 16
-	increased risk -- 13
-	migraine risk -- 10
-	high risk -- 10
-	vascular risk factors -- 10
-	relative risk -- 8
-	independent risk factor -- 7
-	risk ratio -- 7
-27. primary -- score = 2.61595005166
-	primary headaches -- 86
-	primary headache -- 50
-	primary headache disorders -- 36
-	primary outcome -- 20
-	primary care -- 16
-	primary headache disorder -- 13
-	primary endpoint -- 13
-	primary outcome measure -- 10
-	primary afferents -- 7
-	primary aim -- 5
-28. receptor -- score = 2.60422605308
-	CGRP receptor -- 22
-	CGRP receptors -- 15
-	opioid receptors -- 9
-	receptor-like receptor -- 5
-	transient receptor potential -- 5
-	receptors -- 5
-	5-HT receptors -- 5
-	5-HT1B receptor binding -- 5
-	CGRP receptor antagonists -- 4
-	P2X7 receptors -- 4
-29. levels -- score = 2.58206336291
-	plasma levels -- 13
-	serum levels -- 11
-	high levels -- 10
-	levels -- 10
-	CGRP levels -- 8
-	low levels -- 5
-	protein levels -- 5
-	leptin levels -- 4
-	serum calcium levels -- 4
-	expression levels -- 4
-30. drug -- score = 2.56820172407
-	antiepileptic drugs -- 17
-	drug administration -- 15
-	anti-inflammatory drugs -- 12
-	anti-migraine drugs -- 9
-	prophylactic drugs -- 8
-	drug use -- 6
-	other drugs -- 6
-	anti-inflammatory drug -- 6
-	antiepileptic drug -- 6
-	preventive drugs -- 4
-31. severe -- score = 2.56584781867
-	headache severity -- 28
-	several studies -- 20
-	migraine severity -- 19
-	severe pain -- 15
-	severe headache -- 14
-	pain severity -- 11
-	disease severity -- 11
-	symptom severity -- 7
-	severe headaches -- 6
-	severe headache days -- 5
-32. neurological -- score = 2.56110138365
-	neurological disorders -- 57
-	neurological disorder -- 28
-	neurological diseases -- 27
-	neurological symptoms -- 23
-	neurological conditions -- 10
-	neurological disease -- 9
-	neurological examination -- 9
-	neurological manifestations -- 8
-	neurological condition -- 8
-	neurologic manifestations -- 7
-33. therapy -- score = 2.55990662504
-	behavioral therapy -- 14
-	prophylactic therapy -- 11
-	preventive therapy -- 10
-	therapy -- 9
-	radiation therapy -- 8
-	acute migraine therapy -- 7
-	migraine therapy -- 7
-	cognitive-behavioral therapy -- 6
-	manipulative therapy -- 6
-	abortive therapy -- 5
-34. models -- score = 2.55266821611
-	animal models -- 14
-	experimental models -- 9
-	human models -- 6
-	logistic regression models -- 5
-	linear models -- 4
-	linear regression models -- 4
-	preclinical models -- 3
-	structural models -- 2
-	mouse models -- 2
-	mixed models -- 2
-35. mechanisms -- score = 2.55022835306
-	pathophysiological mechanisms -- 13
-	underlying mechanisms -- 12
-	mechanical thresholds -- 7
-	mechanical allodynia -- 6
-	mechanical stimuli -- 6
-	potential mechanisms -- 6
-	possible mechanism -- 6
-	biological mechanisms -- 6
-	pathophysiological mechanism -- 6
-	pathological mechanisms -- 5
-36. ANALYSIS -- score = 2.54654266348
-	DATA COLLECTION AND ANALYSIS -- 7
-37. conditions -- score = 2.54157924395
-	chronic conditions -- 28
-	medical conditions -- 22
-	chronic pain conditions -- 11
-	comorbid conditions -- 11
-	neurological conditions -- 10
+	chronic migraine prophylaxis -- 2
+	headache prophylaxis -- 2
+	pharmacological prophylaxis -- 2
+	prophylaxis -- 1
+	successful prophylaxis -- 1
+	topiramate migraine prophylaxis -- 1
+	phase III research evaluating migraine prophylaxis therapy trials -- 1
+3. migraine -- score = 3.32899085545
+	migraine patients -- 204
+	chronic migraine -- 190
+	migraine attacks -- 116
+	migraine headache -- 93
+	episodic migraine -- 72
+	vestibular migraine -- 61
+	migraine headaches -- 44
+	migraine attack -- 32
+	migraine prophylaxis -- 29
+	migraine pathophysiology -- 28
+4. headache -- score = 3.17666993267
+	migraine headache -- 93
+	tension-type headache -- 86
+	headache disorders -- 55
+	cluster headache -- 52
+	headache frequency -- 52
+	migraine headaches -- 44
+	primary headaches -- 39
+	primary headache -- 32
+	headache days -- 31
+	chronic headache -- 30
+5. patients -- score = 2.91434315712
+	migraine patients -- 204
+	patients -- 68
+	aura patients -- 16
+	chronic migraine patients -- 15
+	pediatric patients -- 15
+	consecutive patients -- 13
+	many patients -- 10
+	adult patients -- 9
+	tinnitus patients -- 7
+	mwoa patients -- 7
+6. studies -- score = 2.90902085421
+	further studies -- 23
+	future studies -- 15
+	clinical studies -- 13
+	few studies -- 13
+	several studies -- 11
+	previous studies -- 10
+	experimental studies -- 7
+	controlled studies -- 7
+	recent studies -- 7
+	STUDY DESIGN -- 6
+7. pain -- score = 2.82994669594
+	pain intensity -- 30
+	chronic pain -- 28
+	migraine pain -- 27
+	neck pain -- 19
+	abdominal pain -- 17
+	pain relief -- 13
+	neuropathic pain -- 13
+	pain modulation -- 10
+	facial pain -- 9
 	pain conditions -- 8
-	physical health conditions -- 8
-	common conditions -- 8
-	other conditions -- 7
-	headache conditions -- 6
-38. health -- score = 2.53781909507
-	mental health -- 15
-	health problems -- 10
-	health care providers -- 9
-	physical health conditions -- 8
-	national health -- 6
+8. treatment -- score = 2.80753502807
+	acute treatment -- 27
+	preventive treatment -- 25
+	prophylactic treatment -- 24
+	migraine treatment -- 22
+	effective treatment -- 12
+	acute migraine treatment -- 11
+	treatment options -- 11
+	treatment group -- 8
+	topiramate treatment -- 6
+	medical treatment -- 6
+9. clinical -- score = 2.7371926427
+	clinical features -- 43
+	clinical trials -- 40
+	clinical characteristics -- 26
+	clinical trial -- 20
+	clinical data -- 15
+	clinical studies -- 13
+	clinical practice -- 10
+	clinical outcomes -- 8
+	clinical diagnosis -- 8
+	headache clinic -- 6
+10. groups -- score = 2.70671778234
+	migraine groups -- 8
+	age groups -- 6
+	control groups -- 6
+	patient groups -- 6
+	groups -- 6
+	treatment groups -- 4
+	other groups -- 4
+	placebo groups -- 3
+	chronic migraine groups -- 2
+	metoclopramide groups -- 2
+11. chronic -- score = 2.68663626926
+	chronic migraine -- 190
+	chronic headache -- 30
+	chronic pain -- 28
+	chronic conditions -- 21
+	chronic migraine patients -- 15
+	chronic headaches -- 15
+	chronic kidney disease -- 7
+	chronic diseases -- 7
+	chronic migraines -- 5
+	chronic migraineurs -- 5
+12. disorders -- score = 2.67024585307
+	headache disorders -- 55
+	neurological disorders -- 34
+	bipolar disorder -- 16
+	gastrointestinal disorders -- 16
+	primary headache disorders -- 15
+	neurological disorder -- 13
+	vestibular disorders -- 12
+	mood disorders -- 11
+	temporomandibular disorders -- 9
+	disorders -- 8
+13. attacks -- score = 2.64640372622
+	migraine attacks -- 116
+	migraine attack -- 32
+	ischemic attacks -- 15
+	headache attacks -- 14
+	attack frequency -- 14
+	spontaneous migraine attacks -- 10
+	acute migraine attacks -- 9
+	headache attack -- 9
+	attack duration -- 7
+	migraine-like attacks -- 7
+14. disease -- score = 2.52762990087
+	cardiovascular disease -- 15
+	neurological diseases -- 11
+	sickle cell disease -- 8
+	chronic kidney disease -- 7
+	cerebrovascular disease -- 7
+	disease duration -- 7
+	chronic diseases -- 7
+	coronary artery disease -- 6
+	disease severity -- 6
+	small vessel disease -- 5
+15. effects -- score = 2.4885507165
+	side effects -- 14
+	adverse effects -- 13
+	effective treatment -- 12
+	analgesic effect -- 6
+	main effect -- 5
+	cardiovascular effects -- 4
+	main effects -- 4
+	significant effect -- 4
+	effective treatments -- 4
+	synergistic effects -- 4
+16. medication -- score = 2.48713837548
+	medication overuse -- 19
+	medication overuse headache -- 16
+	medical history -- 13
+	preventive medications -- 7
+	medical treatment -- 6
+	medical students -- 6
+	medication use -- 6
+	rescue medication -- 6
+	medical conditions -- 5
+	medical prophylaxis -- 5
+17. control -- score = 2.46982201598
+	healthy controls -- 67
+	control group -- 57
+	control subjects -- 10
+	controlled trials -- 10
+	controlled trial -- 7
+	controlled studies -- 7
+	healthy control subjects -- 6
+	sex-matched controls -- 6
+	control groups -- 6
+	inhibitory control -- 6
+18. different -- score = 2.46389298899
+	significant difference -- 31
+	different types -- 8
+	mean difference -- 6
+	different regions -- 5
+	different doses -- 4
+	different phases -- 3
+	different factors -- 2
+	different stimuli -- 2
+	statistical difference -- 2
+	different treatments -- 2
+19. symptoms -- score = 2.44404479592
+	migraine symptoms -- 17
+	neurological symptoms -- 10
+	vestibular symptoms -- 9
+	premonitory symptoms -- 9
+	headache symptoms -- 8
+	autonomic symptoms -- 6
+	clinical symptoms -- 6
+	common symptom -- 5
+	depression symptoms -- 4
+	pre-attack symptoms -- 4
+20. activation -- score = 2.41995574849
+	physical activity -- 10
+	trigeminovascular activation -- 9
+	daily activities -- 8
+	analgesic activity -- 6
+	trigeminal activation -- 6
+	active compounds -- 5
+	neuronal activity -- 4
+	cortical serotonergic activity -- 3
+	inos activity -- 3
+	disease activity -- 3
+21. significant -- score = 2.40993312333
+	significant differences -- 35
+	significant difference -- 31
+	significant improvement -- 16
+	significant association -- 15
+	significant reduction -- 13
+	significant increase -- 8
+	significant decrease -- 7
+	significant effect -- 4
+	significant disability -- 4
+	significant impact -- 4
+22. factors -- score = 2.38738982634
+	risk factors -- 28
+	risk factor -- 16
+	familial factors -- 7
+	reproductive risk factors -- 7
+	psychological factors -- 6
+	environmental factors -- 6
+	vascular risk factors -- 6
+	social factors -- 5
+	demographic factors -- 4
+	factor -- 3
+23. functional -- score = 2.38381536598
+	functional connectivity -- 27
+	functional changes -- 6
+	physiological functions -- 4
+	functional level -- 4
+	functional gastrointestinal disorders -- 4
+	physical functioning -- 4
+	functional dyspepsia -- 4
+	functional disorders -- 3
+	functional role -- 3
+	functional connections -- 3
+24. brain -- score = 2.36172783602
+	traumatic brain injury -- 15
+	brain structure -- 7
+	brain regions -- 6
+	deep brain nuclei -- 5
+	brain MRI -- 5
+	migraine brain -- 5
+	brain magnetic resonance imaging -- 5
+	brain oxidative stress -- 4
+	normal brain function -- 4
+	hum brain mapp -- 4
+25. primary -- score = 2.35218251811
+	primary headaches -- 39
+	primary headache -- 32
+	primary headache disorders -- 15
+	primary outcome -- 11
+	primary care -- 11
+	primary endpoint -- 10
+	primary headache disorder -- 8
+	primary outcome measure -- 6
+	primary dysmenorrhoea -- 4
+	primary aim -- 3
+26. system -- score = 2.34044411484
+	nervous system -- 26
+	trigeminovascular system -- 23
+	trigeminal system -- 8
+	visual system -- 7
+	delivery system -- 4
+	systemic administration -- 4
+	cardiovascular system -- 4
+	systemic inflammation -- 3
+	systemic diseases -- 3
+	endocannabinoid system -- 3
+27. several -- score = 2.32837960344
+	headache severity -- 16
+	migraine severity -- 13
+	several studies -- 11
+	disease severity -- 6
+	severe headache -- 6
+	severe headache days -- 5
+	pain severity -- 5
+	several years -- 4
+	insomnia severity index -- 3
+	TMD severity -- 3
+28. risk -- score = 2.3242824553
+	risk factors -- 28
+	risk factor -- 16
+	reproductive risk factors -- 7
 	health risk behaviors -- 6
-	health study -- 6
-	public health -- 5
-	self-rated health -- 5
-	adult health -- 5
-39. acute -- score = 2.53275437899
-	acute treatment -- 53
-	acute migraine -- 31
-	acute migraine treatment -- 16
-	acute migraine headache -- 10
-	acute attacks -- 10
-	acute medication -- 10
-	acute migraine attacks -- 10
-	acute migraine therapy -- 7
-	acute headache -- 6
-	acute herpes zoster -- 6
-40. episodes -- score = 2.53275437899
-	episodic migraine -- 150
-	recurrent episodes -- 8
-	episodic migraine patients -- 8
-	episodic migraineurs -- 8
-	episodic ataxia -- 6
-	episodic migraines -- 5
-	episodic TTH -- 5
+	ovarian cancer risk -- 6
+	vascular risk factors -- 6
+	migraine risk -- 5
+	increased risk -- 5
+	relative risk -- 4
+	future risk -- 4
+29. models -- score = 2.3242824553
+	experimental models -- 7
+	animal models -- 7
+	linear regression models -- 4
+	logistic regression models -- 3
+	human models -- 3
+	linear models -- 3
+	preclinical models -- 2
+	predictive animal models -- 2
+	mixed models -- 2
+	mouse models -- 2
+30. receptor -- score = 2.31175386106
+	CGRP receptor -- 10
+	opioid receptors -- 7
+	CGRP receptors -- 6
+	5-HT1B receptor binding -- 5
+	receptor-like receptor -- 4
+	transient receptor potential -- 4
+	related receptors -- 3
+	CGRP receptor antagonists -- 3
+	cannabinoid receptors -- 3
+	TRPA1 receptors -- 3
+31. mechanical -- score = 2.30319605742
+	pathophysiological mechanisms -- 11
+	underlying mechanisms -- 7
+	mechanical stimuli -- 5
+	mechanical allodynia -- 5
+	possible mechanism -- 4
+	potential mechanisms -- 4
+	biological mechanisms -- 4
+	neurovascular mechanisms -- 3
+	cholinergic mechanisms -- 3
+	pathogenesis-related mechanisms -- 3
+32. therapies -- score = 2.29666519026
+	behavioral therapy -- 10
+	prophylactic therapy -- 8
+	therapy -- 7
+	preventive therapy -- 6
+	radiation therapy syndrome -- 4
+	manipulative therapy -- 4
+	acute migraine therapy -- 4
+	migraine therapy -- 4
+	occupational therapy -- 3
+	combination therapy -- 3
+33. ANALYSIS -- score = 2.27875360095
+	DATA COLLECTION AND ANALYSIS -- 2
+34. neurological -- score = 2.27875360095
+	neurological disorders -- 34
+	neurological disorder -- 13
+	neurological diseases -- 11
+	neurological symptoms -- 10
+	neurological examination -- 9
+	neurological condition -- 7
+	neurological conditions -- 5
+	neurological deficit -- 5
+	neurologic disorders -- 5
+	neurological disease -- 5
+35. trigeminal -- score = 2.27184160654
+	trigeminal nucleus caudalis -- 22
+	trigeminal ganglia -- 18
+	trigeminal ganglion -- 15
+	trigeminal system -- 8
+	trigeminal neurons -- 7
+	trigeminal activation -- 6
+	trigeminal neuralgia -- 5
+	trigeminal area -- 5
+	trigeminal nucleus -- 5
+	trigeminal pain -- 4
+36. trial -- score = 2.26481782301
+	clinical trials -- 40
+	clinical trial -- 20
+	controlled trials -- 10
+	TRIAL REGISTRATION -- 8
+	controlled trial -- 7
+	phase III trials -- 3
+	placebo-controlled trial -- 3
+	randomized controlled trial -- 2
+	trial registration -- 2
+	idiopathic intracranial hypertension treatment trial -- 2
+37. episodes -- score = 2.26245108973
+	episodic migraine -- 72
+	recurrent episodes -- 7
+	episodic migraineurs -- 6
 	migraine episodes -- 5
-	episodic vertigo -- 5
-	first episode -- 4
-41. syndrome -- score = 2.52244423351
-	irritable bowel syndrome -- 38
-	legs syndrome -- 14
-	antiphospholipid syndrome -- 11
-	SMART syndrome -- 10
-	cerebral vasoconstriction syndrome -- 9
-	wonderland syndrome -- 8
-	pain syndromes -- 7
-	metabolic syndrome -- 7
-	serotonin syndrome -- 6
-	cyclic vomiting syndrome -- 6
-42. trial -- score = 2.51851393988
-	clinical trials -- 65
-	clinical trial -- 33
-	controlled trials -- 27
-	TRIAL REGISTRATION -- 10
-	controlled trial -- 9
-	placebo-controlled trials -- 6
-	randomized controlled trial -- 4
-	trial registration -- 4
-	sham-controlled trial -- 4
-	phase III trials -- 4
-43. DATA -- score = 2.51587384371
-	DATA COLLECTION AND ANALYSIS -- 7
-	DATA SOURCES -- 2
-	DATA EXTRACTION -- 1
-44. frequency -- score = 2.51454775266
-	headache frequency -- 95
-	migraine frequency -- 39
-	attack frequency -- 33
-	high frequency -- 9
-	migraine attack frequency -- 6
-	low frequency -- 5
-	increased frequency -- 4
-	genotype frequencies -- 4
-	headache attack frequency -- 4
-	pain frequency -- 3
-45. vestibular -- score = 2.50920252233
-	vestibular migraine -- 110
-	vestibular disorders -- 20
-	vestibular symptoms -- 18
-	vestibular rehabilitation -- 12
-	vestibular neuritis -- 9
-	vestibular migraine patients -- 6
-	vestibular syndrome -- 6
-	vestibular function tests -- 5
-	vestibular dysfunction -- 5
-	vestibular system -- 5
-46. others -- score = 2.50920252233
-	whereas others -- 1
+	episodic migraine patients -- 4
+	episodic migraines -- 4
+	episodic headache -- 3
+	episodic tension type headache -- 3
+	first episode -- 3
+	episodic migraine group -- 2
+38. DATA -- score = 2.25767857487
+	DATA COLLECTION AND ANALYSIS -- 2
+39. others -- score = 2.25767857487
 	others HIV patients -- 1
+	whereas others -- 1
 	many others -- 1
-47. stimulation -- score = 2.5078558717
-	magnetic stimulation -- 23
-	occipital nerve stimulation -- 17
-	non-invasive vagus nerve stimulation -- 13
-	electrical stimulation -- 13
-	dural stimulation -- 11
-	visual stimulation -- 11
-	current stimulation -- 10
-	sham stimulation -- 9
-	spinal cord stimulation -- 6
-	noxious stimulation -- 5
-48. testing -- score = 2.50379068306
-	genetic testing -- 8
-	vestibular function tests -- 5
-	blood tests -- 3
-	cognitive testing -- 3
-	vestibular testing -- 3
-	chi-square tests -- 3
-	multiple testing -- 3
-	neurocognitive testing -- 3
-	diagnostic tests -- 3
-	medical tests -- 3
-49. meaning -- score = 2.50105926222
-	marginal means -- 2
-	essential meaning -- 1
-	double meaning -- 1
+40. health -- score = 2.25285303098
+	physical health conditions -- 7
+	health risk behaviors -- 6
+	self-rated health -- 5
+	national health -- 5
+	health study -- 4
+	health care -- 4
+	national health insurance research database -- 4
+	adult health -- 4
+	mental health -- 4
+	mental health constructs -- 3
+41. levels -- score = 2.25042000231
+	plasma levels -- 6
+	serum levels -- 6
+	levels -- 4
+	high levels -- 4
+	CGRP levels -- 4
+	l-arginine levels -- 3
+	pain levels -- 3
+	leptin levels -- 3
+	adiponectin serum levels -- 2
+	cortisol levels -- 2
+42. means -- score = 2.24551266781
 	therapeutic means -- 1
-50. nerve -- score = 2.50105926222
-	occipital nerve -- 17
-	occipital nerve stimulation -- 17
-	non-invasive vagus nerve stimulation -- 13
-	trigeminal nerve -- 10
-	peripheral nerve blocks -- 10
-	retinal nerve fiber layer -- 9
-	nerve blocks -- 8
-	occipital nerves -- 7
-	occipital nerve block -- 6
-	optic nerve -- 5
-51. populations -- score = 2.48995847942
-	general population -- 76
-	study population -- 12
-	patient population -- 8
-	population -- 8
-	pediatric population -- 6
-	adult population -- 6
-	population level -- 5
-	migraine population -- 4
-	chinese population -- 4
-	kuwaiti population -- 4
-52. trigeminal -- score = 2.4814426285
-	trigeminal ganglion -- 30
-	trigeminal ganglia -- 29
-	trigeminal nucleus caudalis -- 29
-	trigeminal system -- 21
-	trigeminal neuralgia -- 11
-	trigeminal nerve -- 10
-	trigeminal activation -- 9
-	trigeminal neurons -- 8
-	trigeminal nucleus -- 7
-	trigeminal area -- 6
-53. visual -- score = 2.48000694296
-	visual aura -- 34
-	visual analogue scale -- 16
-	visual cortex -- 14
-	visual snow -- 12
+	double meaning -- 1
+	essential meaning -- 1
+43. conditions -- score = 2.24054924828
+	chronic conditions -- 21
+	comorbid conditions -- 8
+	pain conditions -- 8
+	physical health conditions -- 7
+	neurological conditions -- 5
+	medical conditions -- 5
+	common conditions -- 4
+	other conditions -- 4
+	chronic pain conditions -- 3
+	conditioned pain modulation -- 3
+44. visual -- score = 2.24054924828
+	visual aura -- 18
+	visual cortex -- 11
 	visual stimulation -- 11
-	visual field -- 9
-	visual analog scale -- 9
+	visual analogue scale -- 10
 	visual vertical -- 8
-	visual stimuli -- 7
-	visual impairment -- 7
-54. outcomes -- score = 2.48000694296
-	secondary outcomes -- 12
-	clinical outcomes -- 12
-	MAIN OUTCOME MEASURES -- 10
-	main outcomes -- 6
-	headache outcomes -- 5
-	primary outcomes -- 5
-	MAIN OUTCOME MEASURE -- 4
-	functional outcomes -- 4
-	treatment outcomes -- 4
-	migraine outcomes -- 4
-55. scores -- score = 2.46982201598
-	VAS scores -- 10
-	pain scores -- 9
-	depression scores -- 6
+	visual snow -- 7
+	visual system -- 7
+	visual problems -- 6
+	visual auras -- 5
+	visual field -- 5
+45. drug -- score = 2.24054924828
+	drug administration -- 12
+	anti-inflammatory drugs -- 7
+	anti-migraine drugs -- 7
+	antiepileptic drugs -- 5
+	prophylactic drugs -- 4
+	antiepileptic drug -- 4
+	over-the-counter drugs -- 3
+	drug development -- 3
+	overuse drug -- 3
+	drug treatment -- 3
+46. scores -- score = 2.23552844691
+	VAS scores -- 6
 	subscale scores -- 5
-	anxiety scores -- 4
-	MIDAS scores -- 3
-	HIT-6 scores -- 3
+	pain scores -- 5
+	depression scores -- 5
+	anxiety scores -- 3
+	domain scores -- 2
 	high depression scores -- 2
-	scoring system -- 2
-	mean scores -- 2
-56. change -- score = 2.46834733041
-	structural changes -- 11
-	functional changes -- 10
-	lifestyle changes -- 7
-	significant change -- 7
-	change -- 6
-	MRI changes -- 5
-	longitudinal changes -- 5
-	vascular changes -- 5
-	significant changes -- 5
-	status change -- 4
-57. potentials -- score = 2.45788189673
-	evoked potentials -- 11
-	potential role -- 8
-	potential mechanisms -- 6
-	potential association -- 6
-	transient receptor potential -- 5
-	potential treatment -- 5
-	potential confounders -- 5
-	potential relevance -- 5
-	therapeutic potential -- 4
-	potential use -- 4
-58. reviews -- score = 2.45331834005
-	PURPOSE REVIEW -- 27
-	systematic reviews -- 10
-	complete reviews -- 2
-	new reviews -- 2
-	systematic reviews published -- 2
-	recent reviews -- 1
-	reviewed studies -- 1
-	retrospective case reviews -- 1
-	physician reviewers -- 1
-	independent reviewers -- 1
-59. healthy -- score = 2.44870631991
-	healthy controls -- 120
-	healthy subjects -- 40
-	healthy volunteers -- 27
-	healthy individuals -- 16
-	healthy control subjects -- 11
-	healthy women -- 10
-	healthy control group -- 9
-	healthy adults -- 6
-	healthy participants -- 4
-	healthy population -- 4
-60. responses -- score = 2.44404479592
-	neuronal responses -- 4
-	vasopressor responses -- 3
-	pupil responses -- 3
-	potential responses -- 3
-	affect responses -- 2
-	stress responses -- 2
-	photic responses -- 2
-	tachycardic responses -- 2
-	trigeminovascular system responses -- 1
-	dural vasdilatory responses -- 1
-61. neurons -- score = 2.43775056282
-	neurons -- 26
-	sensory neurons -- 13
-	neuronal activity -- 8
-	trigeminal neurons -- 8
-	neuronal firing -- 7
-	neuronal excitability -- 7
+	visual analogue scale scores -- 2
+	HADS scores -- 2
+	CPM scores -- 1
+47. stimulation -- score = 2.23299611039
+	visual stimulation -- 11
+	current stimulation -- 9
+	occipital nerve stimulation -- 8
+	magnetic stimulation -- 8
+	non-invasive vagus nerve stimulation -- 7
+	electrical stimulation -- 7
+	sham stimulation -- 6
+	dural stimulation -- 5
+	supraorbital nerve stimulation -- 4
+	noxious stimulation -- 4
+48. acute -- score = 2.22530928173
+	acute treatment -- 27
+	acute migraine -- 18
+	acute migraine treatment -- 11
+	acute migraine attacks -- 9
+	acute migraine headache -- 8
+	acute attack treatment -- 4
+	acute medication -- 4
+	acute migraine therapy -- 4
+	acute migraine medication -- 2
+	acute migraine headaches -- 2
+49. syndrome -- score = 2.22530928173
+	irritable bowel syndrome -- 16
+	legs syndrome -- 12
+	SMART syndrome -- 6
+	antiphospholipid syndrome -- 6
+	cerebral vasoconstriction syndrome -- 5
+	pain syndromes -- 5
+	radiation therapy syndrome -- 4
+	wonderland syndrome -- 4
+	pseudodepression syndrome -- 3
+	meridian syndrome -- 3
+50. neurons -- score = 2.22530928173
+	neurons -- 17
+	sensory neurons -- 8
+	trigeminal neurons -- 7
 	trigeminovascular neurons -- 7
 	vc/c1 neurons -- 6
-	trigeminal ganglion neurons -- 5
-	neuronal activation -- 5
-62. cases -- score = 2.42160392687
-	cases -- 8
-	many cases -- 8
-	migraine cases -- 6
-	CASE REPORT -- 6
-	other cases -- 4
-	CASE PRESENTATION -- 4
-	few cases -- 3
-	CASE DESCRIPTION -- 3
-	refractory cases -- 2
-	clinical cases -- 2
-63. age -- score = 2.41664050734
-	mean age -- 115
-	age group -- 16
-	median age -- 14
-	age groups -- 12
-	average age -- 12
-	school age -- 9
-	reproductive age -- 6
-	age range -- 5
-	gestational age -- 4
-	pediatric age group -- 3
-64. CRITERIA -- score = 2.41329976408
-	SELECTION CRITERIA -- 7
-65. days -- score = 2.41161970596
-	headache days -- 62
-	migraine days -- 41
-	monthly migraine days -- 15
-	monthly headache days -- 6
-	first day -- 5
-	days -- 5
+	neuronal activity -- 4
+	trigeminal ganglion neurons -- 4
+	afferent neurons -- 4
+	trigeminocervical neurons -- 3
+	neuronal excitability -- 3
+51. vestibular -- score = 2.20951501454
+	vestibular migraine -- 61
+	vestibular disorders -- 12
+	vestibular symptoms -- 9
+	vestibular rehabilitation -- 8
+	vestibular migraine patients -- 6
+	vestibular neuritis -- 4
+	vestibular migraine subjects -- 4
+	vestibular disease patients -- 3
+	vestibular dysfunction -- 3
+	vestibular testing -- 2
+52. testing -- score = 2.20682587603
+	genetic testing -- 4
+	medical tests -- 3
+	diagnostic tests -- 2
+	vestibular testing -- 2
+	cognitive testing -- 2
+	chi-square tests -- 2
+	equivalence testing -- 1
+	paraclincal tests -- 1
+	positional nystagmus tests -- 1
+	positional testing -- 1
+53. frequency -- score = 2.19865708695
+	headache frequency -- 52
+	migraine frequency -- 17
+	attack frequency -- 14
+	high frequency -- 5
+	migraine attack frequency -- 3
+	headache-day frequency non-responders -- 3
+	genotype frequencies -- 3
+	spatial frequency -- 3
+	headache-day frequency -- 3
+	migraine headache frequency -- 2
+54. reviewers -- score = 2.18469143082
+	PURPOSE REVIEW -- 20
+	systematic reviews -- 4
+	physician reviewers -- 1
+	reviewed papers -- 1
+	recent reviews -- 1
+	retrospective case reviews -- 1
+	independent reviewers -- 1
+	reviewed abstracts -- 1
+55. change -- score = 2.17897694729
+	functional changes -- 6
+	MRI changes -- 5
+	change -- 5
+	status change -- 4
+	significant change -- 3
+	vascular changes -- 3
+	weather changes -- 3
+	behavioral changes -- 3
+	significant changes -- 3
+	volumetric brain changes -- 3
+56. potential -- score = 2.17318626841
+	potential role -- 6
+	evoked potentials -- 5
+	transient receptor potential -- 4
+	potential mechanisms -- 4
+	potential migraine biomarkers -- 3
+	potential predictors -- 3
+	potential treatment -- 3
+	potential association -- 3
+	potential efficacy -- 2
+	transient receptor potential ankyrin type-1 -- 2
+57. responses -- score = 2.17026171539
+	vasopressor responses -- 3
+	neuronal responses -- 3
+	affect responses -- 2
+	potential responses -- 2
+	photic responses -- 2
+	tachycardic responses -- 2
+	mechanical responses -- 1
+	neurogenic motor responses -- 1
+	oxytocin inhibits responses -- 1
+	caloric responses -- 1
+58. outcomes -- score = 2.16731733475
+	clinical outcomes -- 8
+	secondary outcomes -- 5
+	main outcomes -- 5
+	MAIN OUTCOME MEASURES -- 4
+	MAIN OUTCOME MEASURE -- 3
+	unwanted outcomes -- 2
+	headache outcomes -- 2
+	poor outcomes -- 2
+	primary outcomes -- 2
+	functional outcomes -- 2
+59. populations -- score = 2.16435285578
+	general population -- 43
+	study population -- 6
+	population -- 5
+	kuwaiti population -- 4
+	pediatric population -- 3
+	patient populations -- 3
+	indian population -- 2
+	patient population -- 2
+	entire population -- 2
+	study populations -- 2
+60. days -- score = 2.16136800223
+	headache days -- 31
+	migraine days -- 20
+	monthly migraine days -- 9
 	severe headache days -- 5
-	consecutive days -- 5
+	consecutive days -- 4
+	monthly headache days -- 4
 	medication days -- 4
 	headache-free days -- 4
-66. useful -- score = 2.40483371662
-	useful tool -- 6
-	useful information -- 2
-	clinical usefulness -- 2
-	useful approach -- 2
-	used medication -- 2
-	useful treatment -- 1
-	useful headache treatments -- 1
-	used treatments -- 1
+	study day -- 4
+	days -- 4
+61. aura -- score = 2.14301480025
+	migraine aura -- 25
+	visual aura -- 18
+	aura patients -- 16
+	aura attacks -- 6
+	brainstem aura -- 6
+	typical aura -- 5
+	visual auras -- 5
+	aura group -- 5
+	sensory auras -- 4
+	aura symptoms -- 3
+62. age -- score = 2.13672056716
+	mean age -- 58
+	age group -- 13
+	average age -- 8
+	median age -- 8
+	age groups -- 6
+	gestational age -- 4
+	reproductive age -- 3
+	age range -- 3
+	attained age -- 2
+	development age spectrum -- 1
+63. healthy -- score = 2.1303337685
+	healthy controls -- 67
+	healthy subjects -- 17
+	healthy volunteers -- 13
+	healthy control subjects -- 6
+	healthy individuals -- 6
+	healthy control group -- 3
+	healthy group -- 2
+	healthy women -- 2
+	healthy children -- 2
+	healthy participants -- 2
+64. using -- score = 2.1303337685
+	useful tool -- 4
+	using trigeminal heat stimulation -- 1
+	used models -- 1
 	method using questionnaires -- 1
-	acupuncturist uses sterile needles -- 1
-67. EVENT -- score = 2.40140054078
-	adverse events -- 114
-	cardiovascular events -- 9
-	vascular events -- 5
-	events -- 5
-	paroxysmal events -- 3
-	cerebrovascular events -- 3
-	ischaemic events -- 3
-	CSD events -- 3
-	ischemic events -- 3
-	nonnoxious events -- 2
-68. gene -- score = 2.39967372148
-	CACNA1A gene -- 12
-	gene expression -- 11
-	NOTCH3 gene -- 8
-	calcitonin gene -- 7
-	ATP1A2 gene -- 6
-	CACNA1E gene -- 6
-	PRRT2 gene -- 4
-	gene polymorphisms -- 4
-	NEMP genes -- 4
-	ESR1 gene -- 4
-69. rate -- score = 2.39794000867
-	response rate -- 12
-	heart rate -- 10
-	high rate -- 6
-	high rates -- 6
-	response rates -- 6
-	responder rate -- 5
-	positive rate -- 5
-	flow rate -- 4
-	relapse rates -- 4
-	age-standardised rates -- 4
-70. types -- score = 2.39445168083
-	different types -- 15
-	other types -- 14
-	various types -- 12
-	headache types -- 9
+	useful input -- 1
+	using electrophysiology -- 1
+	additional information useful -- 1
+	useful headache treatments -- 1
+	clinical usefulness -- 1
+	useful approach -- 1
+65. diagnosis -- score = 2.12710479836
+	differential diagnosis -- 22
+	clinical diagnosis -- 8
+	headache diagnosis -- 7
+	correct diagnosis -- 5
+	migraine diagnosis -- 5
+	diagnosis -- 5
+	final diagnosis -- 4
+	accurate diagnosis -- 4
+	genetic diagnosis -- 2
+	proper diagnosis -- 2
+66. types -- score = 2.12385164097
+	other types -- 10
+	different types -- 8
+	various types -- 7
+	headache types -- 5
 	generalised seizure types -- 4
 	seizure types -- 3
-	abuse types -- 3
-	different headache types -- 3
-	primary headache types -- 3
 	common types -- 2
-71. diagnosis -- score = 2.3909351071
-	differential diagnosis -- 31
-	correct diagnosis -- 13
-	migraine diagnosis -- 13
-	diagnosis -- 11
-	headache diagnosis -- 10
-	clinical diagnosis -- 10
-	accurate diagnosis -- 6
-	final diagnosis -- 5
-	early diagnosis -- 5
-	initial diagnosis -- 4
-72. common -- score = 2.37106786227
-	common causes -- 11
-	common conditions -- 8
-	common cause -- 7
-	common symptom -- 7
-	common complaint -- 6
-	common type -- 6
-	common diseases -- 6
-	common diagnoses -- 5
-	common disorder -- 5
-	common symptoms -- 5
-73. aura -- score = 2.36548798489
-	migraine aura -- 39
-	visual aura -- 34
-	aura patients -- 17
-	aura group -- 8
-	brainstem aura -- 8
-	aura attacks -- 7
-	aura symptoms -- 7
-	typical aura -- 6
-	visual auras -- 6
-	migraine aura status -- 4
-74. evidences -- score = 2.36361197989
-	EVIDENCE ACQUISITION -- 4
-	CLINICAL QUESTION/LEVEL EVIDENCE -- 2
-	fmri evidences -- 1
-	indirect evidences -- 1
-	up-to-date evidences -- 1
-	main evidences -- 1
-	additional evidences -- 1
-	limited efficacy evidences -- 1
-	oxidative stress evident -- 1
-75. high -- score = 2.36172783602
-	high prevalence -- 18
-	high risk -- 10
-	high levels -- 10
-	high frequency -- 9
+	disease types -- 2
+	synoptic air mass types -- 1
+	frequent recurrent headache types -- 1
+67. nerves -- score = 2.12385164097
+	occipital nerve stimulation -- 8
+	non-invasive vagus nerve stimulation -- 7
+	supraorbital nerve stimulation -- 4
+	occipital nerve block -- 4
+	trigeminal nerve -- 4
+	transcutaneous nerve stimulation -- 4
+	retinal nerve fiber layer -- 3
+	trigeminal nerves -- 3
+	electrical nerve stimulation -- 3
+	trigeminal nerve stimulation -- 2
+68. CRITERIA -- score = 2.12057393121
+	SELECTION CRITERIA -- 2
+69. high -- score = 2.11394335231
+	high prevalence -- 15
 	high school students -- 8
-	high rate -- 6
-	high rates -- 6
-	high sensitivity -- 5
-	high level -- 5
 	high FRS -- 5
-76. presented -- score = 2.36172783602
-	clinical presentation -- 21
-	first presentation -- 4
-	CASE PRESENTATION -- 4
-	atypical presentation -- 3
-	clinical presentations -- 3
-	presenting feature -- 3
-	headache presentations -- 2
-	common presentation -- 2
-	initial presentation -- 2
-	presenting symptom -- 2
-77. preventive -- score = 2.35983548234
-	preventive treatment -- 36
-	migraine prevention -- 33
-	preventive medications -- 11
-	preventive therapy -- 10
-	preventive treatments -- 8
-	preventive medication -- 7
-	preventive therapies -- 5
-	short-term prevention -- 5
-	migraine preventive medications -- 5
-	preventive drugs -- 4
-78. associations -- score = 2.33645973385
-	significant associations -- 9
-	associated factors -- 4
-	positive associations -- 4
-	associated features -- 3
-	chronic migraine associated -- 2
-	allodynia associated -- 2
-	associated costs -- 2
-	associated symptoms -- 2
-	multivariate associations -- 1
-	extensive associations -- 1
-79. generalized -- score = 2.32837960344
-	general population -- 76
-	general practitioners -- 4
-	general practice -- 4
-	general self-efficacy -- 4
-	general consensus -- 3
-	generalized anxiety disorder -- 3
-	generalized anxiety disorder-7 -- 3
-	weakness general tiredness -- 3
-	next generation -- 3
-	general populations -- 2
-80. features -- score = 2.32633586093
-	clinical features -- 73
-	headache features -- 6
-	migraine features -- 5
-	characteristic features -- 3
-	associated features -- 3
-	migrainous features -- 3
-	neurological features -- 2
+	high frequency -- 5
+	high sensitivity -- 5
+	high levels -- 4
+	high risk -- 3
+	high rate -- 3
+	high level -- 3
+	high index -- 3
+70. common -- score = 2.11394335231
+	common causes -- 6
+	common type -- 5
+	common symptom -- 5
+	common conditions -- 4
+	common complaint -- 4
+	common cause -- 4
+	common complaints -- 3
+	common symptoms -- 3
+	common variants -- 3
+	common side effect -- 2
+71. preventive -- score = 2.1105897103
+	preventive treatment -- 25
+	migraine prevention -- 21
+	preventive medications -- 7
+	preventive therapy -- 6
+	migraine preventives -- 4
+	preventive treatments -- 3
+	preventative therapy -- 3
+	preventive medication -- 2
+	preventive measures -- 2
+	cluster headache prevention -- 2
+72. rating -- score = 2.10720996965
+	heart rate -- 8
+	positive rate -- 5
+	age-standardised rates -- 4
+	flow rate -- 4
+	responder rates -- 3
+	age-standardised YLD rates -- 3
+	heart rate variability -- 3
+	high rate -- 3
+	responder rate -- 3
+	recovery rates -- 2
+73. cells -- score = 2.10037054512
+	mast cells -- 11
+	sickle cell disease -- 8
+	MDA-MB-231 cells -- 6
+	endothelial cells -- 4
+	dural mast cells -- 4
+	positive cells -- 3
+	glial cells -- 3
+	ganglion cell layer -- 3
+	smooth muscle cells -- 2
+	cell cycle -- 2
+74. features -- score = 2.08990511144
+	clinical features -- 43
+	headache features -- 4
+	migraine features -- 3
+	location features -- 2
+	typical features -- 2
+	characteristic features -- 2
 	unique features -- 2
 	asthma features -- 2
-	autonomic features -- 2
-81. history -- score = 2.32633586093
-	family history -- 42
-	medical history -- 23
-	migraine history -- 19
-	positive family history -- 8
-	natural history -- 8
-	familial history -- 6
-	headache history -- 5
-	lifetime history -- 4
-	clinical history -- 4
-	concussion history -- 4
-82. currents -- score = 2.3242824553
-	hnav1.7 currents -- 2
+	associated features -- 2
+	migrainous features -- 2
+75. events -- score = 2.08635983067
+	adverse events -- 62
+	neurological events -- 2
+	ischaemic events -- 2
+	oxidative events -- 2
+	ischemic events -- 2
+	social events -- 2
+	future events -- 2
+	vascular events -- 2
+	stressful events -- 2
+	multiphasic events -- 1
+76. cases -- score = 2.08278537032
+	cases -- 6
+	CASE REPORT -- 3
+	CASE PRESENTATION -- 3
+	many cases -- 3
+	clinical cases -- 2
+	pediatric cases -- 2
+	CASE DESCRIPTION -- 2
+	incident cases -- 2
+	such cases -- 2
+	equivocal cases EEG video monitoring -- 1
+77. gene -- score = 2.08278537032
+	gene expression -- 8
+	CACNA1E gene -- 6
+	calcitonin gene -- 4
+	NEMP genes -- 4
+	ATP1A2 gene -- 4
+	FMR1 gene -- 3
+	gene polymorphism association studies -- 3
+	CACNA1A gene -- 3
+	gene polymorphisms -- 3
+78. associated -- score = 2.07918124605
+	significant associations -- 4
+	associated factors -- 3
+	associated features -- 2
+	associated variants -- 1
+	associated factor -- 1
+	multivariate associations -- 1
+	pairwise associations -- 1
+	extensive associations -- 1
+	clinical associations -- 1
+	associated migraine headaches -- 1
+79. sleep -- score = 2.07554696139
+	sleep quality -- 16
+	insufficient sleep -- 8
+	sleep disturbance -- 8
+	sleep disturbances -- 8
+	sleep duration -- 7
+	sleep problems -- 6
+	short sleep duration -- 5
+	pittsburgh sleep quality index -- 4
+	sleep disorders -- 3
+	unhealthy sleep -- 3
+80. currents -- score = 2.07554696139
 	potassium currents -- 2
-	anion currents -- 1
-	whereas heaat1 anion currents -- 1
-	TRESK currents -- 1
 	nahs-induced currents -- 1
 	capsaicin-induced currents -- 1
-	fast membrane currents -- 1
+	anion currents -- 1
 	inward currents -- 1
-83. comorbid -- score = 2.31806333496
-	psychiatric comorbidities -- 28
-	comorbid conditions -- 11
-	comorbid -- 10
+	whereas heaat1 anion currents -- 1
+	TRESK currents -- 1
+81. history -- score = 2.07188200731
+	family history -- 23
+	medical history -- 13
+	migraine history -- 13
+	positive family history -- 5
+	familial history -- 3
+	headache history -- 3
+	concussion history -- 3
+	case histories -- 2
+	patient history -- 2
+	positive history -- 2
+82. disability -- score = 2.06818586175
+	headache-related disability -- 20
+	migraine-related disability -- 13
+	migraine disability assessment -- 8
+	headache disability -- 7
+	migraine disability assessment scale -- 5
+	disability worldwide -- 5
+	headache disability inventory -- 4
+	significant disability -- 4
+	neck disability -- 3
+	long-term disability -- 3
+83. comorbid -- score = 2.06069784035
+	psychiatric comorbidities -- 11
+	comorbid -- 9
+	comorbid conditions -- 8
 	comorbid headaches -- 7
-	comorbid depression -- 6
-	comorbid migraine -- 6
 	additional comorbidities -- 6
-	psychiatric comorbidity -- 6
-	comorbid anxiety -- 5
-	comorbid disorders -- 4
-84. imaging -- score = 2.31806333496
-	magnetic resonance imaging -- 57
-	brain magnetic resonance imaging -- 8
-	brain imaging -- 4
-	structural image segment -- 4
-	diffusion tensor imaging -- 4
-	functional imaging -- 3
-	diffusion tensor images -- 3
-	structure images -- 3
-	TOF-MRA images -- 3
-	brain structural images -- 3
-85. cells -- score = 2.31806333496
-	mast cells -- 12
-	glial cells -- 10
-	endothelial cells -- 9
-	sickle cell disease -- 8
-	smooth muscle cells -- 6
-	ganglion cell layer -- 6
-	MDA-MB-231 cells -- 6
-	dural mast cells -- 4
-	hep3b cells -- 3
-	positive cells -- 3
-86. stroke -- score = 2.31386722037
-	ischemic stroke -- 75
-	stroke risk -- 16
-	ischaemic stroke -- 11
-	cryptogenic stroke -- 8
-	hemorrhagic stroke -- 7
-	ischemic strokes -- 5
-	stroke mimics -- 5
-	stroke subtypes -- 4
-	acute stroke -- 4
-	stroke diagnosis -- 3
-87. rats -- score = 2.30963016743
-	rat model -- 34
-	migraine rats -- 8
-	rat brain -- 7
-	male rats -- 7
-	rats -- 6
-	sprague-dawley rats -- 6
-	female rats -- 6
-	rat cortex -- 4
-	rat meninges -- 3
-	DMO rats -- 3
-88. subjects -- score = 2.30963016743
-	healthy subjects -- 40
-	control subjects -- 20
-	healthy control subjects -- 11
-	migraine subjects -- 11
-	eligible subjects -- 5
-	subjective dizziness -- 5
-	IBS subjects -- 5
-	vestibular migraine subjects -- 4
-	normal control subjects -- 3
-	HHT subjects -- 3
-89. results -- score = 2.30963016743
-	preliminary results -- 6
-	positive results -- 6
-	present results -- 5
-	significant results -- 4
-	similar results -- 4
-	good results -- 4
+	neurological comorbidities -- 4
+	new comorbidity model -- 3
+	comorbid depression -- 3
+	comorbidity group -- 3
+	comorbid migraine -- 3
+84. results -- score = 2.06069784035
 	inconsistent results -- 4
 	treatment results -- 3
+	similar results -- 3
+	positive results -- 3
+	preliminary results -- 3
 	clinical results -- 3
-	negative results -- 3
-90. period -- score = 2.30749603791
-	follow-up period -- 21
-	interictal period -- 19
-	wiley periodicals -- 9
-	study period -- 8
-	attack-free period -- 6
-	treatment period -- 6
-	attack period -- 5
-	first period -- 5
-	postpartum period -- 4
-	attack-free periods -- 4
-91. disability -- score = 2.30749603791
-	headache-related disability -- 26
-	migraine-related disability -- 19
-	migraine disability assessment -- 13
-	headache disability -- 9
-	migraine disability -- 7
-	significant disability -- 6
-	disability worldwide -- 6
-	migraine disability assessment scale -- 6
-	headache disability inventory -- 4
-	functional disability -- 4
-92. international -- score = 2.29885307641
-	international classification -- 78
-	international headache society -- 31
-	internal consistency -- 17
-	international headache society criteria -- 11
-	international headache society classification -- 3
-	internal HSLC -- 3
-	internal carotid artery -- 3
-	international headache classification -- 3
-	internal carotid artery agenesis -- 2
-	internal capsule -- 2
-93. family -- score = 2.29885307641
-	family history -- 42
-	familial hemiplegic migraine -- 14
-	positive family history -- 8
-	familial factors -- 7
-	family caregivers -- 7
-	familial predisposition -- 6
-	familial history -- 6
-	familial hemiplegic migraine type -- 5
-	affected family members -- 3
-	receptor family -- 3
-94. time -- score = 2.29446622616
-	first time -- 26
-	median time -- 8
-	same time -- 7
-	mean time -- 6
-	follow-up time -- 6
-	time points -- 5
-	time course -- 5
-	long time -- 4
-	time interval -- 4
-	interview time -- 4
-95. first -- score = 2.29446622616
-	first time -- 26
-	first year -- 12
-	first study -- 10
-	first month -- 8
-	first day -- 5
-	first attack -- 5
-	first report -- 5
-	first period -- 5
-	first part -- 5
-	first visit -- 5
-96. new -- score = 2.29225607136
-	new patients -- 7
-	new AED -- 5
-	new approach -- 5
-	new criteria -- 5
-	new approaches -- 5
-	new evidence -- 4
-	new perspective -- 3
-	new comorbidity model -- 3
-	new method -- 3
-	new onset -- 3
-97. tension-type -- score = 2.29003461136
-	tension-type headache -- 157
-	tension-type headaches -- 22
-	tension-type headache patients -- 5
+	present results -- 2
+	VAT results -- 2
+	final results -- 2
+	follow-up results -- 2
+85. evidences -- score = 2.06069784035
+	limited efficacy evidences -- 1
+	oxidative stress evident -- 1
+	additional evidences -- 1
+	up-to-date evidences -- 1
+	CLINICAL QUESTION/LEVEL EVIDENCE -- 1
+	EVIDENCE ACQUISITION -- 1
+86. images -- score = 2.05690485134
+	magnetic resonance imaging -- 31
+	brain magnetic resonance imaging -- 5
+	diffusion tensor images -- 3
+	TOF-MRA images -- 3
+	brain structural images -- 2
+	functional imaging -- 2
+	imaging -- 2
+	routine brain imaging -- 2
+	brain imaging -- 2
+	OCTA images -- 2
+87. presentations -- score = 2.05307844348
+	clinical presentation -- 6
+	clinical presentations -- 3
+	CASE PRESENTATION -- 3
+	first presentation -- 2
+	facial presentations -- 2
+	peak presentations -- 1
+	consecutive presentations -- 1
+	classical presentation -- 1
+	vestibular migraines presentation -- 1
+	flashlight presentation -- 1
+88. rat -- score = 2.04921802267
+	rat model -- 24
+	migraine rats -- 7
+	rats -- 5
+	freely-moving rats -- 3
+	juvenile rats -- 3
+	rat brain -- 3
+	DMO rats -- 3
+	rat cortex -- 2
+	rat retina -- 2
+	conscious rats -- 2
+89. APPROACH -- score = 2.04532297879
+	EXPERIMENTAL APPROACH -- 3
+90. phase -- score = 2.04139268516
+	interictal phase -- 13
+	headache phase -- 6
+	premonitory phase -- 5
+	painful phase -- 4
+	preictal phase -- 4
+	phase III trials -- 3
+	migraine phases -- 3
+	different phases -- 3
+	ictal phase -- 3
+	parallel-group phase -- 2
+91. general -- score = 2.04139268516
+	general population -- 43
+	general practice -- 3
+	general self-efficacy -- 3
+	generalized anxiety disorder-7 -- 3
+	attack generation -- 2
+	headache generation -- 2
+	migraine generator -- 2
+	generic triptans -- 2
+	general hypertension -- 2
+	general practitioners -- 2
+92. tension-type -- score = 2.04139268516
+	tension-type headache -- 86
+	tension-type headaches -- 14
 	chronic tension-type headache -- 3
-	tension-type patients -- 1
-	tension-type headache studies -- 1
+	tension-type headache INTERVENTIONS -- 1
 	tension-type headache diagnosis -- 1
 	tension-type headache group -- 1
-	tension-type headache INTERVENTIONS -- 1
+	tension-type headache studies -- 1
 	tension-type headaches tricyclic antidepressants -- 1
-98. researchers -- score = 2.28780172993
-	many researchers -- 1
-	epidemiological researchers -- 1
-	future researches -- 1
-	actual researches -- 1
-	recent years researchers -- 1
-	vivo researches -- 1
-	basic researchers -- 1
-	migraine researchers -- 1
-	trained researchers -- 1
-99. scale -- score = 2.28555730901
-	visual analogue scale -- 16
-	depression scale -- 9
-	visual analog scale -- 9
-	migraine disability assessment scale -- 6
-	0-10 scale -- 5
+	tension-type headache patients -- 1
+	tension-type headache groups -- 1
+93. role -- score = 2.03342375549
+	important role -- 19
+	key role -- 13
+	pivotal role -- 7
+	potential role -- 6
+	crucial role -- 6
+	possible role -- 5
+	critical role -- 4
+	functional role -- 3
+	causative role -- 3
+	functional roles -- 3
+94. scale -- score = 2.02938377769
+	visual analogue scale -- 10
+	migraine disability assessment scale -- 5
+	depression scale -- 5
+	visual analog scale -- 4
 	perceived stress scale -- 4
-	rankin scale -- 4
-	stress scale -- 3
-	epworth sleepiness scale score -- 3
-	numeric rating scale -- 3
-100. increase -- score = 2.28555730901
-	significant increase -- 21
-	increased risk -- 13
-	increased odds -- 7
-	increased sensitivity -- 6
-	increased volume -- 5
-	increased frequency -- 4
-	increased prevalence -- 4
-	increase -- 4
-	increased morbidity -- 3
-	increased expression -- 3
+	numeric rating scale -- 2
+	epworth sleepiness scale -- 2
+	rankin scale -- 2
+	behavior scale -- 2
+	epworth sleepiness scale score -- 2
+95. methods -- score = 2.02118929907
+	delivery methods -- 3
+	pairwise methods -- 2
+	willingness-to-pay methods -- 2
+	feature selection methods -- 2
+	non-invasive methods -- 2
+	individual feature selection methods -- 1
+	methods data -- 1
+	permutation methods -- 1
+	analytical methods -- 1
+	methods implies -- 1
+96. measures -- score = 2.02118929907
+	primary outcome measure -- 6
+	outcome measures -- 4
+	MAIN OUTCOME MEASURES -- 4
+	repeated measures -- 4
+	secondary outcome measures -- 3
+	MAIN OUTCOME MEASURE -- 3
+	primary outcome measures -- 2
+	preventive measures -- 2
+	measurement model -- 2
+	baseline measures -- 2
+97. family -- score = 2.0170333393
+	family history -- 23
+	family caregivers -- 7
+	familial factors -- 7
+	familial hemiplegic migraine -- 6
+	positive family history -- 5
+	familial hemiplegic migraine type -- 4
+	familial history -- 3
+	family approach -- 3
+	familial predisposition -- 3
+	family GPCR -- 2
+98. intensity -- score = 2.01283722471
+	pain intensity -- 30
+	headache intensity -- 12
+	migraine pain intensity -- 8
+	mean intensity -- 4
+	mean pain intensity -- 3
+	perceived intensity -- 2
+	intensity -- 2
+	average intensity -- 2
+	signal intensity -- 2
+	facial pain intensity -- 2
+99. first -- score = 2.01283722471
+	first time -- 9
+	first year -- 7
+	first month -- 6
+	first part -- 5
+	first attack -- 4
+	first day -- 3
+	first group -- 3
+	first episode -- 3
+	first seizure -- 3
+	first block -- 3
+100. period -- score = 2.01283722471
+	interictal period -- 12
+	follow-up period -- 8
+	attack period -- 4
+	wiley periodicals -- 4
+	study period -- 4
+	postpartum period -- 3
+	first period -- 3
+	treatment periods -- 2
+	6-month period -- 2
+	7-year period -- 2
