@@ -231,6 +231,7 @@ class eSearch():
 
 		offset = options['offset'] if 'offset' in options else 0
 		count = options['count'] if 'count' in options else 1000
+		print 'offset = ' + str(offset) + ', count = ' + str(count)
 		res = s[offset:count].execute()
 		print 'eSearch returned ' + str(len(res)) + ' items'
 		return [eSearch.format_elem(d) for d in res]

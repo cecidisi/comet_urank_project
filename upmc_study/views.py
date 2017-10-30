@@ -220,6 +220,7 @@ def filter_articles_by_year(request, from_year, to_year):
 def get_more_articles(request, user_id=None, current_count=None):
     user_id = user_id or request.session['user_id']
     more_articles = urank.get_more_results()
+    print_blue('current count = ' + str(current_count))
 
     if len(more_articles):
         ids_list = [d['id'] for d in more_articles]
@@ -230,7 +231,10 @@ def get_more_articles(request, user_id=None, current_count=None):
         bookmarks = DBconnector.get_bookmarks(user_id)
         ranked_articles = TaskManager.mark_bookmarked(ranked_articles, bookmarks)
     else:
-        more_articles = eSearch.search_by_keywords('migrain', offset=current_count, count=current_count+num_documents)
+        current_count = int(current_count)
+        count = current_count + num_documents
+        print 'count = ' + str(count)
+        more_articles = eSearch.search_by_keywords(['migrain'], offset=current_count, count=count)
 
     resp = {
         'results': more_articles,
