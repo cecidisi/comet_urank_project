@@ -309,7 +309,7 @@ def pubmed_logout(request):
 def pubmed_submit_task(request):
     if request.method == 'POST':
         params = json.loads(request.body.decode("utf-8"))
-        if TaskManager.save_task(params):
+        if TaskManager.save_pubmed_task(params):
             return Response({ 'message': 'OK' })
         return Response({ 'message': 'Error saving task'})
 

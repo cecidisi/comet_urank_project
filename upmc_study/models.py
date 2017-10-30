@@ -51,9 +51,11 @@ class UpmcBookmark(models.Model):
 		db_table = 'upmc_bookmark'
 
 
+
 class UpmcTask(models.Model):
 	date_completed = models.DateField(blank=True, null=True, default=datetime.date.today)
 	elapsed_time = models.IntegerField()
+	tool = models.TextField(default='')
 	upmc_user = models.OneToOneField(UpmcUser, related_name='task')
 
 	class Meta:

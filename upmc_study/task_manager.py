@@ -83,7 +83,8 @@ class TaskManager:
 		try:
 			task = UpmcTask(
 				elapsed_time = params['elapsed_time'],
-				upmc_user = user
+				upmc_user = user,
+				tool = 'urank'
 			)
 			task.save()
 			print 'Saved task for user = ' + str(user.username)
@@ -153,6 +154,28 @@ class TaskManager:
 			b.pop('pub_details', None)
 
 		return bookmarks
+
+
+	@classmethod
+	def save_pubmed_task(cls, params):
+		user = TaskManager.get_user_by_id(params['user_id'])
+		if not user:
+			return False
+
+		# Save task
+		task = None
+		try:
+			task = UpmcTask(
+				elapsed_time = params['elapsed_time'],
+				upmc_user = user,
+				tool = 'pubmed'
+			)
+			task.save()
+			print 'Saved pubmed task for user = ' + str(user.username)
+		except IntegrityError, e:
+			task = UpmcTask.objects.get(upmc_user=user)
+			print 'Task for ' + user.username + ' already exist'
+		return True
 
 
 

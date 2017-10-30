@@ -60,12 +60,27 @@ var ServerConnector = (function(){
 		window.location = host + 'questionnaire/'
 	};
 
+
+	var submitTaskPubmed = function(params){
+		sendRrequest({
+			type: 'POST',
+			url: host + 'pubmed-submit-task/',
+			data: JSON.stringify(params),
+			contentType: '"application/x-www-form-urlencoded"'
+		}, function(){
+			console.log(sessionStorage['user_id'])
+			window.location = url = host + 'pubmed-questionnaire/';
+		})
+
+	}
+
 	return {
 		bookmark: bookmark,
 		unbookmark: unbookmark,
 		getBookmarks: getBookmarks,
 		submitTask: submitTask,
-		finishReview: finishReview
+		finishReview: finishReview,
+		submitTaskPubmed: submitTaskPubmed
 	}
 
 })();
