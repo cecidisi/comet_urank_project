@@ -12,26 +12,22 @@ var ServerConnector = (function(){
 	    });
 	};
 
-	var bookmark = function(params){
+	var bookmark = function(params, onDone){
 		sendRrequest({
 			type: 'POST',
 			url: host + 'bookmark/',
 			data: JSON.stringify(params),
 			contentType: '"application/x-www-form-urlencoded"'
-		}, function(){
-			console.log('Bookmarked paper #' + params.item_title)
-		})
+		}, onDone);
 	};
 
-	var unbookmark = function(article_id){
+	var unbookmark = function(params, onDone){
 		sendRrequest({
 			type: 'POST',
 			url: host + 'unbookmark/',
 			data: JSON.stringify(params),
 			contentType: '"application/x-www-form-urlencoded"'
-		}, function(){
-			console.log('Bookmarked paper #' + params.item_title)
-		})
+		}, onDone);
 	};
 
 	var getBookmarks = function(onDone){

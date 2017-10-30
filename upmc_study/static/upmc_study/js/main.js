@@ -4,6 +4,8 @@ var server = require('./server-connector');
 var ActionLogger = require('./action-logger')
 
 module.exports = (function(){
+    
+    var urank;
 
     var $message = $('.processing-message'),
         $numResultsMsg = $('.num-results-msg'),
@@ -109,7 +111,7 @@ module.exports = (function(){
 
         sessionStorage['user_id'] = $('#user_id').text();
 
-        var urank = new Urank(options);
+        urank = new Urank(options);
         urank.setUser(getCurrentUser());
         urank.load();
         logger.start()
@@ -141,6 +143,37 @@ module.exports = (function(){
         evt.stopPropagation();
         server.getBookmarks(function(bookmarks){
             console.log('Received ' + bookmarks.length + ' bookmarks')
+            $body = $('#modal-bookmarks').find('.modal-body');
+            $body.empty();
+            bookmarks.forEach(function(b){
+                var $item = $('<div/>', { id: 'bookmark-'+b.id }).appendTo($body).css({
+                    position: 'relative',
+                    display: 'inline-block',
+                    width: '100%',
+                    'padding-bottom': '3px',
+                    'border-bottom': '1px solid #ddd'
+                });
+                $('<h5/>', { html: b.title }).appendTo($item).css({
+                    width: 'calc(100% - 15px)', color: '#337ab7', fonSize: '13px'
+                });
+                $('<labe/>', { html: '['+b.year+'] ' + b.authors_list }).appendTo($item)
+
+                $('<i/>', { class: 'fa fa-trash', 'aria-hidden': true }).appendTo($item).css({
+                    display: 'inline-block', position: 'absolute',
+                    top: '12px', right: '5px', cursor: 'pointer'
+                }).click(function(evt){
+                    evt.stopPropagation();
+                    server.unbookmark({
+                        'user_id': getCurrentUser(),
+                        'item_id': b.id
+                    }, function(){
+                        $item.remove();
+                        urank.unbookmarkItem(b.id);
+                    })
+                })
+            });
+
+            $('#modal-bookmarks').modal('show');
         });
     })
 
