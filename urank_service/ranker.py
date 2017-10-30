@@ -195,15 +195,16 @@ class Ranker:
 			if 'year' in d
 			and d['year'] >= int(from_year)
 			and d['year'] <= int(to_year) ]
-		print 'filtering ' + str(len(filtered_ranking))
+		print 'Ranker: Filtered ' + str(len(filtered_ranking))
 		# update prev positions
 		if len(self.ranking):
-			self.prev_pos_mapping = { d['id']: d['ranking']['pos'] for d in self.ranking }
-		# ranking = filtered docs
-		self.ranking = filtered_ranking[:]
-		# self.set_data(filtered_ranking)
-		self.ranking = Ranker.assign_positions(self.ranking, self.rank_by, self.prev_pos_mapping)
-		return self.get_ranking()
+			# self.prev_pos_mapping = { d['id']: d['ranking']['pos'] for d in self.ranking }
+			self.prev_pos_mapping = { d['id']: d['ranking']['pos'] for d in filtered_ranking }
+		# self.ranking = filtered_ranking[:]
+		# self.ranking = Ranker.assign_positions(self.ranking, self.rank_by, self.prev_pos_mapping)
+		filtered_ranking = Ranker.assign_positions(filtered_ranking, self.rank_by, self.prev_pos_mapping)
+		return copy.deepcopy(filtered_ranking[:]) 
+		# return self.get_ranking()
 
 
 

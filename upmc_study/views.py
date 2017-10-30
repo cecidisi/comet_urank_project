@@ -206,8 +206,7 @@ def update_ranking(request):
 def filter_articles_by_year(request, from_year, to_year):
     filtered_articles = urank.filter_by_year(from_year, to_year)
     if len(filtered_articles) == 0:
-        # eSearch.search_by_keywords('migrain', { 'year_range': [from_year, to_year] })
-        eSearch.search_by_keywords('migrain', year_range=[from_year, to_year])
+        filtered_articles = eSearch.search_by_keywords(['migrain'], year_range=[from_year, to_year], count=num_documents)
     resp = {
         'count': len(filtered_articles),
         'results': filtered_articles

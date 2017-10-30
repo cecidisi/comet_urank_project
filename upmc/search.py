@@ -196,13 +196,6 @@ class eSearch():
 
 
 	@staticmethod
-	def filter_by_year_range(s, year_range):
-		from_year = year_range[0]
-		to_year = year_range[1]
-		return s.filter('range', year={ 'from': from_year, 'to': to_year })
-
-
-	@staticmethod
 	def format_elem(d):
 		d = d.to_dict()
 		if 'keywords' in d:
@@ -221,13 +214,13 @@ class eSearch():
 			should = [Q('match', stems=stem) for stem in stems],
 			minimum_should_match = 1
 		)
-		s = Search(index='pubmed-article-index') \
-			.query(q) \
-			.source({ 'excludes': eSearch.get_exclude_list(options) })
+		s = Search(index='pubmed-article-index').query(q)			
 
 		# Filter by year range
 		if 'year_range' in options and len(options['year_range']):
 			s = eSearch.filter_by_year_range(s, options['year_range'])
+			
+		s = s.source({ 'excludes': eSearch.get_exclude_list(options) })
 
 		offset = options['offset'] if 'offset' in options else 0
 		count = options['count'] if 'count' in options else 1000
@@ -245,47 +238,25 @@ class eSearch():
 			should = [Q('match', id=_id) for _id in ids_list],
 			minimum_should_match = 1
 		)
-		s = Search(index='pubmed-article-index')\
-			.query(q) \
-			.source({ 
-				'excludes': eSearch.get_exclude_list(options)
-			})
+		s = Search(index='pubmed-article-index').query(q)
+		
 		if 'year_range' in options and len(optons['year_range']):
 			s = eSearch.filter_by_year_range(s, options['year_range'])
+		s = s.source({ 'excludes': eSearch.get_exclude_list(options) })
+
 		offset = options['offset'] if 'offset' in options else 0
 		res =  s[offset:len(ids_list)].execute()
 		return [eSearch.format_elem(d) for d in res]
 
 
 
-	# @classmethod
-	# def get_text_positions(cls, ids_list, title=True, abstract=False):
-	# 	include_list = ['id']
-	# 	if title:
-	# 		include_list.append('pos_title')
-	# 	if abstract:
-	# 		include_list.append('pos_detail')
+	@staticmethod
+	def filter_by_year_range(s, year_range):
+		from_year = year_range[0]
+		to_year = year_range[1]
+		return s.query('range', year={ 'gte': from_year, 'lte': to_year })
+		# return s.filter('range', year={ 'from': from_year, 'to': to_year })
 
-	# 	def pos_to_dict(d):
-	# 		d = d.to_dict()
-	# 		if title and 'pos_title' in d:
-	# 			d['pos_title'] = { p['stem']: p['pos'] for p in d['pos_title'] }
-	# 		if abstract and 'pos_detail' in d:
-	# 			d['pos_detail'] = { p['stem']: p['pos'] for p in d['pos_detail'] }
-	# 		return d
-
-	# 	q = Q('bool',
-	# 		should = [Q('match', id=_id) for _id in ids_list],
-	# 		minimum_should_match = 1
-	# 	)
-	# 	s = Search(index='pubmed-article-index')\
-	# 		.query(q) \
-	# 		.source({ 
-	# 			'includes': include_list
-	# 		})
-	# 	res =  s[0:len(ids_list)].execute()
-	# 	return [pos_to_dict(d) for d in res]
-	# 	# return ArticleIndex.get(id=ids_list[0])
 
 
 	'''

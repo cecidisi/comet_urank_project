@@ -110,7 +110,6 @@ class Urank:
 		print [key for key in doc.keys()]
 		# doc['title'] = TextFormatter.get_formatted_text(doc['title'], doc['doc_keywords']['pos_title'], self.kw_colors, decoration)
 		# doc['abstract'] = TextFormatter.get_formatted_text(doc['abstract'], doc['doc_keywords']['pos_detail'], self.kw_colors, decoration)
-		
 
 		doc['title'] = TextFormatter.get_formatted_text(doc['title'], doc['pos_title'], self.kw_colors, decoration)
 		doc['abstract'] = TextFormatter.get_formatted_text(doc['abstract'], doc['pos_detail'], self.kw_colors, decoration)
@@ -123,10 +122,10 @@ class Urank:
 		for i, d in enumerate(documents):
 			try:
 				pos = positions[d['id']]['pos_title']
-				d['title'] = TextFormatter.get_formatted_text(d['title'], pos, self.kw_colors, decoration)
+				d['pretty_title'] = TextFormatter.get_formatted_text(d['title'], pos, self.kw_colors, decoration, trim=80)
 			except Exception, e:
 				print_red(str(e))
-				print pos
+				d['pretty_title'] = d['title']
 		print 'urank: Returning styled documents'
 		# print documents[0]
 		return documents
@@ -167,7 +166,7 @@ class Urank:
 	def filter_by_year(self, from_year, to_year):
 		self.doc_offset = 0
 		docs_to_send = ranker.filter_by_year(from_year, to_year)[self.doc_offset:self.doc_limit]
-		print 'urank: Filtered ' + str(len(docs_to_send)) + ' documents'
+		print 'urank: Sending ' + str(len(docs_to_send)) + ' filtered documents'
 		return docs_to_send
 
 
