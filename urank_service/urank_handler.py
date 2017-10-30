@@ -107,11 +107,13 @@ class Urank:
 
 
 	def get_document_details(self, doc, decoration):		
-		# print doc
-		doc['title'] = TextFormatter.get_formatted_text(doc['title'], doc['doc_keywords']['pos_title'], self.kw_colors, decoration)
-		doc['abstract'] = TextFormatter.get_formatted_text(doc['abstract'], doc['doc_keywords']['pos_detail'], self.kw_colors, decoration)
-		# doc['title'] = TextFormatter.get_formatted_text(doc['title'], doc['pos_title'], self.kw_colors, decoration)
-		# doc['abstract'] = TextFormatter.get_formatted_text(doc['abstract'], doc['pos_detail'], self.kw_colors, decoration)
+		print [key for key in doc.keys()]
+		# doc['title'] = TextFormatter.get_formatted_text(doc['title'], doc['doc_keywords']['pos_title'], self.kw_colors, decoration)
+		# doc['abstract'] = TextFormatter.get_formatted_text(doc['abstract'], doc['doc_keywords']['pos_detail'], self.kw_colors, decoration)
+		
+
+		doc['title'] = TextFormatter.get_formatted_text(doc['title'], doc['pos_title'], self.kw_colors, decoration)
+		doc['abstract'] = TextFormatter.get_formatted_text(doc['abstract'], doc['pos_detail'], self.kw_colors, decoration)
 		return doc
 		
 
