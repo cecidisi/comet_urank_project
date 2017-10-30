@@ -90,7 +90,7 @@ def get_article_details(request, doc_id, decoration):
 @api_view(['GET'])
 def search_features(request, feature_type, text):
     print_blue('feature_type = ' + feature_type + '; text = '+ text)
-    features = DBconnector.search_features(feature_type, text)
+    features = DBconnector.search_features(feature_type, text)[:100]
     resp = {
         'count': len(features),
         'results': features
