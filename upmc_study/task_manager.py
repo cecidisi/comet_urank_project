@@ -1,3 +1,4 @@
+from django.db import IntegrityError
 from django.core.exceptions import ObjectDoesNotExist
 from helper.bcolors import *
 from upmc.search import *
@@ -9,28 +10,28 @@ from .db_connector import *
 
 class TaskManager:
 
-	@classmethod
-	def get_user(cls, username):
-		try:
-			user = UpmcUser.objects.get(username=username)
-			return UpmcUserSerializer(user).data
-		except ObjectDoesNotExist:
-			return False
-
-
-	# @staticmethod
-	# def get_user(user_id):
+	# @classmethod
+	# def get_user(cls, username):
 	# 	try:
-	# 		return UpmcUser.objects.get(pk=user_id)
+	# 		user = UpmcUser.objects.get(username=username)
+	# 		return UpmcUserSerializer(user).data
 	# 	except ObjectDoesNotExist:
-	# 		print_red('User with id = ' + str(user_id) + ' doesn\'t exist')
 	# 		return False
+
+
+	@staticmethod
+	def get_user_by_id(user_id):
+		try:
+			return UpmcUser.objects.get(pk=user_id)
+		except ObjectDoesNotExist:
+			print_red('User with id = ' + str(user_id) + ' doesn\'t exist')
+			return False
 
 
 
 	@classmethod
 	def bookmark(cls, params):
-		user = TaskManager.get_user(params['user_id'])
+		user = TaskManager.get_user_by_id(params['user_id'])
 		if not user:
 			return False
 		# Bookmark if not exist
@@ -42,6 +43,7 @@ class TaskManager:
 				upmc_user_id = user.id
 			)
 			print 'Bookmark already exists, not saving again'
+			return True
 		except ObjectDoesNotExist:
 			# Made sure it doesn't exist, can save now
 			bm = UpmcBookmark(
@@ -52,7 +54,11 @@ class TaskManager:
 			)
 			bm.save()
 			print 'Saved bookmark for username='+str(user.username)
-		return True
+			return True
+		except Exception, e:
+			print 'Error saving bookmark'
+			print_red(str(e))
+			return False
 
 
 	@classmethod
@@ -69,16 +75,21 @@ class TaskManager:
 
 	@classmethod
 	def save_task(cls, params):
-		user = TaskManager.get_user(params['user_id'])
+		user = TaskManager.get_user_by_id(params['user_id'])
 		if not user:
 			return False
 		# Save task
-		task = UpmcTask(
-			elapsed_time = params['elapsed_time'],
-			upmc_user = user
-		)
-		task.save()
-		print 'Saved task for user = ' + str(user.username)
+		task = None
+		try:
+			task = UpmcTask(
+				elapsed_time = params['elapsed_time'],
+				upmc_user = user
+			)
+			task.save()
+			print 'Saved task for user = ' + str(user.username)
+		except IntegrityError, e:
+			task = UpmcTask.objects.get(upmc_user=user)
+			print 'Task for ' + user.username + ' already exist'
 
 		# Save action logs
 		action_logs = params['action_logs']
@@ -135,6 +146,8 @@ class TaskManager:
 		bookmarks = eSearch.search_by_ids(ids, abstract=True, pub_details=True)
 		# Flatten publication details
 		for b in bookmarks:
+			b['title'] = b['title'].encode("utf-8")
+			b['abstract'] = b['abstract'].encode("utf-8")
 			for field, value in b['pub_details'].iteritems():
 				b[field] = value
 			b.pop('pub_details', None)

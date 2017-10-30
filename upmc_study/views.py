@@ -88,8 +88,9 @@ def write_csv(csv_data, filename):
     keys = csv_data[0].keys()
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="' + filename + '.csv"'
-    writer = csv.DictWriter(response, keys)
+    writer = csv.DictWriter(response, keys) 
     writer.writeheader()
+    # writer.writerows([unicode(d).encode("utf-8") for d in  csv_data])
     writer.writerows(csv_data)
     return response
 
@@ -99,7 +100,7 @@ def write_csv(csv_data, filename):
 def download_bookmarks(request, user_id=None):
     user_id = user_id or request.session['user_id']
     bookmarks = TaskManager.get_bookmarks(user_id)
-    print bookmarks[0]
+    # print bookmarks[0]
     return write_csv(bookmarks, 'my-bookmarks')
 
 
@@ -129,6 +130,7 @@ def submit_task(request):
 def bookmark(request):
     if request.method == 'POST':
         params = json.loads(request.body.decode("utf-8"))
+        print params
     	TaskManager.bookmark(params)
     	return Response({ 'results': 'OK' })
     
