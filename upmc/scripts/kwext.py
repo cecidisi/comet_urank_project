@@ -121,10 +121,17 @@ def clear():
 
 
 def _lower(word):
+	wnl = nltk.WordNetLemmatizer()
 	# Trim lower case 's' in acronyms, e.g. AEDs
-	trimmed_word = word[:-1] if word[:-1].isupper() and word[-1] == 's' else word
-	# Lowercase trimmed word only if it is not all uppercase
-	return trimmed_word.lower() if not trimmed_word.isupper() else trimmed_word
+	word = word[:-1] if word[:-1].isupper() and word[-1] == 's' else word
+	# Lowercase trimmed word only if it is not all uppercase or if in lower case not in stopwords
+	if not word.isupper() or word.lower() in stopwords:
+		return word.lower()
+	elif wnl.lemmatize(word.lower()) in stopwords:
+		return wnl.lemmatize(word.lower())
+	return word
+
+	# return trimmed_word.lower() if not trimmed_word.isupper() else trimmed_word
 
 
 def _stem(word):

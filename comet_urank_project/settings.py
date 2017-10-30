@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'conf_navigator',
     'conf_navigator_eval',
     'upmc',
-    'upmc_study',  
+    'upmc_study',
     'plugins',
     'nlp',
     'helper',

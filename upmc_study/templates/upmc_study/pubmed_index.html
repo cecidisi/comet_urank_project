@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PubMed Study</title>
+    {% load static %}
+    {% load render_bundle from webpack_loader %}
+
+    {% block css %}
+    {% endblock %}
+</head>
+
+
+<body>        
+    <header>
+        <div class="logo">PubMed Study</div>
+
+        <div class="right-aligned">
+            <div class="message">Click here when you finish the task </div>
+            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+            <input type="button" class="btn btn-primary" id="btn-done-pubmed-task" value="Done" title="Click here when you finish the task"/>
+        </div>
+    </header>
+
+    <div id="user_id" style="display: none;">{{user_id}}</div>
+
+    <!-- PubMed iFrame HERE (width="100%" height="100%") -->
+    <iframe src="https://www.ncbi.nlm.nih.gov/pubmed/" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+    <!-- Pub<ed iFrame HERE -->
+
+
+
+    {% render_bundle 'vendor' %}    
+    {% render_bundle 'main_upmc_study' %}
+
+    {% block js %}
+    {% endblock js %}
+
+</body>
+</html>
+
+

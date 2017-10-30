@@ -25,5 +25,11 @@ urlpatterns = [
     # url(r'^get-more-articles/(?P<current_count>\d+)/$', views.get_more_articles, name='get-more-articles'),
     url(r'^get-more-articles/(?P<user_id>\d+)/(?P<current_count>\d+)/$', views.get_more_articles, name='get-more-articles'),
     url(r'^get-article-details/(?P<doc_id>\d+)/(?P<decoration>\w+)/$', views.get_article_details, name='get-article-details'),
+
+    url(r'^pubmed-index/$', views.pubmed_index, name='pubmed-index'),
+    url(r'^pubmed-login/$', views.pubmed_login, name='pubmed-login'),
+    url(r'^pubmed-logout/$', views.pubmed_logout, name='pubmed-logout'),
+    url(r'^pubmed-submit-task/$', views.pubmed_submit_task, name='pubmed-submit-task'),
+    url(r'^pubmed-questionnaire/$', views.pubmed_questionnaire, name='pubmed-questionnaire'),
     
 ]

@@ -258,3 +258,67 @@ def get_article_details(request, doc_id, decoration):
 
 
 
+'''
+    PUBMED
+'''
+
+
+@api_view(['GET'])
+def pubmed_index(request):
+    if 'user_id' not in  request.session:
+        return redirect('/urank/upmc-study/pubmed-login')
+
+    template = loader.get_template('upmc_study/pubmed_index.html')
+    return HttpResponse(template.render({ 
+        'user_id': request.session['user_id']
+    }, request))
+
+
+
+@api_view(['GET', 'POST'])
+@csrf_exempt 
+def pubmed_login(request):
+    # GET login
+    if request.method == 'GET':
+        template = loader.get_template('upmc_study/pubmed_login.html')
+        return HttpResponse(template.render({}, request))
+    # POST login
+    elif request.method == 'POST':
+        username = request.POST['username']
+        user = DBconnector.get_user(username)
+        if user:
+            print 'Session set in PubMed for ' + username + '(id='+str(user['id'])+')'
+            request.session.flush()
+            request.session['username'] = username
+            request.session['user_id'] = user['id']
+            return redirect('/urank/upmc-study/pubmed-index/')
+        else:
+            return redirect('/urank/upmc-study/pubmed-login')
+
+
+
+@api_view(['GET', 'POST'])
+@csrf_exempt 
+def pubmed_logout(request):
+    request.session.flush()
+    return redirect('/urank/upmc-study/pubmed-login')
+
+
+@api_view(['POST'])
+@csrf_exempt 
+def pubmed_submit_task(request):
+    if request.method == 'POST':
+        params = json.loads(request.body.decode("utf-8"))
+        if TaskManager.save_task(params):
+            return Response({ 'message': 'OK' })
+        return Response({ 'message': 'Error saving task'})
+
+
+
+@api_view(['GET'])
+def pubmed_questionnaire(request):
+    # logout before filling questionnaire
+    request.session.flush()
+    template = loader.get_template('upmc_study/pubmed_questionnaire.html')
+    return HttpResponse(template.render({}, request))
+
