@@ -34,6 +34,13 @@ var ServerConnector = (function(){
 		})
 	};
 
+	var getBookmarks = function(onDone){
+		sendRrequest({
+			type: 'GET',
+			url: host + 'get-bookmarks/' + getCurrentUser() + '/',
+		}, onDone)
+	};
+
 	var submitTask = function(params){
 		sendRrequest({
 			type: 'POST',
@@ -60,6 +67,7 @@ var ServerConnector = (function(){
 	return {
 		bookmark: bookmark,
 		unbookmark: unbookmark,
+		getBookmarks: getBookmarks,
 		submitTask: submitTask,
 		finishReview: finishReview
 	}

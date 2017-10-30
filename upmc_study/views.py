@@ -100,6 +100,9 @@ def write_csv(csv_data, filename):
 def download_bookmarks(request, user_id=None):
     user_id = user_id or request.session['user_id']
     bookmarks = TaskManager.get_bookmarks(user_id)
+    for b in bookmarks:
+        b['title'] = b['title'].encode("utf-8")
+        b['abstract'] = b['abstract'].encode("utf-8")
     # print bookmarks[0]
     return write_csv(bookmarks, 'my-bookmarks')
 
@@ -107,6 +110,8 @@ def download_bookmarks(request, user_id=None):
 
 @api_view(['GET'])
 def questionnaire(request):
+    # logout before filling questionnaire
+    request.session.flush()
     template = loader.get_template('upmc_study/questionnaire.html')
     return HttpResponse(template.render({}, request))
 
@@ -143,6 +148,17 @@ def unbookmark(request):
         params = json.loads(request.body.decode("utf-8"))
     	TaskManager.unbookmark(params)
     	return Response({ 'results': 'OK' })
+
+
+
+@api_view(['GET'])
+def get_bookmarks(request, user_id):
+    bookmarks = TaskManager.get_bookmarks(user_id)
+    resp = {
+        'results': bookmarks,
+        'count': len(bookmarks)
+    }
+    return Response(resp)
 
 
 

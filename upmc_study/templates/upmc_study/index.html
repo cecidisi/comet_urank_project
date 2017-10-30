@@ -69,18 +69,48 @@
                 </div>
             </div>    
             <div id="tagcloud" class="large"></div>
+        </div>        
+    </div>
+
+<!--     <div id="modal-bookmarks" class="modal fade" tabindex='-1', role='dialog', aria-labelled-by='#modal-bookmarks'>
+        <div class="modal-dialog" role='document'>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" type='close', data-dismiss='modal', aria-label='Close'></button>
+                </div>
+            </div>
         </div>
-        
     </div>
 
-    <div class="processing-message" style="display:none;">
-       <div class="content">Processing Data...</div>
-    </div>
+    #modal-accepted-candidate.modal.fade(tabindex='-1', role='dialog', aria-labelled-by='#modal-accepted-candidate-title')
+    .modal-dialog(role='document')
+        .modal-content
+            .modal-header
+                button.close(type='close', data-dismiss='modal', aria-label='Close'): span(aria-hidden='true') &times;
+                h4#modal-accepted-candidate-title.modal-title Accepted Candidate
+            .modal-body
+                form#form-accept-candidate
+                    h5(style="display:inline-block;") Please assign a unique MoreGrasp code to: &nbsp;
+                    h5(name="first-last-name") [first name] [last name]
+                    .form-group(style={ display:'none' })
+                        label(for='participant_id') Candidate ID
+                        input/.form-control(type='text', name='participant_id')
+                    .form-group
+                        label(for='new_mg_code') MoreGrasp Code
+                        input/.form-control(type='text', name='new_mg_code')
+                        span.glyphicon.glyphicon-remove.form-control-feedback(aria-hidden="true")
+                        span.sr-only (error)                   
+                    p.bg.error.fade
+            .modal-footer
+                button.btn.btn-default(type='button', data-dismiss='modal') Close
+                button#btn-submit-candidate-mg-code.btn.btn-primary-mg(type='button', for='#form-accept-candidate') Save Changes
 
-    {% render_bundle 'vendor' %}
-    
+ -->
+
+
+
+    {% render_bundle 'vendor' %}    
     {% render_bundle 'main_upmc_study' %}
- 
 
     {% block js %}
     {% endblock js %}

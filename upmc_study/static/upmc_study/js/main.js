@@ -137,8 +137,11 @@ module.exports = (function(){
     })
 
 
-    $btnBookmarks.click(function(evvt){
+    $btnBookmarks.click(function(evt){
         evt.stopPropagation();
+        server.getBookmarks(function(bookmarks){
+            console.log('Received ' + bookmarks.length + ' bookmarks')
+        });
     })
 
 

@@ -146,8 +146,8 @@ class TaskManager:
 		bookmarks = eSearch.search_by_ids(ids, abstract=True, pub_details=True)
 		# Flatten publication details
 		for b in bookmarks:
-			b['title'] = b['title'].encode("utf-8")
-			b['abstract'] = b['abstract'].encode("utf-8")
+			# b['title'] = b['title'].encode("utf-8")
+			# b['abstract'] = b['abstract'].encode("utf-8")
 			for field, value in b['pub_details'].iteritems():
 				b[field] = value
 			b.pop('pub_details', None)

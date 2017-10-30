@@ -87,6 +87,9 @@ var default_options = {
     searchInput: {
         type: 'keyword'
     },
+    contentList: {
+        showWatchIcon: false
+    },
     docViewer: {
         attrToShow: [{
             attr: 'authors_list', label: 'Authors'

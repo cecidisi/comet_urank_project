@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^unbookmark/$', views.unbookmark, name='unbookmark'),
     url(r'^review/$', views.review, name='review'),
     url(r'^review/(?P<user_id>\d+)/$', views.review, name='review'),
+    url(r'^get-bookmarks/(?P<user_id>\d+)/$', views.get_bookmarks, name='get-bookmarks'),
     url(r'^download-bookmarks/$', views.download_bookmarks, name='download-bookmarks'),
     url(r'^download-bookmarks/(?P<user_id>\d+)/$', views.download_bookmarks, name='download-bookmarks'),
     url(r'^questionnaire/$', views.questionnaire, name='questionnaire'),
