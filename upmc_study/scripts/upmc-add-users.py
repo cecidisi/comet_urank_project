@@ -34,6 +34,12 @@ def run():
 		username = 'test'
 	)
 	user.save()
+	user = UpmcUser(
+		first_name = 'test2',
+		last_name = 'test2',
+		username = 'test2'
+	)
+	user.save()
 
 		
 

@@ -24,7 +24,7 @@ def run(*args):
 	start = time.time()
 	clean_db()
 	term = 'migraine'
-	count = 10000 	# Total number of items
+	count = 1000 	# Total number of items
 	retmax = 100	# Number items per batch
 	if 'get-all' in args:
 		count = 0
@@ -35,8 +35,8 @@ def run(*args):
 	query_key, web_env, max_count = search(base_url, term)
 	count = min(count, max_count) if count else max_count
 	# fetch_test(base_url, query_key, web_env, retmax, count, cores)
-	# papers = fetch_parallel(base_url, query_key, web_env, retmax, count, cores)
-	papers = fetch_serial(base_url, query_key, web_env, retmax, count, cores)
+	papers = fetch_parallel(base_url, query_key, web_env, retmax, count, cores)
+	# papers = fetch_serial(base_url, query_key, web_env, retmax, count, cores)
 	print_blue('Total Time Elapsed = ' + secToMMSS(time.time() - start))
 
 

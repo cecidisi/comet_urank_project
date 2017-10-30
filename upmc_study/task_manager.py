@@ -101,7 +101,8 @@ class TaskManager:
 					timestamp = l['timestamp'],
 					item_id = l['item_id'],
 					item_name = l['item_name'],
-					pos = l['pos']
+					pos = l['pos'],
+					upmc_user = user
 				)
 				action_log.save()
 			except ValueError, e:
@@ -117,7 +118,8 @@ class TaskManager:
 					duration = l['duration'],
 					item_id = l['item_id'],
 					item_name = l['item_name'],
-					pos = l['pos']	
+					pos = l['pos'],
+					upmc_user = user
 				)
 				time_log.save()
 			except ValueError, e:

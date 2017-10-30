@@ -23,6 +23,7 @@ class UpmcActionLog(models.Model):
 	item_name = models.TextField(default='', null=True)
 	pos = models.IntegerField(null=True)
 	value = models.CharField(null=True, default='', max_length=100)
+	upmc_user = models.ForeignKey(UpmcUser, null=True)
 
 	class Meta:
 		db_table = 'upmc_action_log'
@@ -34,6 +35,7 @@ class UpmcTimeLog(models.Model):
 	pos = models.IntegerField(null=True)
 	timestamp = models.IntegerField()
 	duration = models.IntegerField()
+	upmc_user = models.ForeignKey(UpmcUser, null=True)
 
 	class Meta:
 		db_table = 'upmc_time_log'

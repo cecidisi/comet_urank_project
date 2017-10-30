@@ -25,7 +25,7 @@ from .db_connector import *
 from .task_manager import *
 
 num_documents = 30
-num_keywords = 100
+num_keywords = 80
 urank = Urank(num_documents=num_documents)
 
 
