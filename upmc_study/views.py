@@ -205,7 +205,17 @@ def update_ranking(request):
 @api_view(['GET'])
 def filter_articles_by_year(request, from_year, to_year):
     filtered_articles = urank.filter_by_year(from_year, to_year)
-    if len(filtered_articles) == 0:
+    if len(filtered_articles) > 0:
+        ids_list = [d['id'] for d in filtered_articles]
+        # positions = eSearch.get_text_positions(ids_list)
+        positions = eSearch.search_by_ids(ids_list, pos_title=True, pos_abstract=True)
+        decoration = 'underline'
+        filtered_articles = urank.get_styled_documents(filtered_articles, positions, decoration)
+        # Mark bookmarked items
+        user_id = request.session['user_id']
+        bookmarks = DBconnector.get_bookmarks(user_id)
+        filtered_articles = TaskManager.mark_bookmarked(filtered_articles, bookmarks)
+    else:
         filtered_articles = eSearch.search_by_keywords(['migrain'], year_range=[from_year, to_year], count=num_documents)
     resp = {
         'count': len(filtered_articles),
