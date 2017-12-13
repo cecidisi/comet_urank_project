@@ -118,15 +118,23 @@ class Ranker:
 		doc_id = d['id']
 		d['ranking']['prev_pos'] = d['ranking']['pos']
 		d['ranking']['overall'] = { 'score': 0.0 }
+		# d['ranking']['overall_score'] = 0.0
+		# d['ranking']['scores'] = []
 
-		for conf in rs_conf:
-			RS = conf['name']
-			if conf['active']:
-				rs_resp = Ranker.rs[RS].get_score(idx, doc_id, features, conf)
+		for method in rs_conf:
+			RS = method['name']
+			if method['weight']:
+				rs_resp = Ranker.rs[RS].get_score(idx, doc_id, features, method)
 				d['ranking'][RS] = {
 					'score' : rs_resp['score'],
 					'details' : rs_resp['details']
 				}
+				# Replace with this
+				# d['ranking']['scores'].append({
+				# 	'name': RS,
+				# 	'score' : rs_resp['score'],
+				# 	'details' : rs_resp['details']
+				# })
 		return d
 
 
@@ -140,16 +148,25 @@ class Ranker:
 
 	@staticmethod
 	def normalize_score(d, rs_conf):
-		for conf in rs_conf:
-			if conf['active']:
-				RS = conf['name']
+		for method in rs_conf:
+			if method['weight']:
+				RS = method['name']
 				max_score = Ranker.rs[RS].get_max_score()
 				val_before = d['ranking'][RS]['score']
-				d['ranking'][RS]['score'] = Ranker.normalize(d['ranking'][RS]['score'], max_score) * float(conf['weight'])
+				d['ranking'][RS]['score'] = Ranker.normalize(d['ranking'][RS]['score'], max_score) * float(method['weight'])
 				# check if it works!!!!!
 				for detail in d['ranking'][RS]['details']:
-					detail['score'] = Ranker.normalize(detail['score'], max_score) * float(conf['weight'])
+					detail['score'] = Ranker.normalize(detail['score'], max_score) * float(method['weight'])
 				d['ranking']['overall']['score'] += d['ranking'][RS]['score']
+
+
+				# for r in d['ranking']['scores']:
+				# 	# max_score = Ranker.rs[r['name']].get_max_score()
+				# 	r['score'] = Ranker.normalize(r['score'], max_score) #* float(method['weight'])
+				# 	for detail in r['details']:
+				# 		detail['score'] = Ranker.normalize(detail['score'], max_score) # * float(method['weight'])
+
+
 		return d
 		
 
@@ -181,7 +198,10 @@ class Ranker:
 		print_green('Update + Normalization time = ' + str(time.time() - tmsp))
 		# Sort and assign positions
 		self.rank_by = conf['rankBy']
-		self.ranking = sorted(self.ranking, key=lambda d: d['ranking'][self.rank_by]['score'], reverse=True)
+		if self.rank_by == 'overall':
+			self.ranking = sorted(self.ranking, key=lambda d: d['ranking'][self.rank_by]['score'], reverse=True)
+		else:
+			self.ranking = sorted(self.ranking, key=lambda d: d['ranking'][self.rank_by]['score'], reverse=True)
 		self.ranking = Ranker.assign_positions(self.ranking, self.rank_by, self.prev_pos_mapping)
 		print_green('Update + normalization + sorting time = ' + str(time.time() - tmsp))
 		print self.ranking[0]

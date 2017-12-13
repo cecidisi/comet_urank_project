@@ -143,11 +143,11 @@ def urank_service(request):
 
 @api_view(['POST'])
 @csrf_exempt 
-def update_ranking(request): 
+def update_ranking(request):     
     params = ujson.loads(request.body.decode("utf-8"))
+    print request.body.decode("utf-8")
     query = [q['stem'].split(' ') for q in params['features']['keywords']]
     query = list(chain.from_iterable(query))
-    print query
     articles = eSearch.search_by_keywords(stems=query, keywords=True)
     articles = urank.update_ranking(params, articles)
     ids_list = [d['id'] for d in articles]
