@@ -55,10 +55,11 @@ class DocKeywordsPosSerializer(serializers.ModelSerializer):
 class ArticleFullSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(source='pmid', read_only=True)
     pub_details = PublicationDetailsSerializer(read_only=True)
-    authors = AuthorSerializer(read_only=True, many=True)
+    # authors = AuthorSerializer(read_only=True, many=True)
     doc_keywords = DocKeywordsPosSerializer(read_only=True)
-    # authors_list = AuthorSerializer(source='get_authors_list', read_only=True)
-    authors_list = serializers.SerializerMethodField()
+    ## authors_list = AuthorSerializer(source='get_authors_list', read_only=True)
+    # authors_list = serializers.SerializerMethodField()
+    year = serializers.IntegerField(source='pub_details.year', read_only=True)
 
     def get_authors_list(self, article):
         _authors = Author.objects.filter(papers=article)
@@ -73,7 +74,7 @@ class ArticleFullSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Article
-        fields = ('id', 'pmid', 'doi', 'title', 'abstract', 'pub_type', 'pub_details', 'authors', 'authors_list', 'author_keywords', 'doc_keywords')
+        fields = ('id', 'pmid', 'doi', 'title', 'abstract', 'pub_type', 'pub_details', 'authors_list', 'author_keywords', 'doc_keywords', 'year')
 
 
 class KeyphraseSerilizer(serializers.ModelSerializer):

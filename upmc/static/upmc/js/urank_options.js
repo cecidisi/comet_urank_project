@@ -78,8 +78,9 @@ var default_options = {
     },
     tagCloud : {        
         numCategories : 1,
-        minFontSize : 11,               // in px    
-        fontSizeGrowth: 0.02           // minFontSize + fontSizeGrowth * keyword.score (df) 
+        minFontSize : 9,               // in px    
+        fontSizeGrowth: 0.009,           // minFontSize + fontSizeGrowth * keyword.score (df) 
+        maxFontSize: 23
     },
     tagBox: {
 
@@ -91,10 +92,11 @@ var default_options = {
         showWatchIcon: false
     },
     docViewer: {
+        useLocal: false,
         attrToShow: [{
             attr: 'authors_list', label: 'Authors'
         }, {
-            attr: 'pub_details.year', label: 'Year'
+            attr: 'year', label: 'Year'
         }, {
             attr: 'pub_type', label: 'Publication Type'
         }] 

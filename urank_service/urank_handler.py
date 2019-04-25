@@ -108,11 +108,13 @@ class Urank:
 
 	def get_document_details(self, doc, decoration):		
 		print [key for key in doc.keys()]
-		# doc['title'] = TextFormatter.get_formatted_text(doc['title'], doc['doc_keywords']['pos_title'], self.kw_colors, decoration)
-		# doc['abstract'] = TextFormatter.get_formatted_text(doc['abstract'], doc['doc_keywords']['pos_detail'], self.kw_colors, decoration)
+		doc['title'] = TextFormatter.get_formatted_text(doc['title'], doc['doc_keywords']['pos_title'], self.kw_colors, decoration)
+		doc['abstract'] = TextFormatter.get_formatted_text(doc['abstract'], doc['doc_keywords']['pos_detail'], self.kw_colors, decoration)
 
-		doc['title'] = TextFormatter.get_formatted_text(doc['title'], doc['pos_title'], self.kw_colors, decoration)
-		doc['abstract'] = TextFormatter.get_formatted_text(doc['abstract'], doc['pos_detail'], self.kw_colors, decoration)
+		
+		
+		# doc['title'] = TextFormatter.get_formatted_text(doc['title'], doc['pos_title'], self.kw_colors, decoration)
+		# doc['abstract'] = TextFormatter.get_formatted_text(doc['abstract'], doc['pos_detail'], self.kw_colors, decoration)
 		return doc
 		
 
@@ -142,11 +144,15 @@ class Urank:
 			self.kw_colors[k['stem']] = k['color']
 		# print self.kw_colors
 		decoration = params['decoration'] or None
-	
+		
+		if not documents:
+			documents = self.documents[:]
+
 		if documents:
 			print 'urank: Received ' + str(len(documents)) + ' documents'
 			self.doc_keywords = []
 			for idx, d in enumerate(documents):
+				#  Error here!! make sure documents come with keywords dict
 				doc_keywords = d['keywords'] if isinstance(d['keywords'], dict) \
 					else { k['stem']: k for k in d['keywords'] }
 				self.doc_keywords.append(doc_keywords)
@@ -156,10 +162,12 @@ class Urank:
 			ranker.set_data(documents)
 			ranker.load_doc_keywords(self.doc_keywords)
 
-		docs_to_send = ranker.update(self.rs_conf, self.features)[self.doc_offset:self.doc_limit]
-		print 'UrankHandler: Sending ranking with ' + str(len(docs_to_send)) + ' documents'
+		docs_to_send = ranker.update(self.rs_conf, self.features)#[self.doc_offset:self.doc_limit]
+		print 'UrankHandler: Updated ranking with ' + str(len(docs_to_send)) + ' documents'
 		# print docs_to_send[0]
-		return docs_to_send
+		if len(self.documents):
+			self.documents = docs_to_send[:]
+		return docs_to_send[self.doc_offset:self.doc_limit]
 
 
 
@@ -197,11 +205,16 @@ class Urank:
 			# print self.kw_colors
 			decoration = params['decoration'] or None
 
+			print self.kw_colors
+
 			if decoration:
 				# print docs_to_send[0]['title']
 				for idx, doc in enumerate(docs_to_send):
 					doc_kw = self.doc_keywords[ self.doc_id_to_index[doc['id']] ]
-					doc['title'] = TextFormatter.get_formatted_text(doc['title'], doc_kw, 'pos_title', self.kw_colors, decoration)  
+					# doc['title'] = TextFormatter.get_formatted_text(doc['title'], doc_kw, 'pos_title', self.kw_colors, decoration)
+					# pos = positions[d['id']]['pos_title']
+					# d['pretty_title'] = TextFormatter.get_formatted_text(d['title'], pos, self.kw_colors, decoration, trim=80)
+					
 				# print docs_to_send[0]['title']
 			print 'UrankHandler: Sending ranking with ' + str(len(docs_to_send)) + ' documents'
 			return docs_to_send

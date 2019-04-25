@@ -25,6 +25,7 @@ var default_options = {
             get_data: '/urank/cn_urank_eval/get-talks/',
             get_keywords: '/urank/cn_urank_eval/get-keywords/',
             get_neighbors: '/urank/cn_urank_eval/get-neighbors/',
+            // update_ranking: '/urank/cn_urank_eval/update-ranking/',
             urank: '/urank/cn_urank_eval/urank_service/'
         }
     },

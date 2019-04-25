@@ -11,4 +11,4 @@ var colorbrewer = require('colorbrewer');
 require('jquery-ui-bundle/jquery-ui.css');
 require('font-awesome/css/font-awesome.css');
 require('bootstrap-sass/assets/stylesheets/_bootstrap.scss');
-// require('_bootstrap.scss');
+

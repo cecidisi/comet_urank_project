@@ -15,6 +15,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.exceptions import * # APIException
 import json
+import ujson
 import csv
 
 from conf_navigator.models import *
@@ -325,6 +326,41 @@ def urank_service(request):
     resp = {
         'count': len(data_to_send),
         'results': data_to_send,
+    }
+    return Response(resp)
+
+
+
+# COPIED FORM UPMC VIEW!! FIX!!!!
+# Update
+@api_view(['POST'])
+@csrf_exempt 
+def update_ranking(request): 
+    params = ujson.loads(request.body.decode("utf-8"))
+    # Add user on update!!!
+    user_id = params['user'] if params['user'] is not None else request.session['user_id']
+    # query = [q['stem'].split(' ') for q in params['features']['keywords']]
+    # query = list(chain.from_iterable(query))
+    # print query
+    # # articles = eSearch.search_by_keywords(stems=query, { 'keywords': True })
+    # articles = eSearch.search_by_keywords(stems=query, keywords=True)
+    # count = len(articles)
+    # articles = urank.update_ranking(params, articles)
+    ranked_articles = urank.update_ranking(params)
+    ids_list = [d['id'] for d in ranked_articles]
+
+    # positions = eSearch.search_by_ids(ids_list, pos_title=True, pos_abstract=True)
+    # decoration = params['decoration'] or None
+    # ranked_articles = urank.get_styled_documents(articles, positions, decoration)
+
+    # Mark bookmarked items
+    # bookmarks = DBconnector.get_bookmarks(user_id)
+    # ranked_articles = TaskManager.mark_bookmarked(ranked_articles, bookmarks)
+
+    print_blue(str(count))
+    resp = {
+        'count': count,
+        'results': ranked_articles,
     }
     return Response(resp)
         

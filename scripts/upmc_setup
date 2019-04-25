@@ -6,27 +6,27 @@ set -o pipefail
 cd "$(dirname "$0")/.."
 
 
-echo -e "\033[32m \n(1/6) CREATE DATABASE IF NOT EXIST \033[0m"
-DBNAME=upmc
-USER=cecidisi
-PSWD=asdf
+# echo -e "\033[32m \n(1/6) CREATE DATABASE IF NOT EXIST \033[0m"
+# DBNAME=upmc
+# USER=cecidisi
+# PSWD=asdf
 
-echo "Please enter root user MySQL password:"
-read -s rootpasswd
+# echo "Please enter root user MySQL password:"
+# read -s rootpasswd
 
-mysql -uroot -p${rootpasswd} -e "CREATE DATABASE IF NOT EXISTS ${DBNAME} /*\!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */;" || exit
-mysql -uroot -p${rootpasswd} -e "CREATE USER IF NOT EXISTS ${USER}@localhost IDENTIFIED BY '${PSWD}';" || exit
-mysql -uroot -p${rootpasswd} -e "GRANT ALL ON PRIVILEGES ${DBNAME}.* to '${USER}'@'localhost' IDENTIFIED BY '${PSWD}';" || exit
-# mysql -u${USER} -p${PSWD} -e "FLUSH PRIVILEGES;" || exit
+# mysql -uroot -p${rootpasswd} -e "CREATE DATABASE IF NOT EXISTS ${DBNAME} /*\!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */;" || exit
+# mysql -uroot -p${rootpasswd} -e "CREATE USER IF NOT EXISTS ${USER}@localhost IDENTIFIED BY '${PSWD}';" || exit
+# mysql -uroot -p${rootpasswd} -e "GRANT ALL ON PRIVILEGES ${DBNAME}.* to '${USER}'@'localhost' IDENTIFIED BY '${PSWD}';" || exit
+# # mysql -u${USER} -p${PSWD} -e "FLUSH PRIVILEGES;" || exit
 
-# activate virtualenv
-source ENV/bin/activate
+# # activate virtualenv
+# source ENV/bin/activate
 
-echo  -e "\033[32m \n(2/6) MAKE MIGRATIONS TO DB \033[0m"
-./manage.py makemigrations upmc --empty
-./manage.py makemigrations upmc
-./manage.py migrate --database upmcdb upmc --fake
-./manage.py migrate --database upmcdb upmc
+# echo  -e "\033[32m \n(2/6) MAKE MIGRATIONS TO DB \033[0m"
+# ./manage.py makemigrations upmc --empty
+# ./manage.py makemigrations upmc
+# ./manage.py migrate --database upmcdb upmc --fake
+# ./manage.py migrate --database upmcdb upmc
 
 
 echo  -e "\033[32m \n(3/6) FETCH PUBMED DOCUMENTS FROM ENTREZ API \033[0m"

@@ -202,7 +202,7 @@ def get_user_user_sim(participants, users, soc_neighbors, bm_papers, bm_authors)
 				# Add score from social neighbors if exists
 				sim_soc = soc_neighbors[uid][vid]['score']
 
-				# Jaccard similarity
+				# Jaccard similarity. overlap between u and v's bookmarks
 				sim_jac = 0.0
 				if len(pbms1) and len(pbms2):
 					sim_jac = float(len(list(set(pbms1) & set(pbms2)))) \

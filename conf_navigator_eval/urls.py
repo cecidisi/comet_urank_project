@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^get-talks/$', views.get_talks, name='get-talks'),
     url(r'^get-keywords/$', views.get_keywords, name='get-keywords'),
     url(r'^get-neighbors/$', views.get_neighbors, name='get-neighbors'),
+    url(r'^update-ranking/$', views.update_ranking, name='update-ranking'),
     url(r'^urank_service/$', views.urank_service, name='urank_service'),
     url(r'^bookmark-cn/(?P<content_id>\d+)/$', views.bookmark_cn, name='bookmark-cn'),
     url(r'^unbookmark-cn/(?P<content_id>\d+)/$', views.unbookmark_cn, name='unbookmark-cn'),
